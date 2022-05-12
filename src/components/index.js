@@ -1,0 +1,11 @@
+export { FeaturesCard } from "./featuresCard";
+export { LoginIntegration } from "./loginIntegration";
+export * from "./list";
+export { HeadingProfile } from "./headingProfile";
+export { HeadingMainPage } from "./headingMainPage";
+export { Header } from "./header";
+export { Footer } from "./footer";
+export * from "./lastNotificationList";
+export { ClinicCard } from "./clinicCard";
+export { UserCard } from "./userCard";
+export { DoctorCard } from "./doctorCard";

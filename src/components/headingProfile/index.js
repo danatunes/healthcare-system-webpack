@@ -1,0 +1,1 @@
+export { HeadingProfile } from "./HeadingProfile";
