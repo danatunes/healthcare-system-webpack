@@ -3,10 +3,28 @@ import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder"
 import { LoginIntegration } from "../../../components";
 import { Button } from "../../../ui/button/button";
 import clsx from "clsx";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { login } from "../../../redux/actions/user";
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const requestData = Object.fromEntries(formData);
+    dispatch(login(requestData));
+  };
+
+  if (!isFetching && !error) {
+    navigate("/patient/clinic");
+  }
+
   return (
-    <>
+    <form onSubmit={handleSignIn}>
       <div className="flex flex-col items-center justify-center space-y-2">
         <h1 className="items-center text-4xl font-medium text-black">
           Sign In
@@ -14,8 +32,23 @@ export const Login = () => {
         <p className="text-[#8A92A6]">Sign in to stay connected.</p>
       </div>
       <div className={clsx("grid grid-cols-1 gap-3 w-[300px]", "sm:w-[430px]")}>
-        <InputWithBottomBorder name="Email" style="w-full" />
-        <InputWithBottomBorder name="Password" style="w-full" />
+        {error && <p className="text-red-700">Something went wrong...</p>}
+        <InputWithBottomBorder
+          key="email"
+          id="email"
+          type="email"
+          placeholder="Email"
+          name="email"
+          style="w-full"
+        />
+        <InputWithBottomBorder
+          key="password"
+          id="password"
+          type="text"
+          placeholder="Password"
+          name="password"
+          style="w-full"
+        />
       </div>
       <div className="flex flex-col items-center justify-center space-y-5">
         <div className="flex w-full flex-row justify-between space-x-2">
@@ -27,16 +60,20 @@ export const Login = () => {
             Forgot Password
           </a>
         </div>
-        <Button name="Sign in" />
+        <Button
+          name="Sign in"
+          // disabled={isFetching}
+          type="submit"
+        />
         <p className="text-black">or sign in with other accounts?</p>
         <LoginIntegration />
         <p className="text-black">
-          Already have an Account{" "}
-          <a className="text-[#458FF6]" href="#">
-            Sign in
-          </a>
+          Don’t have an account?{" "}
+          <NavLink className="text-[#458FF6]" to="/sign-up">
+            Click here to sign up.
+          </NavLink>
         </p>
       </div>
-    </>
+    </form>
   );
 };

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { HeadingProfile, LastNotificationList } from "../../../../components";
+import { useSelector } from "react-redux";
 
 export const DoctorProfile = () => {
+  const user = useSelector(({ user }) => user.currentUser);
+
   return (
     <>
       <HeadingProfile name="Dr. Vin Diesel!" />

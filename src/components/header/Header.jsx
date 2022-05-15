@@ -3,8 +3,18 @@ import { Link } from "react-router-dom";
 import { ChevronDownIcon, SearchIcon, UserIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
+import userLogo from "../../images/user_icon.png";
+import { logout } from "../../redux/actions/user";
 
 export const Header = () => {
+  const user = useSelector(({ user }) => user.currentUser);
+  const dispatch = useDispatch();
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
   return (
     <div
       className={clsx(
@@ -24,12 +34,36 @@ export const Header = () => {
           <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </div>
       </div>
-      <Link to="/login" className={clsx("text-sm hidden", "sm:block")}>
-        Sign In
-      </Link>
-      <Link to="/sign-up" className={clsx("text-sm hidden", "sm:block")}>
-        Registration
-      </Link>
+      {user ? (
+        <>
+          <Link
+            to="/main"
+            onClick={logOut}
+            className={clsx("text-sm hidden", "sm:block")}
+          >
+            Sign out
+          </Link>
+          <Link
+            to="patient"
+            className={clsx(
+              "text-sm hidden items-center justify-center",
+              "sm:flex sm:flex-row sm:space-x-2"
+            )}
+          >
+            <p>{`${user.firstName} ${user.lastName}`}</p>
+            <img src={userLogo} alt="user" className="w-11" />
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link to="/login" className={clsx("text-sm hidden", "sm:block")}>
+            Sign In
+          </Link>
+          <Link to="/sign-up" className={clsx("text-sm hidden", "sm:block")}>
+            Registration
+          </Link>
+        </>
+      )}
       <DropDown />
     </div>
   );

@@ -6,13 +6,18 @@ import {
 } from "../../../../components";
 import { DownloadIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
+import { useSelector } from "react-redux";
 
 export const PatientProfile = () => {
+  const user = useSelector(({ user }) => user.currentUser);
+
   return (
     <div className="w-full space-y-9">
-      <HeadingProfile name="Vin Diesel!" />
+      <HeadingProfile
+        name={`${user.fatherName} ${user.firstName} ${user.lastName} !`}
+      />
       <>
-        <UserCard />
+        <UserCard userInformation={user} />
         <List header={<h4 className="text-xl font-medium">Documents</h4>}>
           <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
             <thead>

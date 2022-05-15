@@ -1,26 +1,10 @@
 import clsx from "clsx";
 import { UserIcon } from "@heroicons/react/outline";
 
-export const UserCard = () => {
-  const userInformation = {
-    id: 1,
-    name: "Vin Diesel",
-    iin: "020402551145",
-    city: "Nur - Sultan",
-    gender: "Male",
-    dateOfBirthDay: "02.04.02",
-    phone: "+7-708-310-04-02",
-    insurance: "Med Right",
-  };
-
+export const UserCard = ({ userInformation }) => {
   return (
     <div className="bg-white rounded-xl shadow-md">
-      <div
-        className={clsx(
-          "flex flex-col items-end",
-          "sm:flex-row"
-        )}
-      >
+      <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
         <UserIcon
           className={clsx(
             "rounded-l-xl h-full w-56 bg-[#C4C4C4] text-white hidden",
@@ -28,26 +12,20 @@ export const UserCard = () => {
           )}
         />
         <div className="py-3 px-8 space-y-3 w-full">
-          <h4 className="text-xl leading-8">{userInformation.name}</h4>
+          <h4 className="text-xl leading-8">{userInformation.firstName}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
             <UserInformation label="IIN" information={userInformation.iin} />
-            <UserInformation label="City" information={userInformation.city} />
             <UserInformation
-              label="Gender"
-              information={userInformation.gender}
+              label="Email"
+              information={userInformation.email}
             />
-            <UserInformation
-              label="Date of Birth"
-              information={userInformation.dateOfBirthDay}
-            />
+            <UserInformation label="Gender" information="Male" />
+            <UserInformation label="Date of Birth" information="22-05-2000" />
             <UserInformation
               label="Phone"
-              information={userInformation.phone}
+              information={userInformation.phoneNumber}
             />
-            <UserInformation
-              label="Insurance"
-              information={userInformation.insurance}
-            />
+            <UserInformation label="Insurance" information="YES" />
           </div>
         </div>
         <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">

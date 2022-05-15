@@ -1,12 +1,23 @@
 import { ClinicCard, List } from "../../../components";
 import { FilterIcon } from "@heroicons/react/outline";
 import photo_clinic from "../../../images/example_photo_clinic.png";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllClinics } from "../../../redux/actions/clinic";
 
 export const PatientClinics = () => {
+  const clinics = useSelector(({ clinic }) => clinic.clinics);
+  const dispatch = useDispatch();
+
+  console.log(clinics);
+
+  useEffect(() => {
+    dispatch(getAllClinics());
+  }, []);
+
   const sortByRating = (isRating) => {
     if (isRating) {
       setData((prevState) => [
@@ -87,7 +98,7 @@ export const PatientClinics = () => {
         <Filter sortByRating={sortByRating} />
       </div>
       <List className="px-4 py-3 max-h-[500px]">
-        {data.map((clinic) => (
+        {clinics.map((clinic) => (
           <NavLink to={`${clinic.id}`} key={`${clinic.id}`}>
             <ClinicCard key={clinic.id} {...clinic} />
           </NavLink>

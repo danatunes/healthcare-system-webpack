@@ -1,7 +1,16 @@
 import React from "react";
 import clsx from "clsx";
 
-export const InputWithBottomBorder = ({id, name, style,placeholder,type }) => {
+export const InputWithBottomBorder = ({
+  id,
+  name,
+  style,
+  placeholder,
+  type,
+  list,
+  autoComplete,
+  onChange,
+}) => {
   return (
     <div
       className={clsx(
@@ -11,10 +20,13 @@ export const InputWithBottomBorder = ({id, name, style,placeholder,type }) => {
     >
       <input
         type={type}
-        name={id}
+        name={name}
+        autoComplete={autoComplete}
+        onChange={onChange}
         id={id}
         className="block min-h-[40px] w-full border-0 border-transparent bg-transparent outline-0 focus:border-none sm:text-sm"
-        placeholder={name}
+        placeholder={placeholder}
+        list={list}
       />
     </div>
   );

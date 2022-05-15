@@ -3,8 +3,11 @@ import { List, UserCard } from "../../../../components";
 import { NavLink, Outlet } from "react-router-dom";
 import clsx from "clsx";
 import Loader from "../../../../ui/loader/loader";
+import { useSelector } from "react-redux";
 
 export const DoctorProfileForPatient = () => {
+  const doctors = useSelector({});
+
   return (
     <div className="space-y-4 max-w-4xl">
       <UserCard />

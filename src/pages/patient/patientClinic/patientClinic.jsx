@@ -2,13 +2,28 @@ import clsx from "clsx";
 import { DropDown, HeaderList, List } from "../../../components";
 import { Menu } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSelfInformation } from "../../../redux/actions/user";
+import { useEffect } from "react";
 
 export const PatientClinic = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector(({ user }) => user.currentUser);
+
+  useEffect(() => {
+    if (typeof user.role !== "object") {
+      let initialRole = user.role.includes("client") ? "patient" : "doctor";
+      const token = localStorage.getItem("token");
+      dispatch(getSelfInformation(initialRole, user.id, token));
+    }
+  }, []);
+
   return (
     <div className="w-full h-full space-y-10">
       <div className="w-full grid grid-cols-2 gap-x-5">
         <Link
-          to="/patient/clinics/1"
+          to={`/patient/clinics/${user.id}`}
           className={clsx(
             "border-0 flex items-center justify-center font-normal py-20 text-xl transition duration-300 px-28 shadow-lg rounded-xl",
             "hover:scale-105"
