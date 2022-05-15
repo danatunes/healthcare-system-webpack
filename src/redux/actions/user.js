@@ -1,5 +1,6 @@
 import { publicRequest } from "../../api/requestMethods";
 import jwt from "jwt-decode";
+import { toast } from "react-toastify";
 
 export const setUser = (payload) => ({
   type: "SET_USER",
@@ -65,6 +66,10 @@ export const login = (user) => async (dispatch) => {
       );
     });
   } catch (e) {
+    toast("Please check credentials", {
+      type: "error",
+      theme: "light",
+    });
     dispatch(setError(true));
   }
 };

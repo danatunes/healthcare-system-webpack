@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { publicRequest } from "../../../api/requestMethods";
 import { Datalist } from "../../../ui/datalist/datalist";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const SignUp = () => {
   const dataForUI = [
@@ -68,16 +69,20 @@ export const SignUp = () => {
   useEffect(async () => {
     try {
       const responseCity = await publicRequest("/api/v1/city/get-all");
-      console.log(responseCity.data);
       setCity(responseCity.data);
+      toast("Succesfully created", {
+        type: "success",
+        theme: "light",
+      });
     } catch (e) {
-      alert(e);
-      console.log(e);
+      toast("Please check your data", {
+        type: "error",
+        theme: "light",
+      });
     }
   }, []);
 
   const onChangeCity = async (e) => {
-    console.log(e.target.value);
     let cityId;
     city.find((item) => {
       if (item.name === e.target.value) {

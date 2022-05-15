@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,8 +15,7 @@ ReactDOM.render(
         <App />
       </PersistGate>
     </Provider>
+    <ToastContainer />
   </BrowserRouter>,
   document.getElementById("root")
 );
-
-serviceWorker.register();

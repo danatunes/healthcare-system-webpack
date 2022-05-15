@@ -7,6 +7,7 @@ import { lazy } from "react";
 import { ChosenClinic } from "./pages/patient/chosenClinic/chosenClinic";
 import DoctorProfileCalendar from "./components/doctorProfileCalendar";
 import { useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = lazy(() => import("./pages/auth/login"));
 const SignUp = lazy(() => import("./pages/auth/signUp"));
