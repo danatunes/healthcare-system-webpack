@@ -12,7 +12,6 @@ export const getDoctorsWithHospitalId = (id) => async (dispatch) => {
     );
     dispatch(setDoctorsWithHospitalId(response.data));
   } catch (e) {
-    alert(e);
     console.log(e);
   }
 };
