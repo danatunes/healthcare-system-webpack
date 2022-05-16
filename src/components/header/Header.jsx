@@ -63,10 +63,22 @@ export const Header = () => {
           </>
         ) : (
           <>
-            <Link to="/login" className={clsx("text-sm hidden", "sm:block")}>
+            <Link
+              to="/login"
+              className={clsx(
+                "text-sm hidden px-3 py-1 bg-blue-100 rounded-md",
+                "sm:block"
+              )}
+            >
               Sign In
             </Link>
-            <Link to="/sign-up" className={clsx("text-sm hidden", "sm:block")}>
+            <Link
+              to="/sign-up"
+              className={clsx(
+                "text-sm hidden px-3 py-1 bg-blue-100 rounded-md",
+                "sm:block"
+              )}
+            >
               Registration
             </Link>
           </>

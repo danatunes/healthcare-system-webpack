@@ -9,14 +9,7 @@ export const IndexLayout = () => {
   const navigate = useNavigate();
   const user = useSelector(({ user }) => user.currentUser);
   console.log(user);
-  //
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   console.log(token);
-  //   if (!token) {
-  //     navigate("/login");
-  //   }
-  // }, [user]);
+  
   return (
     <div className="h-full w-full min-h-screen bg-[#F8F9FD]">
       <Header />

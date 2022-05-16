@@ -64,22 +64,24 @@ export const SignUp = () => {
 
   const [city, setCity] = React.useState([]);
   const [hospitals, setHospitals] = React.useState([]);
-  const [cityId, setCityId] = React.useState();
+  const [cityId, setCityId] = React.useState(null);
 
-  useEffect(async () => {
+  async function fetch() {
     try {
       const responseCity = await publicRequest("/api/v1/city/get-all");
       setCity(responseCity.data);
-      toast("Succesfully created", {
-        type: "success",
-        theme: "light",
-      });
     } catch (e) {
-      toast("Please check your data", {
-        type: "error",
-        theme: "light",
-      });
+      if (e.message) {
+        toast(e.message, {
+          type: "error",
+          theme: "light",
+        });
+      }
     }
+  }
+
+  useEffect(() => {
+    fetch().then();
   }, []);
 
   const onChangeCity = async (e) => {
@@ -91,7 +93,6 @@ export const SignUp = () => {
     });
     setCityId(cityId);
     const response = await publicRequest.get("api/v1/hospital/city/" + cityId);
-    console.log(response.data);
     setHospitals(response.data.hospitals);
   };
 
@@ -107,11 +108,24 @@ export const SignUp = () => {
     });
     requestData.City = cityId;
     requestData.Clinics = clinicId;
-    const response = await publicRequest.post(
-      "api/v1/auth/registration/patient",
-      requestData
-    );
-    console.log(response);
+
+    try {
+      const response = await publicRequest.post(
+        "api/v1/auth/registration/patient",
+        requestData
+      );
+      toast("Succesfully created", {
+        type: "success",
+        theme: "light",
+      });
+    } catch (e) {
+      if (e.message) {
+        toast(e.message, {
+          type: "error",
+          theme: "light",
+        });
+      }
+    }
   };
 
   return (
