@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -19,3 +20,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+serviceWorker.register();

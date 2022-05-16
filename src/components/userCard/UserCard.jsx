@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { UserIcon } from "@heroicons/react/outline";
 
 export const UserCard = ({ userInformation }) => {
+  console.log(userInformation.role.name, "userInformation");
   return (
     <div className="bg-white rounded-xl shadow-md">
       <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
@@ -12,9 +13,16 @@ export const UserCard = ({ userInformation }) => {
           )}
         />
         <div className="py-3 px-8 space-y-3 w-full">
-          <h4 className="text-xl leading-8">{userInformation.firstName}</h4>
+          <h4 className="text-xl leading-8">{`${userInformation.firstName} ${userInformation.lastName}`}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
-            <UserInformation label="IIN" information={userInformation.iin} />
+            {userInformation.role.name === "DOCTOR" ? (
+              <UserInformation
+                label="Position"
+                information={userInformation.role.name}
+              />
+            ) : (
+              <UserInformation label="IIN" information={userInformation.iin} />
+            )}
             <UserInformation
               label="Email"
               information={userInformation.email}

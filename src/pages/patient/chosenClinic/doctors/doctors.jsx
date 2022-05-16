@@ -3,7 +3,7 @@ import { DoctorCard } from "../../../../components";
 import { useSelector } from "react-redux";
 
 export const Doctors = () => {
-  const { doctors } = useSelector(({ doctor }) => doctor.doctors);
+  const { doctors } = useSelector(({ doctors }) => doctors.doctors);
 
   // const doctors = useMemo(
   //   () => [

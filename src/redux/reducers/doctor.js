@@ -1,23 +1,17 @@
 const initialState = {
   isFetching: false,
   error: false,
-  doctors: [],
+  doctor: {},
 };
 
-const doctors = (state = initialState, action) => {
+const doctor = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_DOCTORS": {
+    case "SET_DOCTOR":
       return {
         ...state,
-        doctors: action.payload,
+        doctor: action.payload,
         isFetching: false,
         error: false,
-      };
-    }
-    case "SET_IS_FETCHING":
-      return {
-        ...state,
-        isFetching: action.payload,
       };
     case "SET_ERROR":
       return {
@@ -25,9 +19,13 @@ const doctors = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
+    case "SET_IS_FETCHING":
+      return {
+        ...state,
+        isFetching: action.payload,
+      };
     default:
       return state;
   }
 };
-
-export default doctors;
+export default doctor;

@@ -16,7 +16,7 @@ export const ClinicCard = ({ name, rating, address }) => {
 
   const { id } = useParams();
 
-  const { hospital } = useSelector((state) => state.doctor.doctors);
+  const { hospital } = useSelector((state) => state.doctors.doctors);
 
   useEffect(() => {
     async function fetch() {
