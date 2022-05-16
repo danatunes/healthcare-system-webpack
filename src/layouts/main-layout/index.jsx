@@ -13,13 +13,15 @@ export const MainLayout = () => {
         alt="decor"
         className={clsx(
           "absolute top-20 left-10 w-10",
-          "md:left-40 md:w-20 md:top-10"
+          "md:left-40 md:w-12 md:top-30",
+          "lg:left-40 lg:w-16 lg:top-30",
+          "xl:left-40 xl:w-20 xl:top-32"
         )}
       />
       <img
         src={Bg_Decor_Dots}
         alt="decor"
-        className="absolute left-10 top-44 w-24"
+        className="absolute left-10 top-56 w-24"
       />
       <img
         src={Bg_Decor_Area}

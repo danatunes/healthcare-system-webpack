@@ -1,11 +1,13 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDownIcon, SearchIcon, UserIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, UserIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { Menu, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../images/user_icon.png";
 import { logout } from "../../redux/actions/user";
+import logo from "../../images/bg_doctors.webp";
+import logo_word from "../../images/logo_word.png";
 
 export const Header = () => {
   const user = useSelector(({ user }) => user.currentUser);
@@ -18,58 +20,64 @@ export const Header = () => {
   return (
     <div
       className={clsx(
-        "flex w-full flex-row items-center justify-evenly space-x-2",
-        "md:justify-end md:space-x-8 md:flex-row"
+        "fixed z-10 flex w-full py-3 shadow-md px-10 bg-white rounded-md flex-row items-center justify-evenly space-x-2",
+        "md:justify-between md:space-x-8 md:flex-row"
       )}
     >
-      <div className="mt-1 relative rounded-md shadow-sm">
-        <input
-          type="text"
-          name="account-number"
-          id="account-number"
-          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-black rounded-md"
-          placeholder="Search"
-        />
-        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-        </div>
+      <Link to="/main" className="flex flex-row">
+        <img src={logo} alt="" className={clsx("w-14", "sm:w-16")} />
+        <img src={logo_word} alt="" className={clsx("w-24", "sm:w-w-28")} />
+      </Link>
+      <div className="flex flex-row space-x-8 items-center">
+        {user ? (
+          <>
+            <Link
+              to="/patient/clinic"
+              className={clsx(
+                "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                "sm:block"
+              )}
+            >
+              Clinic
+            </Link>
+            <Link
+              to="patient"
+              className={clsx(
+                "text-sm hidden items-center px-3 py-1 bg-blue-100 rounded-md justify-center",
+                "sm:flex sm:flex-row sm:space-x-2"
+              )}
+            >
+              <p className="">{`${user.firstName} ${user.lastName}`}</p>
+              <img src={userLogo} alt="user" className="w-7" />
+            </Link>
+            <Link
+              to="/main"
+              onClick={logOut}
+              className={clsx(
+                "text-sm hidden px-3 py-2 bg-red-100 rounded-md",
+                "sm:block"
+              )}
+            >
+              Sign out
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className={clsx("text-sm hidden", "sm:block")}>
+              Sign In
+            </Link>
+            <Link to="/sign-up" className={clsx("text-sm hidden", "sm:block")}>
+              Registration
+            </Link>
+          </>
+        )}
       </div>
-      {user ? (
-        <>
-          <Link
-            to="/main"
-            onClick={logOut}
-            className={clsx("text-sm hidden", "sm:block")}
-          >
-            Sign out
-          </Link>
-          <Link
-            to="patient"
-            className={clsx(
-              "text-sm hidden items-center justify-center",
-              "sm:flex sm:flex-row sm:space-x-2"
-            )}
-          >
-            <p>{`${user.firstName} ${user.lastName}`}</p>
-            <img src={userLogo} alt="user" className="w-11" />
-          </Link>
-        </>
-      ) : (
-        <>
-          <Link to="/login" className={clsx("text-sm hidden", "sm:block")}>
-            Sign In
-          </Link>
-          <Link to="/sign-up" className={clsx("text-sm hidden", "sm:block")}>
-            Registration
-          </Link>
-        </>
-      )}
-      <DropDown />
+      <DropDown user={user} logout={logOut} />
     </div>
   );
 };
 
-const DropDown = () => {
+const DropDown = ({ user, logout }) => {
   return (
     <Menu
       as="div"
@@ -96,32 +104,66 @@ const DropDown = () => {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  to="/login"
-                  className={clsx(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+            {user ? (
+              <>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to="/main"
+                      onClick={logout}
+                      className={clsx(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      Sign out
+                    </Link>
                   )}
-                >
-                  Sign in
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  to="/sign-up"
-                  className={clsx(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to="/patient"
+                      className={clsx(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      Profile
+                    </Link>
                   )}
-                >
-                  Registration
-                </Link>
-              )}
-            </Menu.Item>
+                </Menu.Item>
+              </>
+            ) : (
+              <>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to="/login"
+                      className={clsx(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      Sign in
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to="/sign-up"
+                      className={clsx(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      Registration
+                    </Link>
+                  )}
+                </Menu.Item>
+              </>
+            )}
           </div>
         </Menu.Items>
       </Transition>

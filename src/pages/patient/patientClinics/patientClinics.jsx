@@ -7,6 +7,7 @@ import { Menu, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllClinics } from "../../../redux/actions/clinic";
+import { SearchIcon } from "@heroicons/react/solid";
 
 export const PatientClinics = () => {
   const clinics = useSelector(({ clinic }) => clinic.clinics);
@@ -94,8 +95,25 @@ export const PatientClinics = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-end pr-7 pb-7">
-        <Filter sortByRating={sortByRating} />
+      <div className={clsx("flex flex-row justify-start items-center pb-7","sm:pr-7")}>
+        <div className={clsx("flex flex-col w-full space-y-2","sm:space-y-0 sm:w-3/4 sm:flex-row sm:justify-between")}>
+          <h1 className="text-2xl font-medium">Clinics</h1>
+          <div className={clsx("flex flex-row items-center space-x-3 w-full","sm:w-2/3")}>
+            <div className="mt-1 w-full relative z-0 rounded-md shadow-sm">
+              <input
+                type="text"
+                name="account-number"
+                id="account-number"
+                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-black rounded-md"
+                placeholder="Search"
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </div>
+            </div>
+            <Filter sortByRating={sortByRating} />
+          </div>
+        </div>
       </div>
       <List className="px-4 py-3 max-h-[500px]">
         {clinics.map((clinic) => (

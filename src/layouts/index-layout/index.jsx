@@ -18,14 +18,14 @@ export const IndexLayout = () => {
     }
   }, [user]);
   return (
-    <div className="h-full w-full min-h-screen pt-7 px-7 bg-[#F8F9FD]">
+    <div className="h-full w-full min-h-screen bg-[#F8F9FD]">
+      <Header />
       <div
         className={clsx(
-          "w-full flex flex-col h-full min-h-screen mx-auto space-y-20",
+          "w-full flex pt-32 px-7 flex-col h-full min-h-screen mx-auto space-y-20",
           "md:w-10/12"
         )}
       >
-        <Header />
         <div
           className={clsx(
             "mx-auto h-full w-full flex flex-1 justify-center",

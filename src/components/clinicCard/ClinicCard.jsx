@@ -1,8 +1,4 @@
-import {
-  LocationMarkerIcon,
-  PhoneIcon,
-  StarIcon,
-} from "@heroicons/react/outline";
+import { LocationMarkerIcon, PhoneIcon, StarIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import photo_clinic from "../../images/example_photo_clinic.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +13,11 @@ export const ClinicCard = ({ name, rating, address }) => {
 
   const { hospital } = useSelector((state) => state.doctor.doctors);
 
-  useEffect(async () => {
-    dispatch(getDoctorsWithHospitalId(id));
+  useEffect( () => {
+    async function fetch () {
+      dispatch(getDoctorsWithHospitalId(id));
+    }
+    fetch().then();
   }, [id]);
 
   return (
