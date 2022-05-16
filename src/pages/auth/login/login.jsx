@@ -17,9 +17,7 @@ export const Login = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const requestData = Object.fromEntries(formData);
-    dispatch(login(requestData)).then(() => {
-      navigate("/patient/clinic");
-    });
+    dispatch(login(requestData));
   };
 
   if (!isFetching && !error && currentUser !== null) {
