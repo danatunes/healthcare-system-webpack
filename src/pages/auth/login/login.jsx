@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder";
 import { LoginIntegration } from "../../../components";
 import { Button } from "../../../ui/button/button";
@@ -6,7 +6,6 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { login } from "../../../redux/actions/user";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
@@ -26,15 +25,15 @@ export const Login = () => {
   if (!isFetching && !error && currentUser !== null) {
     navigate("/patient/clinic");
   }
-  useEffect(() => {
-    if (error) {
-      console.log(error, "error");
-      toast("Please check credentials", {
-        type: "error",
-        theme: "light",
-      });
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     console.log(error, "error");
+  //     toast("Please check credentials", {
+  //       type: "error",
+  //       theme: "light",
+  //     });
+  //   }
+  // }, [error]);
 
   return (
     <form onSubmit={handleSignIn} className="space-y-2">
