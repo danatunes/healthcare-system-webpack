@@ -30,7 +30,7 @@ export const PatientClinic = () => {
         <Link
           to={`/patient/clinics/${user.id}`}
           className={clsx(
-            "border-0 flex items-center justify-center font-normal py-20 text-xl transition duration-300 px-28 shadow-lg rounded-xl",
+            "border-0 flex items-center justify-center font-normal py-20 text-xl transition duration-300 px-5 shadow-lg rounded-xl",
             "md:px-20",
             "sm:px-10",
             "hover:scale-105"
@@ -41,9 +41,9 @@ export const PatientClinic = () => {
         <Link
           to="/patient/clinics/"
           className={clsx(
-            "border-0 py-20 flex items-center justify-center px-28 text-xl transition duration-300 text-white font-normal bg-[#3A57E8] shadow-lg rounded-xl",
+            "border-0 py-20 flex items-center justify-center px-5 text-xl transition duration-300 text-white font-normal bg-[#3A57E8] shadow-lg rounded-xl",
             "md:px-20",
-            "sm:px-10",
+            "sm:px-5",
             "hover:scale-105"
           )}
         >
