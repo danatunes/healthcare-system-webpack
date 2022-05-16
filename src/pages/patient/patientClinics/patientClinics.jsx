@@ -94,7 +94,7 @@ export const PatientClinics = () => {
 
   const [data, setData] = useState(dataByDefault);
 
-  if (clinics.length === 0) return <Loader />;
+  if (clinics) return <Loader />;
 
   return (
     <div>
