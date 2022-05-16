@@ -23,15 +23,6 @@ export const Login = () => {
   if (!isFetching && !error && currentUser !== null) {
     navigate("/patient/clinic");
   }
-  // useEffect(() => {
-  //   if (error) {
-  //     console.log(error, "error");
-  //     toast("Please check credentials", {
-  //       type: "error",
-  //       theme: "light",
-  //     });
-  //   }
-  // }, [error]);
 
   return (
     <form onSubmit={handleSignIn} className="space-y-2">
