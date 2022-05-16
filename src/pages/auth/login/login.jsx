@@ -46,6 +46,7 @@ export const Login = () => {
       <div className={clsx("grid grid-cols-1 gap-3 w-[300px]", "sm:w-[430px]")}>
         {/*{error && <p className="text-red-700">Something went wrong...</p>}*/}
         <InputWithBottomBorder
+          autoComplete="off"
           key="email"
           id="email"
           type="email"
@@ -54,6 +55,7 @@ export const Login = () => {
           style="w-full"
         />
         <InputWithBottomBorder
+          autoComplete="off"
           key="password"
           id="password"
           type="text"
