@@ -24,7 +24,7 @@ export const ClinicCard = ({ name, rating, address }) => {
     }
 
     fetch().then();
-  }, [id]);
+  }, [dispatch, id]);
 
   if (!hospital) {
     return <Loader />;

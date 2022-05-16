@@ -93,8 +93,8 @@ export const PatientClinics = () => {
   );
 
   const [data, setData] = useState(dataByDefault);
-
-  if (clinics) return <Loader />;
+  console.log(clinics);
+  if (!clinics) return <Loader />;
 
   return (
     <div>
