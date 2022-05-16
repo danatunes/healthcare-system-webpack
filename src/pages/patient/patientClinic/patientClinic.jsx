@@ -21,7 +21,12 @@ export const PatientClinic = () => {
 
   return (
     <div className="w-full h-full space-y-10">
-      <div className="w-full grid grid-cols-2 gap-x-5">
+      <div
+        className={clsx(
+          "w-full grid grid-cols-1 gap-y-2",
+          "sm:grid-cols-2 sm:gap-x-5"
+        )}
+      >
         <Link
           to={`/patient/clinics/${user.id}`}
           className={clsx(
