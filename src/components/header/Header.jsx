@@ -32,6 +32,15 @@ export const Header = () => {
         {user ? (
           <>
             <Link
+              to="/admin"
+              className={clsx(
+                "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                "sm:block"
+              )}
+            >
+              Global Admin
+            </Link>
+            <Link
               to="/patient/clinic"
               className={clsx(
                 "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",

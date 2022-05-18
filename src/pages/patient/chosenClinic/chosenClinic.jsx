@@ -1,12 +1,21 @@
 import { ClinicCard, List } from "../../../components";
-import { Suspense, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import clsx from "clsx";
 import Loader from "../../../ui/loader/loader";
+import { getAllFeedbacks } from "../../../redux/actions/clinic";
+import { useDispatch } from "react-redux";
 
 export const ChosenClinic = () => {
   const [hospital, setHospital] = useState(null);
   const [doctors, setDoctors] = useState(null);
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getAllFeedbacks(id));
+  }, []);
 
   return (
     <div className="space-y-7">

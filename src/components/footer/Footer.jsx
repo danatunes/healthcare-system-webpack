@@ -6,7 +6,7 @@ export const Footer = () => {
   return (
     <footer
       className={clsx(
-        "flex flex-col py-10 items-center justify-between text-sm font-normal space-y-3 space-x-0",
+        "flex w-full flex-col py-10 items-center justify-between text-sm font-normal space-y-3 space-x-0",
         "sm:flex-row sm:space-y-0 sm:space-x-3"
       )}
     >

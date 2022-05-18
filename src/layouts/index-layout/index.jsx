@@ -9,19 +9,19 @@ export const IndexLayout = () => {
   const navigate = useNavigate();
   const user = useSelector(({ user }) => user.currentUser);
   console.log(user);
-  
+
   return (
-    <div className="h-full w-full min-h-screen bg-[#F8F9FD]">
+    <div className="h-full flex w-full justify-center min-h-screen bg-[#F8F9FD]">
       <Header />
       <div
         className={clsx(
-          "w-full flex pt-32 px-7 flex-col h-full min-h-screen mx-auto space-y-20",
+          "w-full items-center flex pt-32 px-7 flex-col h-full min-h-screen space-y-20",
           "md:w-10/12"
         )}
       >
         <div
           className={clsx(
-            "mx-auto h-full w-full flex flex-1 justify-center",
+            "h-full w-full flex flex-1 justify-center items-center",
             "sm:w-10/12"
           )}
         >

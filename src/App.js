@@ -29,6 +29,8 @@ const PatientClinic = lazy(() => import("./pages/patient/patientClinic"));
 const PatientClinics = lazy(() => import("./pages/patient/patientClinics"));
 const Doctors = lazy(() => import("./pages/patient/chosenClinic/doctors"));
 
+const Clinics = lazy(() => import("./pages/admin"));
+
 const DoctorProfileForPatient = lazy(() =>
   import("./pages/patient/profile/doctorProfileForPatient")
 );
@@ -49,9 +51,9 @@ function App() {
       <Route exact path="/" element={<IndexLayout />}>
         <Route path="main" element={<MainLayout />} />
         <Route path="admin">
-          <Route path="clinics" element={<div>Hospital</div>} />
-          <Route path="clinic-admins" element={<div>Hospital</div>} />
-          <Route path="add-doctor" element={<div>Hospital</div>} />
+          <Route path="clinics" element={<Clinics />} />
+          <Route path="clinic-admins" element={<div>clinic-admins</div>} />
+          <Route path="add-doctor" element={<div>add-doc</div>} />
         </Route>
         <Route path="doctor" element={<DoctorLayout />}>
           <Route path=":id" element={<DoctorProfile />} />

@@ -1,5 +1,6 @@
 const initialState = {
   clinics: null,
+  feedbacks: [],
   stateClinic: null,
   isFetching: false,
   error: false,
@@ -7,6 +8,14 @@ const initialState = {
 
 const clinic = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_FEEDBACKS": {
+      return {
+        ...state,
+        feedbacks: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    }
     case "SET_CLINICS": {
       return {
         ...state,

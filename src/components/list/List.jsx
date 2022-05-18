@@ -1,8 +1,13 @@
 import clsx from "clsx";
 
-export const List = ({ children, header, className }) => {
+export const List = ({ children, header, className, styleList }) => {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-4 space-y-3.5">
+    <div
+      className={clsx(
+        styleList,
+        "bg-white rounded-xl shadow-lg p-4 space-y-3.5"
+      )}
+    >
       {header}
       <div
         className={clsx(
