@@ -26,7 +26,7 @@ export const getDoctorWithFeedback = (id) => async (dispatch) => {
         },
       })
       .then((data) => {
-        console.log(data.data);
+        console.log(data.data,"doctor data.data");
         dispatch(setDoctorWithFeedback(data.data));
       });
   } catch (e) {

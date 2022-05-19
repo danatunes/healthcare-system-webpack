@@ -8,7 +8,7 @@ import { getDoctorWithFeedback } from "../../../../redux/actions/doctor";
 
 export const DoctorProfileForPatient = () => {
   const { doctor } = useSelector(({ doctor }) => doctor);
-  console.log(doctor);
+  console.log(doctor, "doctor");
 
   const dispatch = useDispatch();
 
@@ -18,11 +18,13 @@ export const DoctorProfileForPatient = () => {
   useEffect(() => {
     console.log("useEffect");
     dispatch(getDoctorWithFeedback(id));
-  }, []);
+  }, [id, dispatch]);
+
+
 
   return (
-    <div className="space-y-4 max-w-4xl">
-      {doctor ? (
+    <div className="w-full space-y-4 max-w-4xl">
+      {doctor.doctor ? (
         <>
           <UserCard userInformation={doctor.doctor.user} />
           <List

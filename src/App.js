@@ -73,13 +73,7 @@ function App() {
               <Route
                 path="feedback"
                 element={
-                  <>
-                    <Feedback />
-                    <Feedback />
-                    <Feedback />
-                    <Feedback />
-                    <Feedback />
-                  </>
+                  <Feedbacks type="clinic"/>
                 }
               />
             </Route>
@@ -97,7 +91,7 @@ function App() {
                 </div>
               }
             />
-            <Route path="feedback" element={<Feedbacks />} />
+            <Route path="feedback" element={<Feedbacks type="doctor"/>} />
             <Route path="calendar" element={<DoctorProfileCalendar />} />
           </Route>
         </Route>

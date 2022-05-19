@@ -1,14 +1,21 @@
 import { useSelector } from "react-redux";
 import Feedback from "../feedback";
+import { useState } from "react";
 
-export const Feedbacks = () => {
-  const { feedbacks } = useSelector(({ doctor }) => doctor.doctor);
-  console.log(feedbacks);
+export const Feedbacks = ({type}) => {
+    const  doctorFeedbacks  = useSelector(({ doctor }) => doctor.doctor);
+    const  clinicFeedbacks  = useSelector(({ clinic }) => clinic.feedbacks);
+
   return (
-    <>
-      {feedbacks.map((feedback) => (
-        <Feedback feedback={feedback} />
-      ))}
-    </>
+    <div>
+      {type === "doctor" ? (
+        doctorFeedbacks.feedbacks.map((feedback) => (
+          <Feedback feedback={feedback} />
+        ))
+      ) : (
+        clinicFeedbacks.feedbacks.map((feedback) => (
+          <Feedback feedback={feedback} />
+        ))      )}
+    </div>
   );
 };
