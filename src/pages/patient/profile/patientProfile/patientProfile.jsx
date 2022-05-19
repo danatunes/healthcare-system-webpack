@@ -18,7 +18,10 @@ export const PatientProfile = () => {
       />
       <>
         <UserCard userInformation={user} />
-        <List header={<h4 className="text-xl font-medium">Documents</h4>}>
+        <List
+          styleList="rounded-xl"
+          header={<h4 className="text-xl font-medium">Documents</h4>}
+        >
           <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
             <thead>
               <tr className="text-left text-gray-400 text-sm">

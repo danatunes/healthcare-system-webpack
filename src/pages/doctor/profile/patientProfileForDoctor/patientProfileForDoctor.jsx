@@ -19,6 +19,7 @@ export const PatientProfileForDoctor = () => {
             </div>
           </div>
         }
+        styleList="rounded-xl"
       >
         <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
           <thead>

@@ -5,6 +5,7 @@ import { Button } from "../../ui/button/button";
 export const Clinics = () => {
   return (
     <List
+      styleList="rounded-xl"
       header={
         <div className="flex flex-row justify-between">
           <h3 className="font-medium text-xl">Hospital Admin</h3>

@@ -58,6 +58,7 @@ export const PatientClinic = () => {
 const FrequentlyClinics = () => {
   return (
     <List
+      styleList="rounded-xl"
       header={<HeaderList name="My Clinic" />}
       className="py-4 px-2.5 space-y-4"
     >

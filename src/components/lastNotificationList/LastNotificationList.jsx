@@ -6,6 +6,7 @@ export const LastNotificationList = ({ isDoctor, className }) => {
   return (
     <List
       className={className}
+      styleList="rounded-xl"
       header={<HeaderList name="Last Notifications" />}
     >
       <DropDown isDoctor={isDoctor} heading="Confirmed Appoinment">
