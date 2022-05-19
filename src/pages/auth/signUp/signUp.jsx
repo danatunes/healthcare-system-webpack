@@ -99,28 +99,28 @@ export const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    console.log(formData);
     let requestData = Object.fromEntries(formData);
+    console.log(requestData);
     let clinicId;
     hospitals.find((item) => {
-      if (item.name === requestData.Clinics) {
+      if (item.name === requestData.hospitalId) {
         clinicId = item.id;
       }
     });
-    requestData.City = cityId;
-    requestData.Clinics = clinicId;
+    delete requestData.city;
+    delete requestData.cityId;
+    requestData.hospitalId = clinicId;
 
     try {
-      const response = await publicRequest.post(
-        "api/v1/auth/registration/patient",
-        requestData
-      );
+      await publicRequest.post("api/v1/auth/registration/patient", requestData);
       toast("Succesfully created", {
         type: "success",
         theme: "light",
       });
     } catch (e) {
       if (e.message) {
-        toast(e.message, {
+        toast(e.response.data.message, {
           type: "error",
           theme: "light",
         });
@@ -141,7 +141,7 @@ export const SignUp = () => {
           <label htmlFor={item.id}>
             <InputWithBottomBorder
               key={item.id}
-              id={`${item.id}_${item.name}`}
+              id={`${item.id}`}
               name={item.name}
               type={
                 item.type === "datalist" || item.type === "datalistCity"
@@ -153,14 +153,14 @@ export const SignUp = () => {
               autoComplete="off"
               list={
                 item.type === "datalist" || item.type === "datalistCity"
-                  ? item.id
+                  ? `${item.id}_list`
                   : null
               }
             />
           </label>
         ))}
-        <Datalist data={hospitals} id="hospitalId" />
-        <Datalist data={city} id="cityId" />
+        <Datalist data={hospitals} id="hospitalId_list" />
+        <Datalist data={city} id="cityId_list" />
       </div>
       <div className="flex flex-col items-center mt-4 justify-center space-y-5">
         <div className="flex w-full items-center justify-center space-x-2">

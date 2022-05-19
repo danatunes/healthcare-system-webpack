@@ -20,7 +20,7 @@ export const InputWithBottomBorder = ({
     >
       <input
         type={type}
-        name={name}
+        name={id}
         autoComplete={autoComplete}
         onChange={onChange}
         id={id}

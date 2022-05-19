@@ -29,12 +29,14 @@ const PatientClinic = lazy(() => import("./pages/patient/patientClinic"));
 const PatientClinics = lazy(() => import("./pages/patient/patientClinics"));
 const Doctors = lazy(() => import("./pages/patient/chosenClinic/doctors"));
 
-const Clinics = lazy(() => import("./pages/admin"));
+const Clinics = lazy(() => import("./pages/admin/clinics"));
 
 const DoctorProfileForPatient = lazy(() =>
   import("./pages/patient/profile/doctorProfileForPatient")
 );
 const Feedback = lazy(() => import("./components/feedback"));
+
+const Admin = lazy(() => import("./pages/admin"));
 
 function App() {
   const user = useSelector(({ user }) => user.currentUser);
@@ -51,6 +53,7 @@ function App() {
       <Route exact path="/" element={<IndexLayout />}>
         <Route path="main" element={<MainLayout />} />
         <Route path="admin">
+          <Route path="" element={<Admin />} />
           <Route path="clinics" element={<Clinics />} />
           <Route path="clinic-admins" element={<div>clinic-admins</div>} />
           <Route path="add-doctor" element={<div>add-doc</div>} />
@@ -70,12 +73,7 @@ function App() {
             <Route path="" element={<PatientClinics />} />
             <Route path=":id" element={<ChosenClinic />}>
               <Route path="" element={<Doctors />} />
-              <Route
-                path="feedback"
-                element={
-                  <Feedbacks type="clinic"/>
-                }
-              />
+              <Route path="feedback" element={<Feedbacks type="clinic" />} />
             </Route>
           </Route>
         </Route>
@@ -91,7 +89,7 @@ function App() {
                 </div>
               }
             />
-            <Route path="feedback" element={<Feedbacks type="doctor"/>} />
+            <Route path="feedback" element={<Feedbacks type="doctor" />} />
             <Route path="calendar" element={<DoctorProfileCalendar />} />
           </Route>
         </Route>

@@ -1,5 +1,5 @@
 export const Datalist = ({ id, data }) => {
-  console.log(data);
+  console.log(id);
   return (
     <datalist id={id}>
       {data &&

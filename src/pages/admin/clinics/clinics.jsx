@@ -1,6 +1,6 @@
-import { List } from "../../components";
+import { List } from "../../../components";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { Button } from "../../ui/button/button";
+import { Button } from "../../../ui/button/button";
 
 export const Clinics = () => {
   return (

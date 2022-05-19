@@ -1,1 +1,1 @@
-export { Clinics as default } from "./clinics";
+export { Admin as default } from "./admin";
