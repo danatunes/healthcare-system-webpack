@@ -11,7 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isFetching, error, currentUser } = useSelector((state) => state.user);
+  const { isFetching, error, currentUser, me } = useSelector(
+    (state) => state.user
+  );
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -21,7 +23,17 @@ export const Login = () => {
   };
 
   if (!isFetching && !error && currentUser !== null) {
-    navigate("/patient/clinic");
+    const role = localStorage.getItem("role");
+    console.log(role === "undefined");
+    if (role === "undefined") {
+      navigate("/admin");
+    } else {
+      if (role === "DOCTOR") {
+        navigate("/doctor/profile");
+      } else {
+        navigate("/patient/clinic");
+      }
+    }
   }
 
   return (
@@ -35,7 +47,7 @@ export const Login = () => {
       <div className={clsx("grid grid-cols-1 gap-3 w-[300px]", "sm:w-[430px]")}>
         {/*{error && <p className="text-red-700">Something went wrong...</p>}*/}
         <InputWithBottomBorder
-          autoComplete="off"
+          autoComplete="on"
           key="email"
           id="email"
           type="email"
@@ -44,7 +56,7 @@ export const Login = () => {
           style="w-full"
         />
         <InputWithBottomBorder
-          autoComplete="off"
+          autoComplete="on"
           key="password"
           id="password"
           type="text"

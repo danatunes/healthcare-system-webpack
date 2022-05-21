@@ -9,12 +9,12 @@ import clsx from "clsx";
 import { useSelector } from "react-redux";
 
 export const PatientProfile = () => {
-  const user = useSelector(({ user }) => user.currentUser);
+  const user = useSelector(({ user }) => user.me);
 
   return (
     <div className="w-full space-y-9">
       <HeadingProfile
-        name={`${user.fatherName} ${user.firstName} ${user.lastName} !`}
+        name={`${user.user.fatherName} ${user.user.firstName} ${user.user.lastName} !`}
       />
       <>
         <UserCard userInformation={user} />

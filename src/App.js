@@ -29,7 +29,7 @@ const PatientClinic = lazy(() => import("./pages/patient/patientClinic"));
 const PatientClinics = lazy(() => import("./pages/patient/patientClinics"));
 const Doctors = lazy(() => import("./pages/patient/chosenClinic/doctors"));
 
-const Clinics = lazy(() => import("./pages/admin/clinics"));
+const Clinics = lazy(() => import("./pages/admin/add-admin-clinics"));
 
 const DoctorProfileForPatient = lazy(() =>
   import("./pages/patient/profile/doctorProfileForPatient")
@@ -37,6 +37,11 @@ const DoctorProfileForPatient = lazy(() =>
 const Feedback = lazy(() => import("./components/feedback"));
 
 const Admin = lazy(() => import("./pages/admin"));
+const AdminsClinic = lazy(() =>
+  import("./pages/admin/admin-clinic/add-clinic")
+);
+
+const AdminClinic = lazy(() => import("./pages/admin/admin-clinic-pages"));
 
 function App() {
   const user = useSelector(({ user }) => user.currentUser);
@@ -52,10 +57,13 @@ function App() {
       </Route>
       <Route exact path="/" element={<IndexLayout />}>
         <Route path="main" element={<MainLayout />} />
+        <Route path="admin-clinic">
+          <Route path="" element={<AdminClinic />} />
+        </Route>
         <Route path="admin">
           <Route path="" element={<Admin />} />
           <Route path="clinics" element={<Clinics />} />
-          <Route path="clinic-admins" element={<div>clinic-admins</div>} />
+          <Route path="clinic-admins" element={<AdminsClinic />} />
           <Route path="add-doctor" element={<div>add-doc</div>} />
         </Route>
         <Route path="doctor" element={<DoctorLayout />}>

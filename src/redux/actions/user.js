@@ -21,6 +21,34 @@ export const onLogout = () => ({
   type: "DESTROY_SESSION",
 });
 
+export const setMe = (payload) => ({
+  type: "SET_ME",
+  payload,
+});
+
+export const getMe = () => async (dispatch) => {
+  const role = localStorage.getItem("role").toLowerCase();
+  dispatch(setIsFetching(true));
+  const token = localStorage.getItem("token");
+  console.log("getme");
+  try {
+    await publicRequest
+      .get(`/api/v1/${role}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((data) => {
+        dispatch(setMe(data.data));
+      });
+    console.log("try");
+  } catch (e) {
+    console.log(e.message);
+    dispatch(setError(true));
+    console.log("catch");
+  }
+};
+
 export const logout = () => async (dispatch) => {
   dispatch(onLogout());
   localStorage.removeItem("token");
@@ -57,10 +85,12 @@ export const login = (user) => async (dispatch) => {
     await publicRequest.post("login", user).then((data) => {
       const user = jwt(data.headers["token"]); // decode your token here
       localStorage.setItem("token", data.headers["token"]);
+      localStorage.setItem("role", data.headers["role"]);
+      console.log(data.headers);
       dispatch(
         setUser({
           id: user.sub,
-          role: user.aud,
+          role: data.headers["role"],
           hospitalId: data.headers["hospitalid"],
         })
       );
@@ -72,4 +102,5 @@ export const login = (user) => async (dispatch) => {
     });
     dispatch(setError(true));
   }
+  dispatch(getMe());
 };

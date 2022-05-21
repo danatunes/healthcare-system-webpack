@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { UserIcon } from "@heroicons/react/outline";
 
 export const UserCard = ({ userInformation }) => {
-  console.log(userInformation.role.name, "userInformation");
+  const role = localStorage.getItem("role");
   return (
     <div className="bg-white rounded-xl shadow-md">
       <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
@@ -13,9 +13,9 @@ export const UserCard = ({ userInformation }) => {
           )}
         />
         <div className="py-3 px-8 space-y-3 w-full">
-          <h4 className="text-xl leading-8">{`${userInformation.firstName} ${userInformation.lastName}`}</h4>
+          <h4 className="text-xl leading-8">{`${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
-            {userInformation.role.name === "DOCTOR" ? (
+            {role === "DOCTOR" ? (
               <UserInformation
                 label="Position"
                 information={userInformation.role.name}
@@ -25,13 +25,13 @@ export const UserCard = ({ userInformation }) => {
             )}
             <UserInformation
               label="Email"
-              information={userInformation.email}
+              information={userInformation.user.email}
             />
-            <UserInformation label="Gender" information="Male" />
+            <UserInformation label="Role" information={role} />
             <UserInformation label="Date of Birth" information="22-05-2000" />
             <UserInformation
               label="Phone"
-              information={userInformation.phoneNumber}
+              information={userInformation.user.phoneNumber}
             />
             <UserInformation label="Insurance" information="YES" />
           </div>

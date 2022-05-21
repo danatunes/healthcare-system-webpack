@@ -1,5 +1,6 @@
 const initialState = {
   currentUser: null,
+  me: null,
   isFetching: false,
   error: false,
 };
@@ -10,6 +11,14 @@ const user = (state = initialState, action) => {
       return {
         ...initialState,
       };
+    case "SET_ME": {
+      return {
+        ...state,
+        me: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    }
     case "SET_USER": {
       return {
         ...state,
