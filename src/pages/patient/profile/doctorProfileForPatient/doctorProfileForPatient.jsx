@@ -8,7 +8,7 @@ import { getDoctorWithFeedback } from "../../../../redux/actions/doctor";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { Modal } from "../../../../ui/modal/modal";
 import { publicRequest } from "../../../../api/requestMethods";
-import { CalendarIcon, StarIcon, UserIcon } from "@heroicons/react/outline";
+import { CalendarIcon, StarIcon } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import { DoctorProfileCalendar } from "../../../../components/doctorProfileCalendar";
 
@@ -95,11 +95,13 @@ export const DoctorProfileForPatient = () => {
     getCalendar(id);
   }, [id, dispatch]);
 
+  console.log(doctor.doctor, "doctor.doctor");
+
   return (
     <div className="w-full space-y-4 max-w-4xl">
       {doctor.doctor ? (
         <>
-          <UserCard userInformation={doctor.doctor.user} avatar={avatar} />
+          <UserCard userInformation={doctor.doctor} avatar={avatar} />
           <div>
             <List
               styleList="rounded-t-lg"
@@ -277,7 +279,6 @@ export const DoctorProfileForPatient = () => {
 };
 
 const UserCard = ({ userInformation, avatar }) => {
-  // console.log(avatar, "avatar");
   const role = localStorage.getItem("role");
   return (
     <div className="bg-white rounded-xl shadow-md">
@@ -289,31 +290,32 @@ const UserCard = ({ userInformation, avatar }) => {
             className={clsx("w-full", "lg:w-56 lg:h-56")}
           />
         ) : (
-          <UserIcon
-            className={clsx(
-              "rounded-l-xl h-full w-56 bg-[#C4C4C4] text-white hidden",
-              "xl:block"
-            )}
-          />
+          <Loader />
         )}
         <div className="py-3 px-8 space-y-3 w-full">
-          <h4 className="text-xl leading-8">{`${userInformation.firstName} ${userInformation.lastName}`}</h4>
+          <h3 className="text-2xl font-bold">
+            Hospital : {userInformation.hospital.name}
+          </h3>
+          <h4 className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
             <UserInformation
               label="Position"
-              information={userInformation.role.name}
+              information={userInformation.user.role.name}
             />
             <UserInformation
               label="Email"
-              information={userInformation.email}
+              information={userInformation.user.email}
             />
             <UserInformation label="Role" information={role} />
             <UserInformation label="Date of Birth" information="22-05-2000" />
             <UserInformation
               label="Phone"
-              information={userInformation.phoneNumber}
+              information={userInformation.user.phoneNumber}
             />
-            <UserInformation label="Insurance" information="YES" />
+            <UserInformation
+              label="Specialization"
+              information={userInformation.specialization.name}
+            />
           </div>
         </div>
         <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">

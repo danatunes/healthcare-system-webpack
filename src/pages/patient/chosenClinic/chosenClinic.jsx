@@ -118,7 +118,7 @@ export const ChosenClinic = () => {
             <Outlet />
           </Suspense>
         </List>
-        {doctors.length !== 0 ? (
+        {doctors ? (
           <NavLink
             to="feedback"
             onClick={() => {

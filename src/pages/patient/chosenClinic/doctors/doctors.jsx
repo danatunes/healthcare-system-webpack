@@ -58,7 +58,7 @@ export const Doctors = () => {
   // );
   return (
     <>
-      {doctors.length !== 0 ? (
+      {doctors ? (
         doctors.map((doctor) => (
           <NavLink key={`/doctors/${doctor.id}`} to={`/doctors/${doctor.id}`}>
             <DoctorCard key={doctor.id} {...doctor} />

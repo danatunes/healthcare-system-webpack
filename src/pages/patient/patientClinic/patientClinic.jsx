@@ -13,7 +13,7 @@ export const PatientClinic = () => {
 
   useEffect(() => {
     if (typeof user.role !== "object") {
-      let initialRole = user.role.includes("client") ? "patient" : "doctor";
+      let initialRole = localStorage.getItem("role");
       const token = localStorage.getItem("token");
       dispatch(getSelfInformation(initialRole, user.id, token));
     }
