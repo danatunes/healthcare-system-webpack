@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon, UserIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
@@ -15,10 +15,14 @@ export const Header = () => {
   const me = useSelector(({ user }) => user.me);
   const dispatch = useDispatch();
   const role = localStorage.getItem("role");
+  const [mainRole, setMainRole] = useState(role);
 
   const logOut = () => {
     dispatch(logout());
   };
+
+  console.log(role.then((r) => setMainRole(r)));
+  console.log(mainRole);
 
   return (
     <div
@@ -52,9 +56,9 @@ export const Header = () => {
                   )}
                 >
                   <p className="">
-                    {user.role === "PATIENT"
+                    {mainRole === "PATIENT"
                       ? `${me.user.firstName} ${me.user.lastName}`
-                      : user.role === "DOCTOR"
+                      : mainRole === "DOCTOR"
                       ? "DOCTOR"
                       : "ADMIN"}
                   </p>
@@ -63,7 +67,7 @@ export const Header = () => {
               </>
             ) : (
               <>
-                {user.role === "HOSPITAL_ADMIN" && (
+                {mainRole === "HOSPITAL_ADMIN" && (
                   <Link
                     to="/admin-clinic"
                     className={clsx(
@@ -74,31 +78,31 @@ export const Header = () => {
                     Admin Clinic Panel
                   </Link>
                 )}
-                {user.role === "PATIENT" && (
-                  <Link
-                    to="/patient/clinic"
-                    className={clsx(
-                      "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
-                      "sm:block"
-                    )}
-                  >
-                    Clinic
-                  </Link>
-                )}
-                {user.role === "PATIENT" ? (
-                  <Link
-                    to="patient"
-                    className={clsx(
-                      "text-sm hidden items-center px-3 py-1 bg-blue-100 rounded-md justify-center",
-                      "sm:flex sm:flex-row sm:space-x-2"
-                    )}
-                  >
-                    <p className="">
-                      {me && `${me.user.firstName} ${me.user.lastName}`}
-                    </p>
-                    <img src={userLogo} alt="user" className="w-7" />
-                  </Link>
-                ) : user.role === "DOCTOR" ? (
+                {mainRole === "PATIENT" ? (
+                  <>
+                    <Link
+                      to="/patient/clinic"
+                      className={clsx(
+                        "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                        "sm:block"
+                      )}
+                    >
+                      Clinic
+                    </Link>
+                    <Link
+                      to="patient"
+                      className={clsx(
+                        "text-sm hidden items-center px-3 py-1 bg-blue-100 rounded-md justify-center",
+                        "sm:flex sm:flex-row sm:space-x-2"
+                      )}
+                    >
+                      <p className="">
+                        {me && `${me.user.firstName} ${me.user.lastName}`}
+                      </p>
+                      <img src={userLogo} alt="user" className="w-7" />
+                    </Link>
+                  </>
+                ) : mainRole === "DOCTOR" ? (
                   <>
                     <Link
                       to="/doctor/patients"
