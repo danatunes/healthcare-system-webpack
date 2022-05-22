@@ -18,7 +18,6 @@ export const DoctorProfileForPatient = () => {
   const [isOpenCalendar, setIsOpenCalendar] = useState(false);
   const [workCalendar, setWorkCalendar] = useState([]);
   const [record, setRecord] = useState([]);
-  const [avatar, setAvatar] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -70,27 +69,8 @@ export const DoctorProfileForPatient = () => {
     setIsOpen(false);
   };
 
-  const getAvatar = async () => {
-    try {
-      return await publicRequest.get(
-        "/api/v1/file/avatar/" + doctor.doctor.user.id,
-        {
-          responseType: "blob",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
     console.log("useEffect");
-    getAvatar().then((res) => {
-      let imageUrl = URL.createObjectURL(res.data);
-      setAvatar(imageUrl);
-    });
     dispatch(getDoctorWithFeedback(id));
     getCalendar(id);
   }, [id, dispatch]);
@@ -101,7 +81,7 @@ export const DoctorProfileForPatient = () => {
     <div className="w-full space-y-4 max-w-4xl">
       {doctor.doctor ? (
         <>
-          <UserCard userInformation={doctor.doctor} avatar={avatar} />
+          <UserCard userInformation={doctor.doctor} />
           <div>
             <List
               styleList="rounded-t-lg"
@@ -278,8 +258,33 @@ export const DoctorProfileForPatient = () => {
   );
 };
 
-const UserCard = ({ userInformation, avatar }) => {
+const UserCard = ({ userInformation }) => {
   const role = localStorage.getItem("role");
+  const [avatar, setAvatar] = useState(null);
+
+  const getAvatar = async () => {
+    try {
+      return await publicRequest.get(
+        "/api/v1/file/avatar/" + userInformation.user.id,
+        {
+          responseType: "blob",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getAvatar().then((res) => {
+      let imageUrl = URL.createObjectURL(res.data);
+      setAvatar(imageUrl);
+    });
+  }, []);
+
   return (
     <div className="bg-white rounded-xl shadow-md">
       <div className={clsx("flex flex-col items-end", "lg:flex-row")}>

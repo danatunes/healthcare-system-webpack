@@ -15,7 +15,7 @@ export const PatientClinic = () => {
     if (typeof user.role !== "object") {
       let initialRole = localStorage.getItem("role");
       const token = localStorage.getItem("token");
-      dispatch(getSelfInformation(initialRole, user.id, token));
+      dispatch(getSelfInformation(initialRole.toLowerCase(), user.id, token));
     }
   }, []);
 
