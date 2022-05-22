@@ -1,6 +1,6 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const DoctorPatients = () => {
   const data = [
@@ -62,6 +62,8 @@ export const DoctorPatients = () => {
     },
   ];
 
+  console.log(data);
+
   return (
     <div className="px-5 py-4 w-full rounded-lg bg-white shadow-lg">
       <div className="w-full max-h-[500px] flex flex-row justify-between">
@@ -90,7 +92,7 @@ export const DoctorPatients = () => {
                   "hover:bg-gray-100"
                 )}
               >
-                <Link to=":id">
+                <NavLink to={`${patient.id}`}>
                   <td
                     className={clsx(
                       "py-4 font-normal px-10",
@@ -99,7 +101,7 @@ export const DoctorPatients = () => {
                   >
                     {patient.name}
                   </td>
-                </Link>
+                </NavLink>
                 <td className="py-4 font-normal px-10">{patient.email}</td>
                 <td className="py-4 font-normal px-10">{patient.conditions}</td>
                 <td className="py-4 font-normal px-10">{patient.number}</td>

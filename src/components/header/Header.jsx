@@ -8,11 +8,13 @@ import userLogo from "../../images/user_icon.png";
 import { logout } from "../../redux/actions/user";
 import logo from "../../images/bg_doctors.webp";
 import logo_word from "../../images/logo_word.png";
+import localStorage from "redux-persist/es/storage";
 
 export const Header = () => {
   const user = useSelector(({ user }) => user.currentUser);
   const me = useSelector(({ user }) => user.me);
   const dispatch = useDispatch();
+  const role = localStorage.getItem("role");
 
   const logOut = () => {
     dispatch(logout());
@@ -97,18 +99,30 @@ export const Header = () => {
                     <img src={userLogo} alt="user" className="w-7" />
                   </Link>
                 ) : user.role === "DOCTOR" ? (
-                  <Link
-                    to="/doctor/profile"
-                    className={clsx(
-                      "text-sm hidden items-center px-3 py-1 bg-blue-100 rounded-md justify-center",
-                      "sm:flex sm:flex-row sm:space-x-2"
-                    )}
-                  >
-                    <p className="">
-                      {me && `Doctor ${me.user.firstName} ${me.user.lastName}`}
-                    </p>
-                    <img src={userLogo} alt="user" className="w-7" />
-                  </Link>
+                  <>
+                    <Link
+                      to="/doctor/patients"
+                      className={clsx(
+                        "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                        "sm:block"
+                      )}
+                    >
+                      Patients
+                    </Link>
+                    <Link
+                      to="/doctor/profile"
+                      className={clsx(
+                        "text-sm hidden items-center px-3 py-1 bg-blue-100 rounded-md justify-center",
+                        "sm:flex sm:flex-row sm:space-x-2"
+                      )}
+                    >
+                      <p className="">
+                        {me &&
+                          `Doctor ${me.user.firstName} ${me.user.lastName}`}
+                      </p>
+                      <img src={userLogo} alt="user" className="w-7" />
+                    </Link>
+                  </>
                 ) : (
                   <div
                     className={clsx(

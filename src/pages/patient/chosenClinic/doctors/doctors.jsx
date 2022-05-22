@@ -1,8 +1,9 @@
 import { NavLink, useParams } from "react-router-dom";
 import { DoctorCard } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getDoctorsWithHospitalId } from "../../../../redux/actions/doctors";
+import { UserGroupIcon } from "@heroicons/react/outline";
 
 export const Doctors = () => {
   const { doctors } = useSelector(({ doctors }) => doctors.doctors);
@@ -57,12 +58,18 @@ export const Doctors = () => {
   // );
   return (
     <>
-      {doctors &&
+      {doctors.length !== 0 ? (
         doctors.map((doctor) => (
           <NavLink key={`/doctors/${doctor.id}`} to={`/doctors/${doctor.id}`}>
             <DoctorCard key={doctor.id} {...doctor} />
           </NavLink>
-        ))}
+        ))
+      ) : (
+        <div className="w-full flex text-gray-400 flex-col p-10 items-center justify-center">
+          No Doctors
+          <UserGroupIcon className="w-11 text-gray-400" />
+        </div>
+      )}
     </>
   );
 };

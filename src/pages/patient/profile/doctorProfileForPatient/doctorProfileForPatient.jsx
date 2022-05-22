@@ -243,7 +243,9 @@ const UserInformation = ({ label, information }) => {
       )}
     >
       <p className={clsx("text-sm text-gray-400 mr-2", "sm:mr-0")}>{label}</p>
-      <p className="text-md font-bold">{information}</p>
+      <p className="text-md font-bold overflow-x-auto truncate">
+        {information}
+      </p>
     </div>
   );
 };
