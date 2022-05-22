@@ -1,56 +1,79 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const DoctorProfileCalendar = ({ setWorkCalendar }) => {
-  const data = [
+export const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
+  const role = localStorage.getItem("role");
+  let data = [
     {
       id: 1,
-      day: "Monday",
-      time: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+      dayOfWeek: "mmmMonday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
     {
       id: 2,
-      day: "Tuesday",
-      time: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+      dayOfWeek: "Tuesday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
     {
       id: 3,
-      day: "Wednesday",
-      time: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+      dayOfWeek: "Wednesday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
     {
       id: 4,
-      day: "Thursday",
-      time: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+      dayOfWeek: "Thursday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
     {
       id: 5,
-      day: "Friday",
-      time: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+      dayOfWeek: "Friday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
   ];
+
+  useEffect(() => {
+    if (dataFromPatient !== undefined) {
+      data = dataFromPatient;
+    }
+  }, []);
+
+  console.log(dataFromPatient);
 
   return (
     <div className="flex py-9 shadow-inner flex-col bg-white items-center justify-center">
       <h1>Reception hours</h1>
       <div className="flex mt-3 flex-row w-full justify-evenly items-start">
-        {data.map((item) => (
-          <RowWithDayAndTime
-            {...item}
-            key={item.id}
-            setWorkCalendar={setWorkCalendar}
-          />
-        ))}
+        {role === "PATIENT"
+          ? dataFromPatient.map((item, index) => (
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                key={`${item.dayOfWeek} ${index}`}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))
+          : data.map((item) => (
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                key={item.dayOfWeek}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))}
       </div>
     </div>
   );
 };
 
-const RowWithDayAndTime = ({ day, time, setWorkCalendar }) => {
+const RowWithDayAndTime = ({ dayOfWeek, times, setWorkCalendar }) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <h3>{day}</h3>
-      <Time timeByDay={time} day={day} setWorkCalendar={setWorkCalendar} />
+      <h3>{dayOfWeek}</h3>
+      <Time
+        timeByDay={times}
+        day={dayOfWeek}
+        setWorkCalendar={setWorkCalendar}
+      />
     </div>
   );
 };
@@ -77,7 +100,7 @@ const Time = ({ timeByDay, day, setWorkCalendar }) => {
             "focus:outline-none focus:ring focus:ring-violet-300"
           )}
         >
-          {time}
+          {time.substring(0, 5)}
         </li>
       ))}
     </ul>

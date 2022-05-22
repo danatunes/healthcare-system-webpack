@@ -1,1 +1,1 @@
-export { DoctorProfileCalendar as default } from "./DoctorProfileCalendar";
+export { DoctorProfileCalendar } from "./DoctorProfileCalendar";

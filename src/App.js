@@ -5,7 +5,6 @@ import { IndexLayout } from "./layouts/index-layout";
 import { DoctorLayout } from "./layouts/doctor-layout";
 import { lazy } from "react";
 import { ChosenClinic } from "./pages/patient/chosenClinic/chosenClinic";
-import DoctorProfileCalendar from "./components/doctorProfileCalendar";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { Feedbacks } from "./components/Feedbacks/Feedbacks";
@@ -98,7 +97,6 @@ function App() {
               }
             />
             <Route path="feedback" element={<Feedbacks type="doctor" />} />
-            <Route path="calendar" element={<DoctorProfileCalendar />} />
           </Route>
         </Route>
       </Route>
