@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { Modal } from "../../../../ui/modal/modal";
 import { Dialog } from "@headlessui/react";
 import { publicRequest } from "../../../../api/requestMethods";
+import Loader from "../../../../ui/loader/loader";
 
 export const PatientProfileForDoctor = () => {
   const patient = useSelector(({ patients }) => patients.patient);
@@ -18,14 +19,16 @@ export const PatientProfileForDoctor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
 
+  console.log(patient, id);
+
+  useEffect(() => {
+    dispatch(getPatient(id));
+  }, []);
+
   const setFileHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     console.log(selectedFile, "selectedFile");
   };
-
-  useEffect(() => {
-    dispatch(getPatient(id));
-  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,47 +159,51 @@ export const PatientProfileForDoctor = () => {
 };
 
 const UserCard = ({ userInformation }) => {
-  console.log(userInformation);
+  console.log(userInformation, "userInformation");
   const role = localStorage.getItem("role");
 
   return (
     <div className="bg-white rounded-xl shadow-md">
-      <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
-        <UserIcon
-          className={clsx(
-            "rounded-l-xl h-full w-56 bg-[#C4C4C4] text-white hidden",
-            "xl:block"
-          )}
-        />
-        <div className="py-3 px-8 space-y-3 w-full">
-          <h4 className="text-xl leading-8">
-            {`${userInformation.user.firstName} ${userInformation.user.lastName} ${userInformation.user.fatherName}`}
-          </h4>
-          <div className={clsx("flex flex-wrap space-y-2")}>
-            <UserInformation
-              label="Hospital"
-              information={userInformation.hospital.name}
-            />
-            <UserInformation
-              label="Email"
-              information={userInformation.user.email}
-            />
-            <UserInformation
-              label="Role"
-              information={userInformation.user.role.name}
-            />
-            <UserInformation label="Date of Birth" information="22-05-2000" />
-            <UserInformation
-              label="Phone"
-              information={userInformation.user.phoneNumber}
-            />
-            <UserInformation label="IIN" information={userInformation.iin} />
+      {userInformation ? (
+        <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
+          <UserIcon
+            className={clsx(
+              "rounded-l-xl h-full w-56 bg-[#C4C4C4] text-white hidden",
+              "xl:block"
+            )}
+          />
+          <div className="py-3 px-8 space-y-3 w-full">
+            <h4 className="text-xl leading-8">
+              {`${userInformation.user.firstName} ${userInformation.user.lastName} ${userInformation.user.fatherName}`}
+            </h4>
+            <div className={clsx("flex flex-wrap space-y-2")}>
+              <UserInformation
+                label="Hospital"
+                information={userInformation.hospital.name}
+              />
+              <UserInformation
+                label="Email"
+                information={userInformation.user.email}
+              />
+              <UserInformation
+                label="Role"
+                information={userInformation.user.role.name}
+              />
+              <UserInformation label="Date of Birth" information="22-05-2000" />
+              <UserInformation
+                label="Phone"
+                information={userInformation.user.phoneNumber}
+              />
+              <UserInformation label="IIN" information={userInformation.iin} />
+            </div>
           </div>
+          <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">
+            Edit
+          </a>
         </div>
-        <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">
-          Edit
-        </a>
-      </div>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
