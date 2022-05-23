@@ -2,8 +2,33 @@ import { PlusCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { NavLink } from "react-router-dom";
 import { Button } from "../../../ui/button/button";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../../../api/requestMethods";
 
 export const DoctorPatients = () => {
+  const [patients, setPatients] = useState([]);
+
+  async function fetchData() {
+    try {
+      await publicRequest
+        .get("/api/v1/doctor/patients/", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setPatients(res.data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+    console.log(patients);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const data = [
     {
       id: 1,
@@ -63,7 +88,7 @@ export const DoctorPatients = () => {
     },
   ];
 
-  console.log(data);
+  console.log(data, "data");
 
   return (
     <div className="px-5 py-4 w-full rounded-lg bg-white shadow-lg">
@@ -80,13 +105,13 @@ export const DoctorPatients = () => {
             <tr className="text-left text-gray-400">
               <th className="py-4 font-normal px-10">Name</th>
               <th className="py-4 font-normal px-10">Email</th>
-              <th className="py-4 font-normal px-10">Conditions</th>
+              <th className="py-4 font-normal px-10">Age</th>
               <th className="py-4 font-normal px-10">Number</th>
               <th className="py-4 font-normal px-10" />
             </tr>
           </thead>
           <tbody>
-            {data.map((patient, index) => (
+            {patients.map((patient, index) => (
               <tr
                 className={clsx(
                   "text-sm text-left",
@@ -99,12 +124,16 @@ export const DoctorPatients = () => {
                   className="py-6 flex items-center h-full px-10"
                 >
                   <td className={clsx("font-normal", "hover:text-[#3A57E8]")}>
-                    {patient.name}
+                    {patient.user.firstName}
                   </td>
                 </NavLink>
-                <td className="py-4 font-normal px-10">{patient.email}</td>
-                <td className="py-4 font-normal px-10">{patient.conditions}</td>
-                <td className="py-4 font-normal px-10">{patient.number}</td>
+                <td className="py-4 font-normal px-10">{patient.user.email}</td>
+                <td className="py-4 font-normal px-10">
+                  {patient.user.age || 18}
+                </td>
+                <td className="py-4 font-normal px-10">
+                  {patient.user.phoneNumber}
+                </td>
                 <td className="py-4 font-normal px-10">
                   <Button name="Complete" />
                 </td>

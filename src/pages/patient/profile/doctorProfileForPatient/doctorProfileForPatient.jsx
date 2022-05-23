@@ -10,7 +10,6 @@ import { Modal } from "../../../../ui/modal/modal";
 import { publicRequest } from "../../../../api/requestMethods";
 import { CalendarIcon, StarIcon } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
-import { DoctorProfileCalendar } from "../../../../components/doctorProfileCalendar";
 
 export const DoctorProfileForPatient = () => {
   const { doctor } = useSelector(({ doctor }) => doctor);
@@ -18,7 +17,7 @@ export const DoctorProfileForPatient = () => {
   const [isOpenCalendar, setIsOpenCalendar] = useState(false);
   const [workCalendar, setWorkCalendar] = useState([]);
   const [record, setRecord] = useState([]);
-
+  console.log(workCalendar, "workCalendar");
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -37,8 +36,38 @@ export const DoctorProfileForPatient = () => {
     }
   };
 
+  const handleCalendarFilter = () => {
+    let filtered;
+    let changed = workCalendar;
+    workCalendar.map((item, index) => {
+      filtered = item.times.filter((time) => {
+        console.log(time.dayOfWeek.includes(item.dayOfWeek));
+        return time.dayOfWeek.includes(item.dayOfWeek);
+      });
+      changed[index].times = filtered;
+    });
+    console.log(filtered, "filtered");
+    console.log(changed, "changed");
+    setWorkCalendar(changed);
+  };
+
+  const handleOpenAndFilter = () => {
+    handleCalendarFilter();
+    setIsOpenCalendar(true);
+  };
+
   const handleSubmitCalendar = async (e) => {
     e.preventDefault();
+    try {
+      await publicRequest.post("/api/v1/appointment/create", record, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    console.log(record, "record");
   };
 
   const handleSubmit = async (e) => {
@@ -112,7 +141,7 @@ export const DoctorProfileForPatient = () => {
                     Feedback
                   </NavLink>
                   <p
-                    onClick={() => setIsOpenCalendar(true)}
+                    onClick={() => handleOpenAndFilter()}
                     className={({ isActive }) =>
                       clsx(
                         "font-medium text-lg focus:text-[#3A57E8]",
@@ -344,5 +373,112 @@ const UserInformation = ({ label, information }) => {
         {information}
       </p>
     </div>
+  );
+};
+
+const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
+  const role = localStorage.getItem("role");
+  let data = [
+    {
+      id: 1,
+      dayOfWeek: "mmmMonday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    },
+    {
+      id: 2,
+      dayOfWeek: "Tuesday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    },
+    {
+      id: 3,
+      dayOfWeek: "Wednesday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    },
+    {
+      id: 4,
+      dayOfWeek: "Thursday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    },
+    {
+      id: 5,
+      dayOfWeek: "Friday",
+      times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
+    },
+  ];
+
+  useEffect(() => {
+    if (dataFromPatient !== undefined) {
+      data = dataFromPatient;
+    }
+  }, []);
+
+  return (
+    <div className="flex py-9 shadow-inner flex-col bg-white items-center justify-center">
+      <h1>Reception hours</h1>
+      <div className="flex mt-3 flex-row w-full justify-evenly items-start">
+        {role === "PATIENT"
+          ? dataFromPatient.map((item, index) => (
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                date={item.date}
+                key={`${item.dayOfWeek} ${index}`}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))
+          : data.map((item) => (
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                key={item.dayOfWeek}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))}
+      </div>
+    </div>
+  );
+};
+
+const RowWithDayAndTime = ({ dayOfWeek, date, times, setWorkCalendar }) => {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <h3>{dayOfWeek}</h3>
+      <Time
+        timeByDay={times}
+        date={date}
+        day={dayOfWeek}
+        setWorkCalendar={setWorkCalendar}
+      />
+    </div>
+  );
+};
+
+const Time = ({ timeByDay, day, date, setWorkCalendar }) => {
+  const [checked, setChecked] = useState("");
+
+  return (
+    <ul className="mt-3.5 space-y-2.5">
+      {timeByDay.map((timeObj) => (
+        <li
+          key={timeObj.id}
+          onClick={() => {
+            setChecked((prevState) => [...prevState, timeObj.time]);
+            setWorkCalendar({
+              date: date,
+              scheduleId: timeObj.id,
+              isFree: false,
+            });
+          }}
+          className={clsx(
+            "px-2 py-1.5 rounded-lg border flex items-center justify-center",
+            "active:bg-[#3A57E8]",
+            checked.includes(timeObj.time) && "bg-[#3A57E8] text-white",
+            "focus:outline-none focus:ring focus:ring-violet-300"
+          )}
+        >
+          {timeObj.time.substring(0, 5)}
+        </li>
+      ))}
+    </ul>
   );
 };

@@ -18,8 +18,7 @@ export const PatientProfileForDoctor = () => {
   const cancelButtonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  console.log(patient, id);
+  console.log(patient, id, "patient");
 
   useEffect(() => {
     dispatch(getPatient(id));
@@ -34,21 +33,25 @@ export const PatientProfileForDoctor = () => {
     e.preventDefault();
     if (selectedFile !== null) {
       const formData = new FormData();
-
-      // Update the formData object
+      //
+      // // Update the formData object
       formData.append("file", selectedFile);
-
+      //
       formData.append("typeId", 2);
 
       console.log(formData, "formData");
 
       try {
-        await publicRequest.post("/api/v1/file/upload/" + id, formData, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-            ContentType: "multipart/form-data",
-          },
-        });
+        await publicRequest.post(
+          "/api/v1/file/upload/" + patient.user.id,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              ContentType: "multipart/form-data",
+            },
+          }
+        );
       } catch (e) {
         console.log(e);
       }
