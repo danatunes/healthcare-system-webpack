@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import Loader from "../../ui/loader/loader";
 import { useSelector } from "react-redux";
+import EmergencyCall from "../../images/emergency-call.png";
 
 export const IndexLayout = () => {
   const navigate = useNavigate();
@@ -29,6 +30,12 @@ export const IndexLayout = () => {
             <Outlet />
           </Suspense>
         </div>
+        <a
+          href="tel:123123"
+          className="fixed bottom-16 cursor-pointer right-8 mb-2 mr-2 p-5 bg-red-300 rounded-full"
+        >
+          <img src={EmergencyCall} alt="" className="w-11 h-11" />
+        </a>
         <Footer />
       </div>
     </div>
