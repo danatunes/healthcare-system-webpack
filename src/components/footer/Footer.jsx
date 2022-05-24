@@ -11,7 +11,7 @@ export const Footer = () => {
       )}
     >
       <Link to="#">Contact</Link>
-      <Link to="#">© 2022 Healthcare System. All Rights Reserved</Link>
+      <a href="tel:5554280940">Call us at 555-428-0940</a>
       <Link to="#">Get help</Link>
     </footer>
   );
