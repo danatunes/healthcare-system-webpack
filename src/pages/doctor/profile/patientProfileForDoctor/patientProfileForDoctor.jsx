@@ -125,7 +125,7 @@ export const PatientProfileForDoctor = () => {
             </Dialog.Title>
             <div className="mt-2 flex flex-col space-y-4">
               <label
-                htmlFor="{item.id}"
+                htmlFor="file"
                 className="flex flex-col text-gray-500 text-md items-start"
               >
                 File :
@@ -189,10 +189,13 @@ const UserCard = ({ userInformation }) => {
                 information={userInformation.user.email}
               />
               <UserInformation
-                label="Role"
-                information={userInformation.user.role.name}
+                label="Age"
+                information={userInformation.user.age}
               />
-              <UserInformation label="Date of Birth" information="22-05-2000" />
+              <UserInformation
+                label="Gender"
+                information={userInformation.user.gender}
+              />
               <UserInformation
                 label="Phone"
                 information={userInformation.user.phoneNumber}

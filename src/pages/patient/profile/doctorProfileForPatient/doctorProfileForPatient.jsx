@@ -105,6 +105,7 @@ export const DoctorProfileForPatient = () => {
   }, [id, dispatch]);
 
   console.log(doctor.doctor, "doctor.doctor");
+  console.log(doctor, "doctor");
 
   return (
     <div className="w-full space-y-4 max-w-4xl">
@@ -340,7 +341,7 @@ const UserCard = ({ userInformation }) => {
               label="Email"
               information={userInformation.user.email}
             />
-            <UserInformation label="Role" information={role} />
+            <UserInformation label="Role" information="DOCTOR" />
             <UserInformation label="Date of Birth" information="22-05-2000" />
             <UserInformation
               label="Phone"

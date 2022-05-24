@@ -29,6 +29,7 @@ export const AdminAddClinic = () => {
     const data = {
       // img: imgRef.current.files[0],
       name: nameRef.current.value,
+      description: descRef.current.value,
       phone: parseInt(phoneRef.current.value),
       address: addressRef.current.value,
       cityId: parseInt(cityId),
@@ -51,6 +52,7 @@ export const AdminAddClinic = () => {
 
   const imgRef = useRef();
   const nameRef = useRef();
+  const descRef = useRef();
   const phoneRef = useRef();
   const addressRef = useRef();
   const cityRef = useRef();
@@ -60,6 +62,12 @@ export const AdminAddClinic = () => {
       id: "name",
       ref: nameRef,
       name: "Name",
+      type: "text",
+    },
+    {
+      id: "description",
+      ref: descRef,
+      name: "Description",
       type: "text",
     },
     {

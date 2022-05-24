@@ -41,6 +41,11 @@ export const SignUp = () => {
       type: "text",
     },
     {
+      id: "age",
+      name: "Age",
+      type: "text",
+    },
+    {
       id: "password",
       name: "Password",
       type: "password",
@@ -159,6 +164,15 @@ export const SignUp = () => {
             />
           </label>
         ))}
+        <select
+          name="gender"
+          id="gender"
+          className="mt-1 min-w-[250px] border-t-0 border-r-0 border-l-0 bg-none border-b border-black focus-within:border-indigo-600"
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
         <Datalist data={hospitals} id="hospitalId_list" />
         <Datalist data={city} id="cityId_list" />
       </div>

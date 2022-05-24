@@ -34,6 +34,10 @@ export const AdminClinic = () => {
   const specializationIdRef = useRef(null);
   const passwordRef = useRef(null);
   const rePasswordRef = useRef(null);
+  const genderRef = useRef(null);
+  const ageRef = useRef(null);
+  const experienceRef = useRef(null);
+  const descriptionRef = useRef(null);
   const [hospital, setHospital] = useState(null);
 
   const dispatch = useDispatch();
@@ -54,6 +58,10 @@ export const AdminClinic = () => {
 
     const data = {
       email: emailRef.current.value,
+      gender: genderRef.current.value,
+      age: ageRef.current.value,
+      experience: experienceRef.current.value,
+      description: descriptionRef.current.value,
       firstName: firstRef.current.value,
       lastName: lastRef.current.value,
       fatherName: fatherNameRef.current.value,
@@ -149,10 +157,28 @@ export const AdminClinic = () => {
       type: "text",
     },
     {
+      id: "age",
+      ref: ageRef,
+      name: "Age",
+      type: "text",
+    },
+    {
       id: "specializationId",
       ref: specializationIdRef,
       name: "Specialization",
       type: "datalist",
+    },
+    {
+      id: "experience",
+      ref: experienceRef,
+      name: "Experience",
+      type: "text",
+    },
+    {
+      id: "description",
+      ref: descriptionRef,
+      name: "Description",
+      type: "text",
     },
     {
       id: "phone",
@@ -270,6 +296,22 @@ export const AdminClinic = () => {
                       </label>
                     ))}
                   </div>
+                  <label
+                    htmlFor="gender"
+                    className="flex flex-col mt-4 text-gray-500 text-md items-start"
+                  >
+                    Gender
+                    <select
+                      ref={genderRef}
+                      name="gender"
+                      id="gender"
+                      className="w-full rounded-md min-h-[50px] border-2 border-gray-300"
+                    >
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </label>
                 </div>
               </div>
               <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
