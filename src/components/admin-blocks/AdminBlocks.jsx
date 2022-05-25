@@ -27,7 +27,7 @@ export const Block = ({
 
 const TextBlock = ({ fieldHeader, content }) => {
   return (
-    <div className="flex flex-col w-[160px] h-fit justify-start items-center">
+    <div className="flex flex-col text-center w-[160px] h-fit justify-start items-center">
       <p className="opacity-40 text-sm">{fieldHeader}</p>
       <p className="text-md">{content}</p>
     </div>

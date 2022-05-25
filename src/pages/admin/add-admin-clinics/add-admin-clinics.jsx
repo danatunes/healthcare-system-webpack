@@ -1,7 +1,7 @@
 import { List } from "../../../components";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { Block } from "../../../components/admin-blocks";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../../../ui/modal/modal";
 import { UserAddIcon } from "@heroicons/react/outline";
@@ -10,6 +10,7 @@ import { publicRequest } from "../../../api/requestMethods";
 
 export const AddAdminClinics = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [admins, setAdmins] = useState([]);
   const { clinics } = useSelector(({ clinic }) => clinic);
 
   const dispatch = useDispatch();
@@ -18,10 +19,33 @@ export const AddAdminClinics = () => {
   const firstRef = useRef(null);
   const lastRef = useRef(null);
   const fatherNameRef = useRef(null);
+  const ageRef = useRef(null);
+  const genderRef = useRef(null);
   const phoneRef = useRef(null);
   const hospitalIdRef = useRef(null);
   const passwordRef = useRef(null);
   const rePasswordRef = useRef(null);
+
+  const getClinicAdmins = async () => {
+    try {
+      await publicRequest
+        .get("/api/v1/admin/get/hospitalAdmins", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setAdmins(res.data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getClinicAdmins();
+  }, [dispatch]);
 
   const modalUI = [
     {
@@ -46,6 +70,12 @@ export const AddAdminClinics = () => {
       id: "fatherName",
       ref: fatherNameRef,
       name: "Father Name",
+      type: "text",
+    },
+    {
+      id: "age",
+      ref: ageRef,
+      name: "Age",
       type: "text",
     },
     {
@@ -75,6 +105,8 @@ export const AddAdminClinics = () => {
       email: emailRef.current.value,
       firstName: firstRef.current.value,
       lastName: lastRef.current.value,
+      age: ageRef.current.value,
+      gender: genderRef.current.value,
       fatherName: fatherNameRef.current.value,
       phoneNumber: parseInt(phoneRef.current.value),
       hospitalId: parseInt(hospitalIdRef.current.value),
@@ -95,7 +127,7 @@ export const AddAdminClinics = () => {
     } catch (e) {
       console.log(e);
     }
-
+    getClinicAdmins();
     console.log(data);
     setIsOpen(false);
   };
@@ -116,36 +148,15 @@ export const AddAdminClinics = () => {
         </div>
       }
     >
-      <Block
-        heading1="Name"
-        heading1Content="LALAAL"
-        heading2="Hospital"
-        heading2Content="Sun Strike"
-      />
-      <Block
-        heading1="Name"
-        heading1Content="LALAAL"
-        heading2="Hospital"
-        heading2Content="Sun Strike"
-      />
-      <Block
-        heading1="Name"
-        heading1Content="LALAAL"
-        heading2="Hospital"
-        heading2Content="Sun Strike"
-      />
-      <Block
-        heading1="Name"
-        heading1Content="LALAAL"
-        heading2="Hospital"
-        heading2Content="Sun Strike"
-      />
-      <Block
-        heading1="Name"
-        heading1Content="LALAAL"
-        heading2="Hospital"
-        heading2Content="Sun Strike"
-      />
+      {admins.map((admin) => (
+        <Block
+          key={admin.user.id}
+          heading1="Name"
+          heading1Content={`${admin.user.firstName}  ${admin.user.lastName}`}
+          heading2="Hospital"
+          heading2Content={admin.hospital.name}
+        />
+      ))}
       <Modal setIsOpen={setIsOpen} isOpen={isOpen} handleSubmit={handleSubmit}>
         <div>
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -186,6 +197,16 @@ export const AddAdminClinics = () => {
                     />
                   </label>
                 ))}
+                <select
+                  name="gender"
+                  id="gender"
+                  ref={genderRef}
+                  className="mt-1 min-w-[250px] border-t-0 border-r-0 border-l-0 bg-none border-b border-black focus-within:border-indigo-600"
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
                 <label
                   htmlFor="hospital_select_id"
                   className="flex flex-col text-gray-500 text-md items-start"

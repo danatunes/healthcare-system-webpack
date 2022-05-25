@@ -56,9 +56,10 @@ export const Doctors = () => {
   //   ],
   //   []
   // );
+  console.log(doctors, "doctors");
   return (
     <>
-      {doctors ? (
+      {doctors && doctors.length > 0 ? (
         doctors.map((doctor) => (
           <NavLink key={`/doctors/${doctor.id}`} to={`/doctors/${doctor.id}`}>
             <DoctorCard key={doctor.id} {...doctor} />

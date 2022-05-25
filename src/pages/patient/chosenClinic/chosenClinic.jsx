@@ -118,7 +118,7 @@ export const ChosenClinic = () => {
             <Outlet />
           </Suspense>
         </List>
-        {doctors ? (
+        {doctors && doctors.length > 0 ? (
           <NavLink
             to="feedback"
             onClick={() => {
@@ -256,7 +256,7 @@ const ClinicCard = ({ hospital }) => {
           </p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />
-            {hospital.rate}
+            {Number(hospital.rate.toFixed(1))}
           </div>
         </div>
         <hr />

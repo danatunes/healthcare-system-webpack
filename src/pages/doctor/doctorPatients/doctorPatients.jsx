@@ -1,4 +1,3 @@
-import { PlusCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { NavLink } from "react-router-dom";
 import { Button } from "../../../ui/button/button";
@@ -93,54 +92,58 @@ export const DoctorPatients = () => {
   return (
     <div className="px-5 py-4 w-full rounded-lg bg-white shadow-lg">
       <div className="w-full max-h-[500px] flex flex-row justify-between">
-        <h1 className="font-medium text-xl">18 Patient Total</h1>
-        <div className="flex flex-row justify-between items-center space-x-5">
-          <PlusCircleIcon className="w-7 text-[#3A57E8]" />
-          <p className="font-bold text-lg text-[#3A57E8]">Add new Patient</p>
-        </div>
+        <h1 className="font-medium text-xl">{patients.length} Patient Total</h1>
       </div>
       <div className="max-h-[400px] overflow-scroll px-4 mt-3">
-        <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
-          <thead>
-            <tr className="text-left text-gray-400">
-              <th className="py-4 font-normal px-10">Name</th>
-              <th className="py-4 font-normal px-10">Email</th>
-              <th className="py-4 font-normal px-10">Age</th>
-              <th className="py-4 font-normal px-10">Number</th>
-              <th className="py-4 font-normal px-10" />
-            </tr>
-          </thead>
-          <tbody>
-            {patients.map((patient, index) => (
-              <tr
-                className={clsx(
-                  "text-sm text-left",
-                  index % 2 === 0 && "bg-white",
-                  "hover:bg-gray-100"
-                )}
-              >
-                <NavLink
-                  to={`${patient.id}`}
-                  className="py-6 flex items-center h-full px-10"
-                >
-                  <td className={clsx("font-normal", "hover:text-[#3A57E8]")}>
-                    {patient.user.firstName}
-                  </td>
-                </NavLink>
-                <td className="py-4 font-normal px-10">{patient.user.email}</td>
-                <td className="py-4 font-normal px-10">
-                  {patient.user.age || 18}
-                </td>
-                <td className="py-4 font-normal px-10">
-                  {patient.user.phoneNumber}
-                </td>
-                <td className="py-4 font-normal px-10">
-                  <Button name="Complete" />
-                </td>
+        {patients && patients.length > 0 ? (
+          <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
+            <thead>
+              <tr className="text-left text-gray-400">
+                <th className="py-4 font-normal px-10">Name</th>
+                <th className="py-4 font-normal px-10">Email</th>
+                <th className="py-4 font-normal px-10">Age</th>
+                <th className="py-4 font-normal px-10">Number</th>
+                <th className="py-4 font-normal px-10" />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {patients.map((patient, index) => (
+                <tr
+                  className={clsx(
+                    "text-sm text-left",
+                    index % 2 === 0 && "bg-white",
+                    "hover:bg-gray-100"
+                  )}
+                >
+                  <NavLink
+                    to={`${patient.id}`}
+                    className="py-6 flex items-center h-full px-10"
+                  >
+                    <td className={clsx("font-normal", "hover:text-[#3A57E8]")}>
+                      {patient.user.firstName}
+                    </td>
+                  </NavLink>
+                  <td className="py-4 font-normal px-10">
+                    {patient.user.email}
+                  </td>
+                  <td className="py-4 font-normal px-10">
+                    {patient.user.age || 18}
+                  </td>
+                  <td className="py-4 font-normal px-10">
+                    {patient.user.phoneNumber}
+                  </td>
+                  <td className="py-4 font-normal px-10">
+                    <Button name="Complete" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-center text-gray-400">No Patients</p>
+          </div>
+        )}
       </div>
     </div>
   );

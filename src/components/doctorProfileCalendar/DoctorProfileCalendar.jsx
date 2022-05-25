@@ -6,7 +6,7 @@ export const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
   let data = [
     {
       id: 1,
-      dayOfWeek: "mmmMonday",
+      dayOfWeek: "Monday",
       times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
     {
@@ -46,7 +46,6 @@ export const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
               <RowWithDayAndTime
                 times={item.times}
                 dayOfWeek={item.dayOfWeek}
-                date={item.date}
                 key={`${item.dayOfWeek} ${index}`}
                 setWorkCalendar={setWorkCalendar}
               />
@@ -64,13 +63,12 @@ export const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
   );
 };
 
-const RowWithDayAndTime = ({ dayOfWeek, date, times, setWorkCalendar }) => {
+const RowWithDayAndTime = ({ dayOfWeek, times, setWorkCalendar }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       <h3>{dayOfWeek}</h3>
       <Time
         timeByDay={times}
-        date={date}
         day={dayOfWeek}
         setWorkCalendar={setWorkCalendar}
       />
@@ -83,24 +81,24 @@ const Time = ({ timeByDay, day, setWorkCalendar }) => {
 
   return (
     <ul className="mt-3.5 space-y-2.5">
-      {timeByDay.map((timeObj) => (
+      {timeByDay.map((time) => (
         <li
-          key={timeObj.id}
+          key={time}
           onClick={() => {
-            setChecked((prevState) => [...prevState, timeObj.time]);
+            setChecked((prevState) => [...prevState, time]);
             setWorkCalendar((prevState) => [
               ...prevState,
-              { time: timeObj.time, dayOfWeek: day.toUpperCase() },
+              { time, dayOfWeek: day.toUpperCase() },
             ]);
           }}
           className={clsx(
             "px-2 py-1.5 rounded-lg border flex items-center justify-center",
             "active:bg-[#3A57E8]",
-            checked.includes(timeObj.time) && "bg-[#3A57E8] text-white",
+            checked.includes(time) && "bg-[#3A57E8] text-white",
             "focus:outline-none focus:ring focus:ring-violet-300"
           )}
         >
-          {timeObj.time.substring(0, 5)}
+          {time.substring(0, 5)}
         </li>
       ))}
     </ul>

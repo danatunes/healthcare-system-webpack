@@ -41,6 +41,27 @@ export const Admin = () => {
         >
           Add admin clinic
         </Link>
+        <Link
+          to="specializations"
+          className={clsx(
+            "border-0 py-20 flex items-center justify-center px-5 text-xl transition duration-300 text-white font-normal bg-[#3A57E8] shadow-lg rounded-xl",
+            "md:px-20",
+            "sm:px-5",
+            "hover:scale-105"
+          )}
+        >
+          Add specializations
+        </Link>
+        <p
+          className={clsx(
+            "border-0 flex cursor-pointer items-center justify-center font-normal py-20 text-xl transition duration-300 px-5 shadow-lg rounded-xl",
+            "md:px-20",
+            "sm:px-10",
+            "hover:scale-105"
+          )}
+        >
+          Soon...
+        </p>
       </div>
     </div>
   );

@@ -348,6 +348,7 @@ const ClinicCard = ({ hospital, getClinic }) => {
   const nameRef = useRef(null);
   const phoneRef = useRef(null);
   const addressRef = useRef(null);
+  const descriptionRef = useRef(null);
   const cityRef = useRef(null);
   const [citys, setCity] = useState([]);
   const role = localStorage.getItem("role");
@@ -396,6 +397,7 @@ const ClinicCard = ({ hospital, getClinic }) => {
     const data = {
       name: nameRef.current.value,
       phone: phoneRef.current.value,
+      description: descriptionRef.current.value,
       address: addressRef.current.value,
       cityId: parseInt(cityId),
     };
@@ -525,6 +527,19 @@ const ClinicCard = ({ hospital, getClinic }) => {
                     id="phone"
                     ref={phoneRef}
                     defaultValue={hospital.phone}
+                    autoComplete="off"
+                    className="w-full rounded-md min-h-[50px] border-2 border-gray-300"
+                  />
+                </label>
+                <label
+                  htmlFor="description"
+                  className="flex flex-col text-gray-500 text-md items-start"
+                >
+                  Phone :
+                  <textarea
+                    id="description"
+                    ref={descriptionRef}
+                    defaultValue="Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астана проспект Тауелсыздык 33 – контакты, телефоны, график работы и отзывы в каталоге медицинского"
                     autoComplete="off"
                     className="w-full rounded-md min-h-[50px] border-2 border-gray-300"
                   />

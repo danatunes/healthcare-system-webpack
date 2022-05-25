@@ -89,22 +89,42 @@ export const PatientProfileForDoctor = () => {
             </tr>
           </thead>
           <tbody>
-            {new Array(10).fill("").map((_, index) => (
-              <tr
-                className={clsx(
-                  "text-sm text-left",
-                  index % 2 === 0 && "bg-white",
-                  "hover:bg-gray-100"
-                )}
-              >
-                <td className="py-4 font-normal px-10">20.03.2022</td>
-                <td className="py-4 font-normal px-10">Daun syndrom</td>
-                <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
-                <td className="py-4 flex justify-center font-normal text-center px-10">
-                  <DownloadIcon className="w-5 text-[#3A57E8]" />
-                </td>
-              </tr>
-            ))}
+            <tr
+              className={clsx(
+                "text-sm text-left",
+                "bg-white",
+                "hover:bg-gray-100"
+              )}
+            >
+              <td className="py-4 font-normal px-10">20.03.2022</td>
+              <td className="py-4 font-normal px-10">Corona Vitus</td>
+              <td className="py-4 font-normal px-10">Dr. Azizbek</td>
+              <td className="py-4 flex justify-center font-normal text-center px-10">
+                <DownloadIcon className="w-5 text-[#3A57E8]" />
+              </td>
+            </tr>
+            <tr className={clsx("text-sm text-left", "hover:bg-gray-100")}>
+              <td className="py-4 font-normal px-10">16.02.2022</td>
+              <td className="py-4 font-normal px-10">Headache</td>
+              <td className="py-4 font-normal px-10">Dr. Super Puper</td>
+              <td className="py-4 flex justify-center font-normal text-center px-10">
+                <DownloadIcon className="w-5 text-[#3A57E8]" />
+              </td>
+            </tr>
+            <tr
+              className={clsx(
+                "text-sm text-left",
+                "bg-white",
+                "hover:bg-gray-100"
+              )}
+            >
+              <td className="py-4 font-normal px-10">20.03.2022</td>
+              <td className="py-4 font-normal px-10">Broken arm</td>
+              <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
+              <td className="py-4 flex justify-center font-normal text-center px-10">
+                <DownloadIcon className="w-5 text-[#3A57E8]" />
+              </td>
+            </tr>
           </tbody>
         </table>
       </List>
