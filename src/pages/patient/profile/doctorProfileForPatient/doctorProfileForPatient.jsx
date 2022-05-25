@@ -67,6 +67,7 @@ export const DoctorProfileForPatient = () => {
     } catch (e) {
       console.log(e);
     }
+    setIsOpenCalendar(false);
     console.log(record, "record");
   };
 
