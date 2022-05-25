@@ -31,7 +31,7 @@ export const IndexLayout = () => {
           </Suspense>
         </div>
         <a
-          href="tel:123123"
+          href="tel:103"
           className="fixed bottom-16 cursor-pointer right-8 mb-2 mr-2 p-5 bg-red-300 rounded-full"
         >
           <img src={EmergencyCall} alt="" className="w-11 h-11" />

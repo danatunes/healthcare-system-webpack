@@ -59,7 +59,7 @@ export const Login = () => {
           autoComplete="on"
           key="password"
           id="password"
-          type="text"
+          type="password"
           placeholder="Password"
           name="password"
           style="w-full"
