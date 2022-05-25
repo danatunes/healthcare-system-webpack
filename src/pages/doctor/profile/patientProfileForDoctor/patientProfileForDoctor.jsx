@@ -199,7 +199,7 @@ const UserCard = ({ userInformation }) => {
 
   return (
     <div className="bg-white rounded-xl shadow-md">
-      {userInformation ? (
+      {userInformation.user ? (
         <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
           <UserIcon
             className={clsx(
