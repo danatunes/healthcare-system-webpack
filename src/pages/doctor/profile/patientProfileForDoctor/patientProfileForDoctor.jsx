@@ -60,124 +60,136 @@ export const PatientProfileForDoctor = () => {
   };
 
   return (
-    <div className="space-y-7">
-      <UserCard userInformation={patient} />
-      <List
-        header={
-          <div className="flex flex-row justify-between">
-            <h3 className="font-medium text-xl">Medical Records</h3>
-            <div
-              onClick={() => setIsOpen(true)}
-              className="flex cursor-pointer flex-row justify-between items-center space-x-5"
-            >
-              <PlusCircleIcon className="w-7 text-[#3A57E8]" />
-              <p className="font-bold text-lg text-[#3A57E8]">
-                Add new record for patient
-              </p>
-            </div>
-          </div>
-        }
-        styleList="rounded-xl"
-      >
-        <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
-          <thead>
-            <tr className="text-left text-gray-400 text-sm">
-              <th className="py-4 font-normal px-10">Data</th>
-              <th className="py-4 font-normal px-10">Symptoms</th>
-              <th className="py-4 font-normal px-10">Specialist</th>
-              <th className="py-4 font-normal px-10 text-center">Download</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              className={clsx(
-                "text-sm text-left",
-                "bg-white",
-                "hover:bg-gray-100"
-              )}
-            >
-              <td className="py-4 font-normal px-10">20.03.2022</td>
-              <td className="py-4 font-normal px-10">Corona Vitus</td>
-              <td className="py-4 font-normal px-10">Dr. Azizbek</td>
-              <td className="py-4 flex justify-center font-normal text-center px-10">
-                <DownloadIcon className="w-5 text-[#3A57E8]" />
-              </td>
-            </tr>
-            <tr className={clsx("text-sm text-left", "hover:bg-gray-100")}>
-              <td className="py-4 font-normal px-10">16.02.2022</td>
-              <td className="py-4 font-normal px-10">Headache</td>
-              <td className="py-4 font-normal px-10">Dr. Super Puper</td>
-              <td className="py-4 flex justify-center font-normal text-center px-10">
-                <DownloadIcon className="w-5 text-[#3A57E8]" />
-              </td>
-            </tr>
-            <tr
-              className={clsx(
-                "text-sm text-left",
-                "bg-white",
-                "hover:bg-gray-100"
-              )}
-            >
-              <td className="py-4 font-normal px-10">20.03.2022</td>
-              <td className="py-4 font-normal px-10">Broken arm</td>
-              <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
-              <td className="py-4 flex justify-center font-normal text-center px-10">
-                <DownloadIcon className="w-5 text-[#3A57E8]" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </List>
-      <Modal setIsOpen={setIsOpen} isOpen={isOpen} handleSubmit={handleSubmit}>
-        <div>
-          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-            <UserAddIcon
-              className="h-6 w-6 text-green-600"
-              aria-hidden="true"
-            />
-          </div>
-          <div className="mt-3 text-center sm:mt-5">
-            <Dialog.Title
-              as="h3"
-              className="text-lg leading-6 font-medium text-gray-900"
-            >
-              Add new record for patient
-            </Dialog.Title>
-            <div className="mt-2 flex flex-col space-y-4">
-              <label
-                htmlFor="file"
-                className="flex flex-col text-gray-500 text-md items-start"
-              >
-                File :
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  onChange={setFileHandler}
-                  className="w-full"
+    <>
+      {patient ? (
+        <div className="space-y-7">
+          <UserCard userInformation={patient} />
+          <List
+            header={
+              <div className="flex flex-row justify-between">
+                <h3 className="font-medium text-xl">Medical Records</h3>
+                <div
+                  onClick={() => setIsOpen(true)}
+                  className="flex cursor-pointer flex-row justify-between items-center space-x-5"
+                >
+                  <PlusCircleIcon className="w-7 text-[#3A57E8]" />
+                  <p className="font-bold text-lg text-[#3A57E8]">
+                    Add new record for patient
+                  </p>
+                </div>
+              </div>
+            }
+            styleList="rounded-xl"
+          >
+            <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
+              <thead>
+                <tr className="text-left text-gray-400 text-sm">
+                  <th className="py-4 font-normal px-10">Data</th>
+                  <th className="py-4 font-normal px-10">Symptoms</th>
+                  <th className="py-4 font-normal px-10">Specialist</th>
+                  <th className="py-4 font-normal px-10 text-center">
+                    Download
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  className={clsx(
+                    "text-sm text-left",
+                    "bg-white",
+                    "hover:bg-gray-100"
+                  )}
+                >
+                  <td className="py-4 font-normal px-10">20.03.2022</td>
+                  <td className="py-4 font-normal px-10">Corona Vitus</td>
+                  <td className="py-4 font-normal px-10">Dr. Azizbek</td>
+                  <td className="py-4 flex justify-center font-normal text-center px-10">
+                    <DownloadIcon className="w-5 text-[#3A57E8]" />
+                  </td>
+                </tr>
+                <tr className={clsx("text-sm text-left", "hover:bg-gray-100")}>
+                  <td className="py-4 font-normal px-10">16.02.2022</td>
+                  <td className="py-4 font-normal px-10">Headache</td>
+                  <td className="py-4 font-normal px-10">Dr. Super Puper</td>
+                  <td className="py-4 flex justify-center font-normal text-center px-10">
+                    <DownloadIcon className="w-5 text-[#3A57E8]" />
+                  </td>
+                </tr>
+                <tr
+                  className={clsx(
+                    "text-sm text-left",
+                    "bg-white",
+                    "hover:bg-gray-100"
+                  )}
+                >
+                  <td className="py-4 font-normal px-10">20.03.2022</td>
+                  <td className="py-4 font-normal px-10">Broken arm</td>
+                  <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
+                  <td className="py-4 flex justify-center font-normal text-center px-10">
+                    <DownloadIcon className="w-5 text-[#3A57E8]" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </List>
+          <Modal
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            handleSubmit={handleSubmit}
+          >
+            <div>
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                <UserAddIcon
+                  className="h-6 w-6 text-green-600"
+                  aria-hidden="true"
                 />
-              </label>
+              </div>
+              <div className="mt-3 text-center sm:mt-5">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg leading-6 font-medium text-gray-900"
+                >
+                  Add new record for patient
+                </Dialog.Title>
+                <div className="mt-2 flex flex-col space-y-4">
+                  <label
+                    htmlFor="file"
+                    className="flex flex-col text-gray-500 text-md items-start"
+                  >
+                    File :
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      onChange={setFileHandler}
+                      className="w-full"
+                    />
+                  </label>
+                </div>
+              </div>
             </div>
-          </div>
+            <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+              <button
+                type="submit"
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                onClick={() => setIsOpen(false)}
+                ref={cancelButtonRef}
+              >
+                Cancel
+              </button>
+            </div>
+          </Modal>
         </div>
-        <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-          <button
-            type="submit"
-            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-          >
-            Submit
-          </button>
-          <button
-            type="button"
-            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
-            onClick={() => setIsOpen(false)}
-            ref={cancelButtonRef}
-          >
-            Cancel
-          </button>
-        </div>
-      </Modal>
-    </div>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 
