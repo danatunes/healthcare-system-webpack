@@ -444,20 +444,24 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
 const RowWithDayAndTime = ({ dayOfWeek, date, times, setWorkCalendar }) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <h3>{dayOfWeek}</h3>
-      <Time
-        timeByDay={times}
-        date={date}
-        day={dayOfWeek}
-        setWorkCalendar={setWorkCalendar}
-      />
+      {times.length > 0 && (
+        <>
+          <h3>{dayOfWeek}</h3>
+          <Time
+            timeByDay={times}
+            date={date}
+            day={dayOfWeek}
+            setWorkCalendar={setWorkCalendar}
+          />
+        </>
+      )}
     </div>
   );
 };
 
 const Time = ({ timeByDay, day, date, setWorkCalendar }) => {
   const [checked, setChecked] = useState("");
-
+  console.log(timeByDay, "timeByDay");
   return (
     <ul className="mt-3.5 space-y-2.5">
       {timeByDay.map((timeObj) => (
