@@ -23,84 +23,29 @@ export const PatientClinics = () => {
 
   useEffect(() => {
     dispatch(getAllClinics());
+    setData(clinics);
   }, []);
 
   const sortByRating = (isRating) => {
     if (isRating) {
-      setData((prevState) => [
-        ...prevState.sort((a, b) => b.rating - a.rating),
-      ]);
+      setData((prevState) => [...prevState.sort((a, b) => b.rate - a.rate)]);
+      console.log(data, "sort sort");
       return;
     }
     setData(dataByDefault);
   };
 
-  const dataByDefault = useMemo(
-    () => [
-      {
-        id: "1",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 4,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "2",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 2,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "3",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 1,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "4",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 3.5,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "5",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 4.8,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "6",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 4.2,
-        address: "Calle de la salud, 1, Madrid",
-      },
-      {
-        id: "7",
-        name: "Clinica de la salud",
-        img: photo_clinic,
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl. Nullam euismod, nisi vel consectetur iaculis, nisl nunc aliquet nunc, eget egestas nisl nunc eget nisl.",
-        rating: 5,
-        address: "Calle de la salud, 1, Madrid",
-      },
-    ],
-    [sortByRating]
-  );
+  const dataByDefault = useMemo(() => clinics, [sortByRating]);
 
   const [data, setData] = useState(dataByDefault);
-  console.log(clinics);
-  if (!clinics) return <Loader />;
-  console.log(clinics, "clinics");
+  if (!data) return <Loader />;
+
+  const [inputText, setInputText] = useState("");
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
 
   return (
     <div>
@@ -128,6 +73,7 @@ export const PatientClinics = () => {
                 type="text"
                 name="account-number"
                 id="account-number"
+                onChange={inputHandler}
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-black rounded-md"
                 placeholder="Search"
               />
@@ -142,14 +88,32 @@ export const PatientClinics = () => {
           </div>
         </div>
       </div>
-      <List className="px-4 py-3 max-h-[500px]">
-        {clinics.map((clinic) => (
+      <ListPart data={data} input={inputText} />
+    </div>
+  );
+};
+
+const ListPart = ({ data, input }) => {
+  const filteredData = data.filter((el) => {
+    if (input === "") {
+      return el.name;
+    } else {
+      return el.name.toLowerCase().includes(input);
+    }
+  });
+
+  return (
+    <List className="px-4 py-3 max-h-[500px]">
+      {filteredData ? (
+        filteredData.map((clinic) => (
           <NavLink to={`${clinic.id}`} key={`${clinic.id}`}>
             <ClinicCard key={clinic.id} {...clinic} />
           </NavLink>
-        ))}
-      </List>
-    </div>
+        ))
+      ) : (
+        <Loader />
+      )}
+    </List>
   );
 };
 
@@ -208,12 +172,6 @@ const Filter = ({ sortByRating }) => {
 };
 
 const ClinicCard = ({ name, rate, address, phone, city }) => {
-  console.log(name, rate, address, phone, city);
-  const dispatch = useDispatch();
-  const user = useSelector(({ user }) => user.me);
-  const [citys, setCity] = useState([]);
-  const role = localStorage.getItem("role");
-
   return (
     <div
       className={clsx(
@@ -254,7 +212,7 @@ const ClinicCard = ({ name, rate, address, phone, city }) => {
             <LocationMarkerIcon className="w-5 text-[#3A57E8]" />
             <div>
               <p>{address}</p>
-              <p>{city.name}</p>
+              <p>{city && city.name}</p>
             </div>
           </div>
         </div>
