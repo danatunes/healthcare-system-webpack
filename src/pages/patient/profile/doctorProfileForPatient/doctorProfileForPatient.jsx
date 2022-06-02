@@ -73,13 +73,10 @@ export const DoctorProfileForPatient = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let newDate = new Date();
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
+    var todayDate = new Date().toISOString().slice(0, 10);
 
     const data = {
-      date: `${year}-${month < 10 ? `0${month}` : `${month}`}-${date}`,
+      date: todayDate.toString(),
       text: feedbackRef.current.value,
       rate: parseFloat(ratingRef.current.value),
     };
@@ -296,7 +293,7 @@ const UserCard = ({ userInformation }) => {
   const getAvatar = async () => {
     try {
       return await publicRequest.get(
-        "/api/v1/file/avatar/" + userInformation.user.id,
+        "/api/v1/file/avatar/" + userInformation.id,
         {
           responseType: "blob",
           headers: {

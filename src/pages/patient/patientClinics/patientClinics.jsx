@@ -2,6 +2,7 @@ import { List } from "../../../components";
 import {
   FilterIcon,
   LocationMarkerIcon,
+  OfficeBuildingIcon,
   PhoneIcon,
   StarIcon,
 } from "@heroicons/react/outline";
@@ -48,7 +49,7 @@ export const PatientClinics = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div
         className={clsx(
           "flex flex-row justify-start items-center pb-7",
@@ -105,11 +106,18 @@ const ListPart = ({ data, input }) => {
   return (
     <List className="px-4 py-3 max-h-[500px]">
       {filteredData ? (
-        filteredData.map((clinic) => (
-          <NavLink to={`${clinic.id}`} key={`${clinic.id}`}>
-            <ClinicCard key={clinic.id} {...clinic} />
-          </NavLink>
-        ))
+        filteredData.length > 0 ? (
+          filteredData.map((clinic) => (
+            <NavLink to={`${clinic.id}`} key={`${clinic.id}`}>
+              <ClinicCard key={clinic.id} {...clinic} />
+            </NavLink>
+          ))
+        ) : (
+          <div className="w-full px-6 py-3 text-gray-400 flex items-center justify-center">
+            <OfficeBuildingIcon className="w-11" />
+            <h1>No clinics found</h1>
+          </div>
+        )
       ) : (
         <Loader />
       )}
@@ -171,7 +179,7 @@ const Filter = ({ sortByRating }) => {
   );
 };
 
-const ClinicCard = ({ name, rate, address, phone, city }) => {
+const ClinicCard = ({ name, rate, address, phone, city, description }) => {
   return (
     <div
       className={clsx(
@@ -193,9 +201,9 @@ const ClinicCard = ({ name, rate, address, phone, city }) => {
         <div className="flex px-4 flex-col flex-grow-0">
           <h4 className="font-medium text-lg leading-8">{name}</h4>
           <p className="font-normal text-[12px] text-gray-400">
-            "Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астана
-            проспект Тауелсыздык 33 – контакты, телефоны, график работы и отзывы
-            в каталоге медицинского"
+            {description
+              ? description
+              : "Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астана проспект Тауелсыздык 33 – контакты, телефоны, график работы и отзывы в каталоге медицинского"}
           </p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />

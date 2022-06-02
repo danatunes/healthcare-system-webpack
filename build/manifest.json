@@ -1,6 +1,12 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "theme_color": "#f69435",
+  "background_color": "#f69435",
+  "display": "fullscreen",
+  "scope": ".",
+  "start_url": ".",
+  "name": "Healthcare System",
+  "short_name": "HS",
+  "description": "powerful healthcare system",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,9 +24,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": "/main",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
