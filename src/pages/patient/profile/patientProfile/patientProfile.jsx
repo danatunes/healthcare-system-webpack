@@ -13,7 +13,6 @@ import { publicRequest } from "../../../../api/requestMethods";
 export const PatientProfile = () => {
   const user = useSelector(({ user }) => user.me);
   const [myDocuments, setMyDocuments] = useState([]);
-  const [downloadDoc, setDownloadDoc] = useState(null);
   const [imageURL, setImageURL] = useState(null);
 
   async function getMyFiles() {

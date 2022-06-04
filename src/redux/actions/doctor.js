@@ -1,5 +1,6 @@
 import { publicRequest } from "../../api/requestMethods";
 import { toast } from "react-toastify";
+import photo from "../../images/avatardefault.png";
 
 export const setDoctorAvatar = (payload) => ({
   type: "SET_DOCTOR_AVATAR",
@@ -22,10 +23,7 @@ export const getDoctorAvatar = (doctorId) => async (dispatch) => {
         dispatch(setDoctorAvatar(imageUrl));
       });
   } catch (e) {
-    toast("Please check credentials", {
-      type: "error",
-      theme: "light",
-    });
+    dispatch(setDoctorAvatar(photo));
     dispatch(setError(true));
   }
 };

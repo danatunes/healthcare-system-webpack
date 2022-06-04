@@ -10,7 +10,7 @@ export const HeadingProfile = ({ name, onClick, className }) => {
         Welcome {name}
       </h1>
       <p className="font-normal text-gray-400 text-sm">
-        Check the latest updateson your account
+        Check the latest updates on your account
       </p>
     </div>
   );

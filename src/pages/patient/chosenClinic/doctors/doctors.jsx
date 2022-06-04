@@ -56,7 +56,7 @@ export const Doctors = () => {
   //   ],
   //   []
   // );
-  console.log(doctors, "doctors");
+  console.log(doctors, "doctors rate");
   return (
     <>
       {doctors && doctors.length > 0 ? (

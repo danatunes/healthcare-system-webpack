@@ -241,8 +241,8 @@ export const DoctorProfileForPatient = () => {
             handleSubmit={handleSubmitCalendar}
           >
             <>
-              <div>
-                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+              <div className="w-full">
+                <div className="mx-auto w-full flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                   <CalendarIcon
                     className="h-6 w-6 text-green-600"
                     aria-hidden="true"
@@ -381,21 +381,22 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
     },
   ];
 
-  useEffect(() => {
-    if (dataFromPatient !== undefined) {
-      data = dataFromPatient;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (role === "PATIENT") {
+  //     data = dataFromPatient;
+  //   }
+  // }, []);
 
   return (
-    <div className="flex py-9 shadow-inner flex-col bg-white items-center justify-center">
-      <h1>Reception hours</h1>
-      <div className="flex mt-3 flex-row w-full justify-evenly items-start">
+    <div className="flex py-9 flex-col bg-white items-center justify-center">
+      <h1 className="text-lg font-bold">Reception hours</h1>
+      <div className="flex mt-3 flex-row w-full justify-evenly space-x-5 items-start">
         {role === "PATIENT"
           ? dataFromPatient.map((item, index) => (
               <RowWithDayAndTime
                 times={item.times}
                 dayOfWeek={item.dayOfWeek}
+                style={index % 2 === 0 ? "text-green-300" : "text-black-300"}
                 date={item.date}
                 key={`${item.dayOfWeek} ${index}`}
                 setWorkCalendar={setWorkCalendar}
@@ -414,20 +415,33 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
   );
 };
 
-const RowWithDayAndTime = ({ dayOfWeek, date, times, setWorkCalendar }) => {
+const RowWithDayAndTime = ({
+  dayOfWeek,
+  style,
+  date,
+  times,
+  setWorkCalendar,
+}) => {
   return (
     <div className="flex flex-col items-center justify-center">
-      {times.length > 0 && (
-        <>
-          <h3>{dayOfWeek}</h3>
-          <Time
-            timeByDay={times}
-            date={date}
-            day={dayOfWeek}
-            setWorkCalendar={setWorkCalendar}
-          />
-        </>
-      )}
+      <>
+        {times.length > 0 ? (
+          <>
+            <h3 className={style}>{dayOfWeek}</h3>
+            <Time
+              timeByDay={times}
+              date={date}
+              day={dayOfWeek}
+              setWorkCalendar={setWorkCalendar}
+            />
+          </>
+        ) : (
+          <>
+            <h3 className="text-gray-400">{dayOfWeek}</h3>
+            <p>-</p>
+          </>
+        )}
+      </>
     </div>
   );
 };
