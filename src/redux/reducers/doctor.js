@@ -2,6 +2,7 @@ const initialState = {
   isFetching: false,
   error: false,
   doctor: {},
+  avatar: null,
 };
 
 const doctor = (state = initialState, action) => {
@@ -10,6 +11,13 @@ const doctor = (state = initialState, action) => {
       return {
         ...state,
         doctor: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    case "SET_DOCTOR_AVATAR":
+      return {
+        ...state,
+        avatar: action.payload,
         isFetching: false,
         error: false,
       };

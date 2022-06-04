@@ -1,6 +1,35 @@
 import { publicRequest } from "../../api/requestMethods";
 import { toast } from "react-toastify";
 
+export const setDoctorAvatar = (payload) => ({
+  type: "SET_DOCTOR_AVATAR",
+  payload,
+});
+
+export const getDoctorAvatar = (doctorId) => async (dispatch) => {
+  dispatch(setIsFetching(true));
+  try {
+    await publicRequest
+      .get("/api/v1/file/avatar/" + doctorId, {
+        responseType: "blob",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((data) => {
+        let imageUrl = URL.createObjectURL(data.data);
+        console.log(imageUrl, "doctor avatar");
+        dispatch(setDoctorAvatar(imageUrl));
+      });
+  } catch (e) {
+    toast("Please check credentials", {
+      type: "error",
+      theme: "light",
+    });
+    dispatch(setError(true));
+  }
+};
+
 export const setDoctorWithFeedback = (payload) => ({
   type: "SET_DOCTOR",
   payload,
@@ -26,7 +55,7 @@ export const getDoctorWithFeedback = (id) => async (dispatch) => {
         },
       })
       .then((data) => {
-        console.log(data.data,"doctor data.data");
+        console.log(data.data, "doctor data.data");
         dispatch(setDoctorWithFeedback(data.data));
       });
   } catch (e) {

@@ -4,7 +4,11 @@ import { NavLink, Outlet, useParams } from "react-router-dom";
 import clsx from "clsx";
 import Loader from "../../../../ui/loader/loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getDoctorWithFeedback } from "../../../../redux/actions/doctor";
+import {
+  getDoctorAvatar,
+  getDoctorWithFeedback,
+  setDoctorAvatar,
+} from "../../../../redux/actions/doctor";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { Modal } from "../../../../ui/modal/modal";
 import { publicRequest } from "../../../../api/requestMethods";
@@ -95,6 +99,8 @@ export const DoctorProfileForPatient = () => {
   };
 
   useEffect(() => {
+    dispatch(setDoctorAvatar(null));
+    dispatch(getDoctorAvatar(id));
     console.log("useEffect");
     dispatch(getDoctorWithFeedback(id));
     getCalendar(id);
@@ -284,32 +290,7 @@ export const DoctorProfileForPatient = () => {
 };
 
 const UserCard = ({ userInformation }) => {
-  const role = localStorage.getItem("role");
-  const [avatar, setAvatar] = useState(null);
-  const id = useParams();
-
-  const getAvatar = async () => {
-    try {
-      return await publicRequest.get(
-        "/api/v1/file/avatar/" + userInformation.id,
-        {
-          responseType: "blob",
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    getAvatar().then((res) => {
-      let imageUrl = URL.createObjectURL(res.data);
-      setAvatar(imageUrl);
-    });
-  }, [id]);
+  const { avatar } = useSelector(({ doctor }) => doctor);
 
   return (
     <div className="bg-white rounded-xl shadow-md">
@@ -327,7 +308,8 @@ const UserCard = ({ userInformation }) => {
           <h3 className="text-2xl font-bold">
             Hospital : {userInformation.hospital.name}
           </h3>
-          <h4 className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
+          <h4
+            className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
             <UserInformation
               label="Position"
@@ -415,22 +397,22 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
       <div className="flex mt-3 flex-row w-full justify-evenly items-start">
         {role === "PATIENT"
           ? dataFromPatient.map((item, index) => (
-              <RowWithDayAndTime
-                times={item.times}
-                dayOfWeek={item.dayOfWeek}
-                date={item.date}
-                key={`${item.dayOfWeek} ${index}`}
-                setWorkCalendar={setWorkCalendar}
-              />
-            ))
+            <RowWithDayAndTime
+              times={item.times}
+              dayOfWeek={item.dayOfWeek}
+              date={item.date}
+              key={`${item.dayOfWeek} ${index}`}
+              setWorkCalendar={setWorkCalendar}
+            />
+          ))
           : data.map((item) => (
-              <RowWithDayAndTime
-                times={item.times}
-                dayOfWeek={item.dayOfWeek}
-                key={item.dayOfWeek}
-                setWorkCalendar={setWorkCalendar}
-              />
-            ))}
+            <RowWithDayAndTime
+              times={item.times}
+              dayOfWeek={item.dayOfWeek}
+              key={item.dayOfWeek}
+              setWorkCalendar={setWorkCalendar}
+            />
+          ))}
       </div>
     </div>
   );
