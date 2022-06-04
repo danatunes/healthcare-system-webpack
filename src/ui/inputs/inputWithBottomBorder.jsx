@@ -3,7 +3,6 @@ import clsx from "clsx";
 
 export const InputWithBottomBorder = ({
   id,
-  name,
   style,
   placeholder,
   type,

@@ -26,24 +26,31 @@ const PatientProfile = lazy(() =>
 const PatientProfileForDoctor = lazy(() =>
   import("./pages/doctor/profile/patientProfileForDoctor")
 );
+const DescriptionDoctor = lazy(() => import("./components/descriptionDoctor"));
 const PatientClinic = lazy(() => import("./pages/patient/patientClinic"));
 const PatientClinics = lazy(() => import("./pages/patient/patientClinics"));
 const Doctors = lazy(() => import("./pages/patient/chosenClinic/doctors"));
 
-const Clinics = lazy(() => import("./pages/admin/add-admin-clinics"));
+const Clinics = lazy(() =>
+  import("./pages/admin/admin-global/add-admin-clinics")
+);
 
 const DoctorProfileForPatient = lazy(() =>
   import("./pages/patient/profile/doctorProfileForPatient")
 );
 const Feedback = lazy(() => import("./components/feedback"));
 
-const Admin = lazy(() => import("./pages/admin"));
+const Admin = lazy(() => import("./pages/admin/admin-global/main"));
 const AdminsClinic = lazy(() =>
   import("./pages/admin/admin-clinic/add-clinic")
 );
-const Specializations = lazy(() => import("./pages/admin/add-specializations"));
+const Specializations = lazy(() =>
+  import("./pages/admin/admin-global/add-specializations")
+);
 
-const AdminClinic = lazy(() => import("./pages/admin/admin-clinic-pages"));
+const AdminClinic = lazy(() =>
+  import("./pages/admin/admin-clinic/admin-clinic-pages")
+);
 
 function App() {
   const user = useSelector(({ user }) => user.currentUser);
@@ -90,16 +97,7 @@ function App() {
         </Route>
         <Route path="doctors">
           <Route exact path=":id" element={<DoctorProfileForPatient />}>
-            <Route
-              path=""
-              element={
-                <div className="p-7">
-                  Вернем красоту улыбки за первый прием, без боли и стресса с
-                  гарантией качества до 5 лет на любую стоматологическую
-                  процедуру
-                </div>
-              }
-            />
+            <Route path="" element={<DescriptionDoctor />} />
             <Route path="feedback" element={<Feedbacks type="doctor" />} />
           </Route>
         </Route>

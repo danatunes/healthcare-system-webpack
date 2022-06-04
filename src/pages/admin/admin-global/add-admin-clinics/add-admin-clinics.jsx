@@ -1,12 +1,12 @@
-import { List } from "../../../components";
+import { List } from "../../../../components";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { Block } from "../../../components/admin-blocks";
+import { Block } from "../../../../components/admin-blocks";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "../../../ui/modal/modal";
+import { Modal } from "../../../../ui/modal/modal";
 import { UserAddIcon } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
-import { publicRequest } from "../../../api/requestMethods";
+import { publicRequest } from "../../../../api/requestMethods";
 
 export const AddAdminClinics = () => {
   const [isOpen, setIsOpen] = useState(false);

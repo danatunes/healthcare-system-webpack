@@ -1,6 +1,6 @@
-import { List } from "../../../components";
+import { List } from "../../../../components";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { Block } from "../../../components/admin-blocks";
+import { Block } from "../../../../components/admin-blocks";
 import {
   HomeIcon,
   LocationMarkerIcon,
@@ -13,14 +13,14 @@ import { Dialog } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-import photo_clinic from "../../../images/example_photo_clinic.png";
-import Loader from "../../../ui/loader/loader";
-import { Button } from "../../../ui/button/button";
-import { Modal } from "../../../ui/modal/modal";
-import { Datalist } from "../../../ui/datalist/datalist";
-import { publicRequest } from "../../../api/requestMethods";
+import photo_clinic from "../../../../images/example_photo_clinic.png";
+import Loader from "../../../../ui/loader/loader";
+import { Button } from "../../../../ui/button/button";
+import { Modal } from "../../../../ui/modal/modal";
+import { Datalist } from "../../../../ui/datalist/datalist";
+import { publicRequest } from "../../../../api/requestMethods";
 import { toast } from "react-toastify";
-import { getDoctorsWithHospitalId } from "../../../redux/actions/doctors";
+import { getDoctorsWithHospitalId } from "../../../../redux/actions/doctors";
 
 export const AdminClinic = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -128,7 +128,6 @@ export const AdminClinic = () => {
     getSpezializations();
   }, []);
 
-  // console.log(hospital.id, "hospitalId");
   console.log(hospital, "hospital");
 
   const modalUI = [
@@ -200,11 +199,9 @@ export const AdminClinic = () => {
     },
   ];
 
-  console.log(doctors.length);
-
   return (
     <>
-      {hospital !== null ? (
+      {hospital && doctors ? (
         <div className="space-y-7">
           <ClinicCard hospital={hospital} getClinic={getClinic} />
           <List
@@ -367,24 +364,17 @@ const ClinicCard = ({ hospital, getClinic }) => {
     }
   }
 
-  // const { id } = useParams();
-
   useEffect(() => {
     async function fetch() {
       dispatch(getDoctorsWithHospitalId(hospital.id));
     }
 
-    // if (!user.firstName && user.hospitalId) {
-    // fetch().then();
-    // }
     fetchCity();
   }, [dispatch, hospital.id]);
 
   if (user.me === "HOSPITAL_ADMIN") {
     return <Loader />;
   }
-
-  console.log(hospital, "hospital");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -448,7 +438,7 @@ const ClinicCard = ({ hospital, getClinic }) => {
           </p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />
-            {hospital.rate}
+            {Math.round(hospital.rate * 10) / 10}
           </div>
         </div>
         <hr />
@@ -457,7 +447,7 @@ const ClinicCard = ({ hospital, getClinic }) => {
             <PhoneIcon className="w-5 text-[#3A57E8]" />
             {hospital.phone}
           </div>
-          <div className="flex w-[240px] flex-row space-x-1.5 flex-grow items-center justify-start">
+          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
             <LocationMarkerIcon className="w-5 text-[#3A57E8]" />
             <div>
               <p>{hospital.address}</p>

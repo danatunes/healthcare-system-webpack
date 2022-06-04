@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { getAllClinics } from "../../redux/actions/clinic";
+import { getAllClinics } from "../../../../redux/actions/clinic";
 import { useDispatch } from "react-redux";
 
 export const Admin = () => {

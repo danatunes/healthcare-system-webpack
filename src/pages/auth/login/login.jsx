@@ -25,13 +25,21 @@ export const Login = () => {
   if (!isFetching && !error && currentUser !== null) {
     const role = localStorage.getItem("role");
     console.log(role === "undefined");
-    if (role === "undefined") {
-      navigate("/admin");
-    } else {
-      if (role === "DOCTOR") {
+    switch (role) {
+      case "DOCTOR": {
         navigate("/doctor/profile");
-      } else {
+        break;
+      }
+      case "PATIENT": {
         navigate("/patient/clinic");
+        break;
+      }
+      case "HOSPITAL_ADMIN": {
+        navigate("/admin-clinic");
+        break;
+      }
+      default: {
+        navigate("/admin");
       }
     }
   }
@@ -45,7 +53,6 @@ export const Login = () => {
         <p className="text-[#8A92A6]">Sign in to stay connected.</p>
       </div>
       <div className={clsx("grid grid-cols-1 gap-3 w-[300px]", "sm:w-[430px]")}>
-        {/*{error && <p className="text-red-700">Something went wrong...</p>}*/}
         <InputWithBottomBorder
           autoComplete="on"
           key="email"

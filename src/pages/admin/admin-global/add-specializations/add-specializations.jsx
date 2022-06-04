@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { publicRequest } from "../../../api/requestMethods";
+import { publicRequest } from "../../../../api/requestMethods";
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import { Block } from "../../../components/admin-blocks";
-import { Modal } from "../../../ui/modal/modal";
+import { Block } from "../../../../components/admin-blocks";
+import { Modal } from "../../../../ui/modal/modal";
 import { Dialog } from "@headlessui/react";
-import { List } from "../../../components";
+import { List } from "../../../../components";
 import { AcademicCapIcon } from "@heroicons/react/outline";
 
 export const Specializations = () => {

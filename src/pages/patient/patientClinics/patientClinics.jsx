@@ -43,7 +43,6 @@ export const PatientClinics = () => {
 
   const [inputText, setInputText] = useState("");
   let inputHandler = (e) => {
-    //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
@@ -102,6 +101,8 @@ const ListPart = ({ data, input }) => {
       return el.name.toLowerCase().includes(input);
     }
   });
+
+  console.log(filteredData, "filteredData");
 
   return (
     <List className="px-4 py-3 max-h-[500px]">
@@ -180,6 +181,7 @@ const Filter = ({ sortByRating }) => {
 };
 
 const ClinicCard = ({ name, rate, address, phone, city, description }) => {
+  console.log(description, "description");
   return (
     <div
       className={clsx(
@@ -194,30 +196,46 @@ const ClinicCard = ({ name, rate, address, phone, city, description }) => {
       />
       <div
         className={clsx(
-          "p-4 flex space-y-5 flex-col",
+          "p-4 w-full flex space-y-5 flex-col",
           "xl:divide-x-2 xl:flex-row"
         )}
       >
-        <div className="flex px-4 flex-col flex-grow-0">
-          <h4 className="font-medium text-lg leading-8">{name}</h4>
-          <p className="font-normal text-[12px] text-gray-400">
-            {description
+        <div className={clsx("flex px-4 flex-col flex-grow-0", "xl:w-9/12")}>
+          <h4
+            className={clsx(
+              "font-medium overflow-hidden truncate text-lg w-[150px] leading-8",
+              "xl:w-[200px]",
+              "md:w-[170px]"
+            )}
+          >
+            {name}
+          </h4>
+          <p className="font-normal text-sm text-gray-400">
+            {description !== null
               ? description
               : "Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астана проспект Тауелсыздык 33 – контакты, телефоны, график работы и отзывы в каталоге медицинского"}
           </p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />
-            {rate}
+            {Math.round(rate * 10) / 10}
           </div>
         </div>
         <hr />
-        <div className="flex px-4 flex-col flex-grow shrink-0 space-y-3">
-          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
-            <PhoneIcon className="w-5 text-[#3A57E8]" />
+        <div
+          className={clsx(
+            "flex px-4 flex-col space-x-0 flex-grow shrink-0 space-y-3",
+            "sm:flex-col sm:space-x-0",
+            "md:flex-col md:space-x-0",
+            "lg:flex-row lg:space-x-3",
+            "xl:w-3/12 xl:flex-col xl:space-x-0"
+          )}
+        >
+          <div className="flex flex-row space-x-1.5 items-center justify-start">
+            <PhoneIcon className="w-5 text-[#3A57E8] flex-grow-0 shrink-0 mr-1.5" />
             {phone}
           </div>
-          <div className="flex w-[240px] flex-row space-x-1.5 flex-grow items-center justify-start">
-            <LocationMarkerIcon className="w-5 text-[#3A57E8]" />
+          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
+            <LocationMarkerIcon className="w-5 text-[#3A57E8] flex-grow-0 shrink-0" />
             <div>
               <p>{address}</p>
               <p>{city && city.name}</p>

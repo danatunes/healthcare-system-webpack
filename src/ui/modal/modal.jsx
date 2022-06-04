@@ -1,14 +1,7 @@
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export const Modal = ({
-  isOpen,
-  setIsOpen,
-  handleSubmit,
-  ratingRef,
-  feedbackRef,
-  children,
-}) => {
+export const Modal = ({ isOpen, setIsOpen, handleSubmit, children }) => {
   const cancelButtonRef = useRef(null);
 
   return (

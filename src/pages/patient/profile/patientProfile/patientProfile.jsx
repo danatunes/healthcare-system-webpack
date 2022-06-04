@@ -19,7 +19,7 @@ export const PatientProfile = () => {
   async function getMyFiles() {
     try {
       await publicRequest
-        .get("/api/v1/file", {
+        .get("api/v1/file/patient/files", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

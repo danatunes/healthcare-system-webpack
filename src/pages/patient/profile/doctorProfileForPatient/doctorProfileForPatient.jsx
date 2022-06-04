@@ -46,8 +46,6 @@ export const DoctorProfileForPatient = () => {
       });
       changed[index].times = filtered;
     });
-    console.log(filtered, "filtered");
-    console.log(changed, "changed");
     setWorkCalendar(changed);
   };
 
@@ -68,7 +66,7 @@ export const DoctorProfileForPatient = () => {
       console.log(e);
     }
     setIsOpenCalendar(false);
-    console.log(record, "record");
+    getCalendar(id);
   };
 
   const handleSubmit = async (e) => {
@@ -101,9 +99,6 @@ export const DoctorProfileForPatient = () => {
     dispatch(getDoctorWithFeedback(id));
     getCalendar(id);
   }, [id, dispatch]);
-
-  console.log(doctor.doctor, "doctor.doctor");
-  console.log(doctor, "doctor");
 
   return (
     <div className="w-full space-y-4 max-w-4xl">
@@ -239,44 +234,46 @@ export const DoctorProfileForPatient = () => {
             isOpen={isOpenCalendar}
             handleSubmit={handleSubmitCalendar}
           >
-            <div>
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                <CalendarIcon
-                  className="h-6 w-6 text-green-600"
-                  aria-hidden="true"
-                />
-              </div>
-              <div className="mt-3 text-center sm:mt-5">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg leading-6 font-medium text-gray-900"
-                >
-                  Make an appointment
-                </Dialog.Title>
-                <div className="mt-2 flex flex-col space-y-4">
-                  <DoctorProfileCalendar
-                    setWorkCalendar={setRecord}
-                    dataFromPatient={workCalendar}
+            <>
+              <div>
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                  <CalendarIcon
+                    className="h-6 w-6 text-green-600"
+                    aria-hidden="true"
                   />
                 </div>
+                <div className="mt-3 text-center sm:mt-5">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg leading-6 font-medium text-gray-900"
+                  >
+                    Make an appointment
+                  </Dialog.Title>
+                  <div className="mt-2 flex flex-col space-y-4">
+                    <DoctorProfileCalendar
+                      setWorkCalendar={setRecord}
+                      dataFromPatient={workCalendar}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-              <button
-                type="submit"
-                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-              >
-                Submit
-              </button>
-              <button
-                type="button"
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
-                onClick={() => setIsOpenCalendar(false)}
-                ref={cancelButtonRef}
-              >
-                Cancel
-              </button>
-            </div>
+              <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                <button
+                  type="submit"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+                >
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                  onClick={() => setIsOpenCalendar(false)}
+                  ref={cancelButtonRef}
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
           </Modal>
         </>
       ) : (

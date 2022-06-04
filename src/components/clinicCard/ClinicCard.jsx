@@ -138,7 +138,7 @@ export const ClinicCard = ({ name, rate, address, phone, city }) => {
             <PhoneIcon className="w-5 text-[#3A57E8]" />
             {phone}
           </div>
-          <div className="flex w-[240px] flex-row space-x-1.5 flex-grow items-center justify-start">
+          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
             <LocationMarkerIcon className="w-5 text-[#3A57E8]" />
             <div>
               {hospital === undefined && (

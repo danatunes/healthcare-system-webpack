@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder";
 import { LoginIntegration } from "../../../components";
 import { Button } from "../../../ui/button/button";
 import clsx from "clsx";
 import { publicRequest } from "../../../api/requestMethods";
 import { Datalist } from "../../../ui/datalist/datalist";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const SignUp = () => {
@@ -67,9 +67,10 @@ export const SignUp = () => {
     },
   ];
 
-  const [city, setCity] = React.useState([]);
-  const [hospitals, setHospitals] = React.useState([]);
-  const [cityId, setCityId] = React.useState(null);
+  const [city, setCity] = useState([]);
+  const [hospitals, setHospitals] = useState([]);
+  const [cityId, setCityId] = useState(null);
+  const navigate = useNavigate();
 
   async function fetch() {
     try {
@@ -123,6 +124,7 @@ export const SignUp = () => {
         type: "success",
         theme: "light",
       });
+      navigate("/login");
     } catch (e) {
       if (e.message) {
         toast(e.response.data.message, {

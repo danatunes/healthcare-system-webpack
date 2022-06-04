@@ -43,7 +43,7 @@ export const PatientProfileForDoctor = () => {
 
       try {
         await publicRequest.post(
-          "/api/v1/file/upload/" + patient.user.id,
+          "/api/v1/file/upload/" + patient.id,
           formData,
           {
             headers: {
