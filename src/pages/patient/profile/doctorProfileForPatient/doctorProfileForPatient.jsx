@@ -293,7 +293,7 @@ const UserCard = ({ userInformation }) => {
   const { avatar } = useSelector(({ doctor }) => doctor);
 
   return (
-    <div className="bg-white rounded-xl shadow-md">
+    <div className="bg-white overflow-hidden rounded-xl shadow-md">
       <div className={clsx("flex flex-col items-end", "lg:flex-row")}>
         {avatar ? (
           <img
@@ -308,8 +308,7 @@ const UserCard = ({ userInformation }) => {
           <h3 className="text-2xl font-bold">
             Hospital : {userInformation.hospital.name}
           </h3>
-          <h4
-            className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
+          <h4 className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
           <div className={clsx("flex flex-wrap space-y-2")}>
             <UserInformation
               label="Position"
@@ -331,9 +330,6 @@ const UserCard = ({ userInformation }) => {
             />
           </div>
         </div>
-        <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">
-          Edit
-        </a>
       </div>
     </div>
   );
@@ -397,22 +393,22 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
       <div className="flex mt-3 flex-row w-full justify-evenly items-start">
         {role === "PATIENT"
           ? dataFromPatient.map((item, index) => (
-            <RowWithDayAndTime
-              times={item.times}
-              dayOfWeek={item.dayOfWeek}
-              date={item.date}
-              key={`${item.dayOfWeek} ${index}`}
-              setWorkCalendar={setWorkCalendar}
-            />
-          ))
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                date={item.date}
+                key={`${item.dayOfWeek} ${index}`}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))
           : data.map((item) => (
-            <RowWithDayAndTime
-              times={item.times}
-              dayOfWeek={item.dayOfWeek}
-              key={item.dayOfWeek}
-              setWorkCalendar={setWorkCalendar}
-            />
-          ))}
+              <RowWithDayAndTime
+                times={item.times}
+                dayOfWeek={item.dayOfWeek}
+                key={item.dayOfWeek}
+                setWorkCalendar={setWorkCalendar}
+              />
+            ))}
       </div>
     </div>
   );

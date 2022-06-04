@@ -247,7 +247,9 @@ const ClinicCard = ({ hospital }) => {
         <div className="flex px-4 flex-col flex-grow-0">
           <h4 className="font-medium text-lg leading-8">{hospital.name}</h4>
           <p className="font-normal text-[12px] text-gray-400">
-            {hospital.description}
+            {hospital.description
+              ? hospital.description
+              : "Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астанапроспект Тауелсыздык 33 – контакты, телефоны, график работы и отзывыв каталоге медицинского"}
           </p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />
