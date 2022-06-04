@@ -286,6 +286,7 @@ export const DoctorProfileForPatient = () => {
 const UserCard = ({ userInformation }) => {
   const role = localStorage.getItem("role");
   const [avatar, setAvatar] = useState(null);
+  const id = useParams();
 
   const getAvatar = async () => {
     try {
@@ -308,7 +309,7 @@ const UserCard = ({ userInformation }) => {
       let imageUrl = URL.createObjectURL(res.data);
       setAvatar(imageUrl);
     });
-  }, []);
+  }, [id]);
 
   return (
     <div className="bg-white rounded-xl shadow-md">
