@@ -8,6 +8,7 @@ import { ChosenClinic } from "./pages/patient/chosenClinic/chosenClinic";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { Feedbacks } from "./components/Feedbacks/Feedbacks";
+import ClinicPatients from "./pages/admin/admin-clinic/clinicPatients";
 
 const Home = lazy(() => import("./pages/map"));
 
@@ -38,7 +39,6 @@ const Clinics = lazy(() =>
 const DoctorProfileForPatient = lazy(() =>
   import("./pages/patient/profile/doctorProfileForPatient")
 );
-const Feedback = lazy(() => import("./components/feedback"));
 
 const Admin = lazy(() => import("./pages/admin/admin-global/main"));
 const AdminsClinic = lazy(() =>
@@ -69,6 +69,7 @@ function App() {
         <Route path="map-pharmacy" element={<Home />} />
         <Route path="admin-clinic">
           <Route path="" element={<AdminClinic />} />
+          <Route path="clinic-patients" element={<ClinicPatients />} />
         </Route>
         <Route path="admin">
           <Route path="" element={<Admin />} />

@@ -18,11 +18,47 @@ export const PatientProfileForDoctor = () => {
   const cancelButtonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [imageURL, setImageURL] = useState(null);
+
   console.log(patient, id, "patient");
+
+  const getPatientFiles = async () => {
+    try {
+      await publicRequest
+        .get(`/api/v1/file/doctor/patient/${id}/files`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setFiles(res.data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  async function downloadFile(id) {
+    try {
+      return await publicRequest.get("/api/v1/file/data/" + id, {
+        responseType: "blob",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   useEffect(() => {
     dispatch(getPatient(id));
+    getPatientFiles();
   }, []);
+
+  console.log(files, "files");
 
   const setFileHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -42,23 +78,28 @@ export const PatientProfileForDoctor = () => {
       console.log(formData, "formData");
 
       try {
-        await publicRequest.post(
-          "/api/v1/file/upload/" + patient.id,
-          formData,
-          {
+        await publicRequest
+          .post("/api/v1/file/upload/" + patient.id, formData, {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
               ContentType: "multipart/form-data",
             },
-          }
-        );
+          })
+          .then((res) => {
+            getPatientFiles();
+          });
       } catch (e) {
         console.log(e);
       }
     }
     setIsOpen(false);
   };
-
+  const downloadImage = (id) => {
+    downloadFile(id).then((res) => {
+      let imageUrl = URL.createObjectURL(res.data);
+      setImageURL(imageUrl);
+    });
+  };
   return (
     <>
       {patient ? (
@@ -84,51 +125,35 @@ export const PatientProfileForDoctor = () => {
             <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
               <thead>
                 <tr className="text-left text-gray-400 text-sm">
-                  <th className="py-4 font-normal px-10">Data</th>
-                  <th className="py-4 font-normal px-10">Symptoms</th>
-                  <th className="py-4 font-normal px-10">Specialist</th>
+                  <th className="py-4 font-normal px-10">Name</th>
+                  <th className="py-4 font-normal px-10">Type</th>
                   <th className="py-4 font-normal px-10 text-center">
                     Download
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  className={clsx(
-                    "text-sm text-left",
-                    "bg-white",
-                    "hover:bg-gray-100"
-                  )}
-                >
-                  <td className="py-4 font-normal px-10">20.03.2022</td>
-                  <td className="py-4 font-normal px-10">Corona Vitus</td>
-                  <td className="py-4 font-normal px-10">Dr. Azizbek</td>
-                  <td className="py-4 flex justify-center font-normal text-center px-10">
-                    <DownloadIcon className="w-5 text-[#3A57E8]" />
-                  </td>
-                </tr>
-                <tr className={clsx("text-sm text-left", "hover:bg-gray-100")}>
-                  <td className="py-4 font-normal px-10">16.02.2022</td>
-                  <td className="py-4 font-normal px-10">Headache</td>
-                  <td className="py-4 font-normal px-10">Dr. Super Puper</td>
-                  <td className="py-4 flex justify-center font-normal text-center px-10">
-                    <DownloadIcon className="w-5 text-[#3A57E8]" />
-                  </td>
-                </tr>
-                <tr
-                  className={clsx(
-                    "text-sm text-left",
-                    "bg-white",
-                    "hover:bg-gray-100"
-                  )}
-                >
-                  <td className="py-4 font-normal px-10">20.03.2022</td>
-                  <td className="py-4 font-normal px-10">Broken arm</td>
-                  <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
-                  <td className="py-4 flex justify-center font-normal text-center px-10">
-                    <DownloadIcon className="w-5 text-[#3A57E8]" />
-                  </td>
-                </tr>
+                {files.map((file, index) => (
+                  <tr
+                    className={clsx(
+                      "text-sm text-left",
+                      index % 2 === 0 ? "bg-white" : "bg-gray-50",
+                      "hover:bg-gray-100"
+                    )}
+                  >
+                    <td className="py-4 font-normal px-10">{file.name}</td>
+                    <td className="py-4 font-normal px-10">
+                      {file.contentType}
+                    </td>
+                    <a
+                      href={imageURL}
+                      onClick={() => downloadImage(file.id)}
+                      className="py-4 flex justify-center cursor-pointer font-normal text-center px-10"
+                    >
+                      <DownloadIcon className="w-5 text-[#3A57E8]" />
+                    </a>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </List>

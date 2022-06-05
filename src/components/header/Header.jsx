@@ -68,15 +68,26 @@ export const Header = () => {
             ) : (
               <>
                 {mainRole === "HOSPITAL_ADMIN" && (
-                  <Link
-                    to="/admin-clinic"
-                    className={clsx(
-                      "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
-                      "sm:block"
-                    )}
-                  >
-                    Admin Clinic Panel
-                  </Link>
+                  <>
+                    <Link
+                      to="admin-clinic/clinic-patients"
+                      className={clsx(
+                        "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                        "sm:block"
+                      )}
+                    >
+                      Clinic Patients
+                    </Link>
+                    <Link
+                      to="/admin-clinic"
+                      className={clsx(
+                        "text-sm hidden px-3 py-2 bg-blue-100 rounded-md",
+                        "sm:block"
+                      )}
+                    >
+                      Clinic Panel
+                    </Link>
+                  </>
                 )}
                 {mainRole === "PATIENT" ? (
                   <>

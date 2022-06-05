@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { NavLink } from "react-router-dom";
-import { Button } from "../../../ui/button/button";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../../../api/requestMethods";
 
@@ -87,7 +86,7 @@ export const DoctorPatients = () => {
     },
   ];
 
-  console.log(data, "data");
+  console.log(patients, "data");
 
   return (
     <div className="px-5 py-4 w-full rounded-lg bg-white shadow-lg">
@@ -103,7 +102,6 @@ export const DoctorPatients = () => {
                 <th className="py-4 font-normal px-10">Email</th>
                 <th className="py-4 font-normal px-10">Age</th>
                 <th className="py-4 font-normal px-10">Number</th>
-                <th className="py-4 font-normal px-10" />
               </tr>
             </thead>
             <tbody>
@@ -131,9 +129,6 @@ export const DoctorPatients = () => {
                   </td>
                   <td className="py-4 font-normal px-10">
                     {patient.user.phoneNumber}
-                  </td>
-                  <td className="py-4 font-normal px-10">
-                    <Button name="Complete" />
                   </td>
                 </tr>
               ))}
