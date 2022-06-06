@@ -127,7 +127,11 @@ export const PatientProfile = () => {
         >
           {appointments &&
             appointments.map((appointment) => (
-              <DropDown isDoctor={false} heading={appointment.date}>
+              <DropDown
+                isDoctor={false}
+                status={appointment.status}
+                heading={appointment.date}
+              >
                 <Menu.Item>
                   <table className="w-full overflow-hidden table-auto">
                     <thead>

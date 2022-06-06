@@ -10,6 +10,7 @@ export const PatientClinic = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(({ user }) => user.currentUser);
+  console.log(user, "user");
 
   useEffect(() => {
     if (typeof user.role !== "object") {
@@ -52,57 +53,35 @@ export const PatientClinic = () => {
           </Link>
         </div>
       )}
-      <FrequentlyClinics />
+      <FrequentlyClinics user={user} />
     </div>
   );
 };
 
-const FrequentlyClinics = () => {
+const FrequentlyClinics = ({ user }) => {
   return (
     <List
       styleList="rounded-xl"
       header={<HeaderList name="My Clinic" />}
       className="py-4 px-2.5 space-y-4"
     >
-      <DropDown isDoctor={false} heading="Alanda Clinic">
+      <DropDown isDoctor={false} heading={user.userHospital.name}>
         <Menu.Item>
           <table className="w-full overflow-hidden table-auto">
             <thead>
               <tr className="text-sm text-gray-400">
-                <th className="font-normal">Plot number</th>
-                <th className="font-normal">District doctor</th>
+                <th className="font-normal">City</th>
+                <th className="font-normal">Address</th>
                 <th className="font-normal">Date of registration</th>
                 <th className="font-normal">Number</th>
               </tr>
             </thead>
             <tbody>
               <tr className="text-sm">
-                <td className="font-normal">2 therapeutic</td>
-                <td className="font-normal">vin Diesel</td>
-                <td className="font-normal">Date of registration</td>
-                <td className="font-normal">+7-708-310-04-02</td>
-              </tr>
-            </tbody>
-          </table>
-        </Menu.Item>
-      </DropDown>
-      <DropDown isDoctor={false} heading="Сity polyclinic No. 6p">
-        <Menu.Item>
-          <table className="w-full overflow-hidden table-auto">
-            <thead>
-              <tr className="text-sm text-gray-400">
-                <th className="font-normal">Plot number</th>
-                <th className="font-normal">District doctor</th>
-                <th className="font-normal">Date of registration</th>
-                <th className="font-normal">Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-sm">
-                <td className="font-normal">2 therapeutic</td>
-                <td className="font-normal">vin Diesel</td>
-                <td className="font-normal">Date of registration</td>
-                <td className="font-normal">+7-708-310-04-02</td>
+                <td className="font-normal">{user.userHospital.city.name}</td>
+                <td className="font-normal">{user.userHospital.address}</td>
+                <td className="font-normal">{user.userHospital.rate}</td>
+                <td className="font-normal">{user.userHospital.phone}</td>
               </tr>
             </tbody>
           </table>
