@@ -26,6 +26,31 @@ export const setMe = (payload) => ({
   payload,
 });
 
+export const setMyAppoinments = (payload) => ({
+  type: "SET_MY_APPOINMENTS",
+  payload,
+});
+
+export const getMyAppointments = () => async (dispatch) => {
+  dispatch(setIsFetching(true));
+  try {
+    await publicRequest
+      .get("/api/v1/appointment/patient", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        dispatch(setMyAppoinments(res.data));
+      });
+  } catch (e) {
+    toast("Error fetching appointments", {
+      type: "error",
+      position: "top-right",
+    });
+  }
+};
+
 export const getMe = () => async (dispatch) => {
   const role = localStorage.getItem("role").toLowerCase();
   dispatch(setIsFetching(true));

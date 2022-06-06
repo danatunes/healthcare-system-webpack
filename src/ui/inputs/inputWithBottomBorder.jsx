@@ -9,7 +9,10 @@ export const InputWithBottomBorder = ({
   list,
   autoComplete,
   onChange,
+  defaultValue,
+  reference,
 }) => {
+  console.log(reference, "ref");
   return (
     <div
       className={clsx(
@@ -19,9 +22,11 @@ export const InputWithBottomBorder = ({
     >
       <input
         type={type}
+        ref={reference}
         name={id}
         autoComplete={autoComplete}
         onChange={onChange}
+        defaultValue={defaultValue}
         id={id}
         className="block min-h-[40px] w-full border-0 border-transparent bg-transparent outline-0 focus:border-none sm:text-sm"
         placeholder={placeholder}

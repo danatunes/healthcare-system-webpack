@@ -1,19 +1,24 @@
 import {
+  DropDown,
+  HeaderList,
   HeadingProfile,
-  LastNotificationList,
   List,
   UserCard,
 } from "../../../../components";
 import { DownloadIcon, SaveAsIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../../../../api/requestMethods";
+import { Menu } from "@headlessui/react";
+import { getMyAppointments } from "../../../../redux/actions/user";
 
 export const PatientProfile = () => {
   const user = useSelector(({ user }) => user.me);
   const [myDocuments, setMyDocuments] = useState([]);
   const [imageURL, setImageURL] = useState(null);
+  const dispatch = useDispatch();
+  const { appointments } = useSelector(({ user }) => user);
 
   async function getMyFiles() {
     try {
@@ -26,7 +31,6 @@ export const PatientProfile = () => {
         .then((res) => {
           setMyDocuments(res.data);
         });
-      console.log(randomNumber());
     } catch (e) {
       console.log(e);
     }
@@ -52,15 +56,12 @@ export const PatientProfile = () => {
     }
   }
 
-  function randomNumber() {
-    return Math.floor(Math.random() * 3); //Максимум не включается, минимум включается
-  }
-
   useEffect(() => {
     getMyFiles();
+    dispatch(getMyAppointments());
   }, []);
 
-  console.log(myDocuments);
+  console.log(appointments, "appointments");
 
   return (
     <div className="w-full space-y-9">
@@ -119,7 +120,55 @@ export const PatientProfile = () => {
             </div>
           )}
         </List>
-        <LastNotificationList className="py-4 px-2.5" isDoctor={false} />
+        <List
+          styleList="rounded-xl"
+          className="py-4 px-2.5"
+          header={<HeaderList name="Appoinments" />}
+        >
+          {appointments &&
+            appointments.map((appointment) => (
+              <DropDown isDoctor={false} heading={appointment.date}>
+                <Menu.Item>
+                  <table className="w-full overflow-hidden table-auto">
+                    <thead>
+                      <tr className="text-sm text-gray-400">
+                        <th className="font-normal py-4 px-5">Hospital</th>
+                        <th className="font-normal py-4 px-5">Doctor</th>
+                        <th className="font-normal py-4 px-5">
+                          Specialization
+                        </th>
+                        <th className="font-normal py-4 px-5">Time</th>
+                        <th className="font-normal py-4 px-5">Number</th>
+                        <th className="font-normal py-4 px-5">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="text-sm">
+                        <td className="font-normal py-4 px-5">
+                          {appointment.schedule.doctor.hospital.name}
+                        </td>
+                        <td className="font-normal py-4 px-5">
+                          {`${appointment.schedule.doctor.user.firstName} ${appointment.schedule.doctor.user.fatherName}`}
+                        </td>
+                        <td className="font-normal py-4 px-5">
+                          {appointment.schedule.doctor.specialization.name}
+                        </td>
+                        <td className="font-normal py-4 px-5">
+                          {appointment.schedule.time}
+                        </td>
+                        <td className="font-normal py-4 px-5">
+                          {appointment.schedule.doctor.user.phoneNumber}
+                        </td>
+                        <td className="font-normal py-4 px-5">
+                          {appointment.status}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </Menu.Item>
+              </DropDown>
+            ))}
+        </List>
       </>
     </div>
   );

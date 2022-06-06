@@ -15,6 +15,7 @@ import {
 } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import photo_clinic from "../../../images/example_photo_clinic.png";
+import { toast } from "react-toastify";
 
 export const ChosenClinic = () => {
   const role = localStorage.getItem("role");
@@ -41,11 +42,18 @@ export const ChosenClinic = () => {
     console.log(data);
 
     try {
-      await publicRequest.post("/api/v1/feedback/hospital/give/" + id, data, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      await publicRequest
+        .post("/api/v1/feedback/hospital/give/" + id, data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          toast("Feedback was sent", {
+            type: "success",
+            position: "top-right",
+          });
+        });
     } catch (e) {
       console.log(e);
     }

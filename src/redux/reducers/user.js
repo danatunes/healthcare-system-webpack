@@ -3,6 +3,7 @@ const initialState = {
   me: null,
   isFetching: false,
   error: false,
+  appointments: [],
 };
 
 const user = (state = initialState, action) => {
@@ -15,6 +16,14 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         me: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    }
+    case "SET_MY_APPOINMENTS": {
+      return {
+        ...state,
+        appointments: action.payload,
         isFetching: false,
         error: false,
       };
