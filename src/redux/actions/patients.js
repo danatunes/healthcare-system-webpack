@@ -1,4 +1,5 @@
 import { publicRequest } from "../../api/requestMethods";
+import { toast } from "react-toastify";
 
 export const setPatient = (payload) => ({
   type: "SET_PATIENT",
@@ -34,4 +35,28 @@ export const getPatient = (id) => async (dispatch) => {
     dispatch(setError(true));
   }
   dispatch(setFetching(false));
+};
+
+export const setPatients = (payload) => ({
+  type: "GET_PATIENTS",
+  payload,
+});
+
+export const getMyPatients = () => async (dispatch) => {
+  try {
+    await publicRequest
+      .get("/api/v1/doctor/patients/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        dispatch(setPatients(res.data));
+      });
+  } catch (e) {
+    toast("Error fetching patients", {
+      type: "error",
+      position: "top-right",
+    });
+  }
 };

@@ -1,23 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { HeadingProfile, LastNotificationList } from "../../../../components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../../../ui/button/button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "../../../../ui/modal/modal";
 import { PencilAltIcon, PhotographIcon } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import { publicRequest } from "../../../../api/requestMethods";
 import { DoctorProfileCalendar } from "../../../../components/doctorProfileCalendar";
+import { getMyPatients } from "../../../../redux/actions/patients";
 
 export const DoctorProfile = () => {
   const me = useSelector(({ user }) => user.me);
+  const { patients } = useSelector(({ patients }) => patients);
   console.log(me);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenAvatar, setIsOpenAvatar] = useState(false);
   const cancelButtonRef = useRef(null);
   const [workCalendar, setWorkCalendar] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const dispatch = useDispatch();
 
   const setFileHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -66,6 +69,10 @@ export const DoctorProfile = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    dispatch(getMyPatients());
+  }, []);
+
   return (
     <>
       {me !== null && (
@@ -76,8 +83,14 @@ export const DoctorProfile = () => {
             name={`Dr. ${me.user.firstName} ${me.user.lastName}`}
           />
           <div className={clsx("grid grid-cols-1 gap-5", "sm:grid-cols-2")}>
-            <ConsultingCart type="Offline" when="Today" count="10" />
-            <ConsultingCart type="Online" when="Today" count="6" />
+            <NavLink to="/doctor/patients">
+              <ConsultingCart
+                type="Offline"
+                when="Today"
+                count={patients.length}
+              />
+            </NavLink>
+            <ConsultingCart type="Online" when="Today" count="0" />
           </div>
           <Button name="Add opening hours" onClick={() => setIsOpen(true)} />
           <LastNotificationList className="py-4 px-2.5" isDoctor={true} />

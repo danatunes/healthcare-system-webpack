@@ -1,6 +1,7 @@
 const initialState = {
   isFetching: false,
   error: false,
+  patients: [],
   patient: {},
 };
 
@@ -10,6 +11,14 @@ const patients = (state = initialState, action) => {
       return {
         ...state,
         patient: action.payload,
+        isFetching: false,
+        error: false,
+      };
+    }
+    case "GET_PATIENTS": {
+      return {
+        ...state,
+        patients: action.payload,
         isFetching: false,
         error: false,
       };

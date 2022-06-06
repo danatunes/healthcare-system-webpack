@@ -1,31 +1,9 @@
 import clsx from "clsx";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { publicRequest } from "../../../api/requestMethods";
+import { useSelector } from "react-redux";
 
 export const DoctorPatients = () => {
-  const [patients, setPatients] = useState([]);
-
-  async function fetchData() {
-    try {
-      await publicRequest
-        .get("/api/v1/doctor/patients/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((res) => {
-          setPatients(res.data);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-    console.log(patients);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { patients } = useSelector(({ patients }) => patients);
 
   const data = [
     {
@@ -85,8 +63,6 @@ export const DoctorPatients = () => {
       number: "+7-708-310-04-02",
     },
   ];
-
-  console.log(patients, "data");
 
   return (
     <div className="px-5 py-4 w-full rounded-lg bg-white shadow-lg">
