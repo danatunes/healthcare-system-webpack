@@ -7,6 +7,8 @@ import { Modal } from "../../../../ui/modal/modal";
 import { UserAddIcon } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import { publicRequest } from "../../../../api/requestMethods";
+import { toast } from "react-toastify";
+import Loader from "../../../../ui/loader/loader";
 
 export const AddAdminClinics = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +21,7 @@ export const AddAdminClinics = () => {
   const firstRef = useRef(null);
   const lastRef = useRef(null);
   const fatherNameRef = useRef(null);
-  const ageRef = useRef(null);
+  const dateOfBirthDayRef = useRef(null);
   const genderRef = useRef(null);
   const phoneRef = useRef(null);
   const hospitalIdRef = useRef(null);
@@ -73,16 +75,16 @@ export const AddAdminClinics = () => {
       type: "text",
     },
     {
-      id: "age",
-      ref: ageRef,
-      name: "Age",
-      type: "text",
+      id: "dateOfBirthday",
+      ref: dateOfBirthDayRef,
+      name: "Date of Birthday",
+      type: "date",
     },
     {
       id: "phone",
       ref: phoneRef,
       name: "Phone",
-      type: "text",
+      type: "number",
     },
     {
       id: "password",
@@ -105,7 +107,7 @@ export const AddAdminClinics = () => {
       email: emailRef.current.value,
       firstName: firstRef.current.value,
       lastName: lastRef.current.value,
-      age: ageRef.current.value,
+      dateOfBirthday: dateOfBirthDayRef.current.value,
       gender: genderRef.current.value,
       fatherName: fatherNameRef.current.value,
       phoneNumber: parseInt(phoneRef.current.value),
@@ -115,22 +117,30 @@ export const AddAdminClinics = () => {
     };
 
     try {
-      await publicRequest.post(
-        "/api/v1/auth/registration/hospitalAdmin",
-        data,
-        {
+      await publicRequest
+        .post("/api/v1/auth/registration/hospitalAdmin", data, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
-        }
-      );
+        })
+        .then(() => {
+          toast("Admin added successfully", {
+            type: "success",
+            position: "top-right",
+          });
+        });
     } catch (e) {
-      console.log(e);
+      toast(e.response.data.message || e.message, {
+        type: "error",
+        position: "top-right",
+      });
     }
     getClinicAdmins();
     console.log(data);
     setIsOpen(false);
   };
+
+  console.log(admins);
 
   return (
     <List
@@ -148,15 +158,21 @@ export const AddAdminClinics = () => {
         </div>
       }
     >
-      {admins.map((admin) => (
-        <Block
-          key={admin.user.id}
-          heading1="Name"
-          heading1Content={`${admin.user.firstName}  ${admin.user.lastName}`}
-          heading2="Hospital"
-          heading2Content={admin.hospital.name}
-        />
-      ))}
+      {admins ? (
+        admins.map((admin) => (
+          <Block
+            key={admin.user.id}
+            requestUrl={`/api/v1/admin/delete/hospitalAdmin/${admin.id}`}
+            updateFunction={getClinicAdmins}
+            heading1="Name"
+            heading1Content={`${admin.user.firstName}  ${admin.user.lastName}`}
+            heading2="Hospital"
+            heading2Content={admin.hospital.name}
+          />
+        ))
+      ) : (
+        <Loader />
+      )}
       <Modal setIsOpen={setIsOpen} isOpen={isOpen} handleSubmit={handleSubmit}>
         <div>
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -173,40 +189,43 @@ export const AddAdminClinics = () => {
               Add new Admin for Hospital
             </Dialog.Title>
             <div className="mt-2 flex flex-col space-y-4">
-              <label
-                htmlFor="img"
-                className="flex flex-col text-gray-500 text-md items-start"
-              >
-                Photo :
-                <input type="file" id="img" className="w-full rounded-md" />
-              </label>
               <div className="grid grid-cols-2 gap-x-4">
                 {modalUI.map((item) => (
                   <label
                     htmlFor={item.id}
-                    className="flex flex-col text-gray-500 text-md items-start"
+                    className="flex flex-col mt-1 text-gray-500 text-md items-start"
                   >
-                    {item.name} :
+                    <p>
+                      {item.name} : {item.pattern && <span>87056537575</span>}
+                    </p>
                     <input
                       ref={item.ref}
                       type={item.type}
+                      required={true}
                       id={item.id}
                       autoComplete="off"
+                      max="2022-05-31"
                       list={item.type === "datalist" ? `${item.id}_list` : null}
                       className="w-full rounded-md min-h-[50px] border-2 border-gray-300"
                     />
                   </label>
                 ))}
-                <select
-                  name="gender"
-                  id="gender"
-                  ref={genderRef}
-                  className="mt-1 min-w-[250px] border-t-0 border-r-0 border-l-0 bg-none border-b border-black focus-within:border-indigo-600"
+                <label
+                  htmlFor="gender"
+                  className="flex flex-col text-gray-500 w-full text-md items-start"
                 >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
+                  Gender :
+                  <select
+                    name="gender"
+                    id="gender"
+                    ref={genderRef}
+                    className="min-w-[250px] w-full rounded-md min-h-[50px] border-2 border-gray-300 focus-within:border-indigo-600"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
                 <label
                   htmlFor="hospital_select_id"
                   className="flex flex-col text-gray-500 text-md items-start"

@@ -7,7 +7,7 @@ export const List = ({ children, header, className, styleList }) => {
       <div
         className={clsx(
           className,
-          "space-y-4 bg-[#F8F9FD] rounded-xl max-h-[250px] overflow-y-auto"
+          "bg-[#F8F9FD] rounded-xl max-h-[250px] overflow-y-auto"
         )}
       >
         {children}

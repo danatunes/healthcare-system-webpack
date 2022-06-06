@@ -20,7 +20,7 @@ export const Admin = () => {
         )}
       >
         <Link
-          to="clinic-admins"
+          to="clinics"
           className={clsx(
             "border-0 flex items-center justify-center font-normal py-20 text-xl transition duration-300 px-5 shadow-lg rounded-xl",
             "md:px-20",
@@ -31,7 +31,7 @@ export const Admin = () => {
           Add clinic
         </Link>
         <Link
-          to="clinics"
+          to="clinic-admins"
           className={clsx(
             "border-0 py-20 flex items-center justify-center px-5 text-xl transition duration-300 text-white font-normal bg-[#3A57E8] shadow-lg rounded-xl",
             "md:px-20",

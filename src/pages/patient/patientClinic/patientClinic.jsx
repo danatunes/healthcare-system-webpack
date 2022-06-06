@@ -59,6 +59,7 @@ export const PatientClinic = () => {
 };
 
 const FrequentlyClinics = ({ user }) => {
+  console.log(user);
   return (
     <List
       styleList="rounded-xl"

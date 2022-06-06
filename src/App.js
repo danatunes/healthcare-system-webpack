@@ -8,7 +8,10 @@ import { ChosenClinic } from "./pages/patient/chosenClinic/chosenClinic";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { Feedbacks } from "./components/Feedbacks/Feedbacks";
-import ClinicPatients from "./pages/admin/admin-clinic/clinicPatients";
+
+const ClinicPatients = lazy(() =>
+  import("./pages/admin/admin-clinic/clinicPatients")
+);
 
 const Home = lazy(() => import("./pages/map"));
 
@@ -32,7 +35,7 @@ const PatientClinic = lazy(() => import("./pages/patient/patientClinic"));
 const PatientClinics = lazy(() => import("./pages/patient/patientClinics"));
 const Doctors = lazy(() => import("./pages/patient/chosenClinic/doctors"));
 
-const Clinics = lazy(() =>
+const AdminClinics = lazy(() =>
   import("./pages/admin/admin-global/add-admin-clinics")
 );
 
@@ -41,9 +44,7 @@ const DoctorProfileForPatient = lazy(() =>
 );
 
 const Admin = lazy(() => import("./pages/admin/admin-global/main"));
-const AdminsClinic = lazy(() =>
-  import("./pages/admin/admin-clinic/add-clinic")
-);
+const Clinics = lazy(() => import("./pages/admin/admin-clinic/add-clinic"));
 const Specializations = lazy(() =>
   import("./pages/admin/admin-global/add-specializations")
 );
@@ -73,8 +74,8 @@ function App() {
         </Route>
         <Route path="admin">
           <Route path="" element={<Admin />} />
+          <Route path="clinic-admins" element={<AdminClinics />} />
           <Route path="clinics" element={<Clinics />} />
-          <Route path="clinic-admins" element={<AdminsClinic />} />
           <Route path="specializations" element={<Specializations />} />
         </Route>
         <Route path="doctor" element={<DoctorLayout />}>

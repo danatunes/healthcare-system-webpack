@@ -6,6 +6,7 @@ import { Modal } from "../../../../ui/modal/modal";
 import { Dialog } from "@headlessui/react";
 import { List } from "../../../../components";
 import { AcademicCapIcon } from "@heroicons/react/outline";
+import Loader from "../../../../ui/loader/loader";
 
 export const Specializations = () => {
   const [allSpecialities, setAllSpecialities] = useState([]);
@@ -77,9 +78,18 @@ export const Specializations = () => {
         </div>
       }
     >
-      {allSpecialities.map((specialities) => (
-        <Block heading1="Name" heading1Content={specialities.name} />
-      ))}
+      {allSpecialities ? (
+        allSpecialities.map((specialities) => (
+          <Block
+            heading1="Name"
+            heading1Content={specialities.name}
+            requestUrl={`/api/v1/specialization/delete/${specialities.id}`}
+            updateFunction={getAllSpecializations}
+          />
+        ))
+      ) : (
+        <Loader />
+      )}
       <Modal setIsOpen={setIsOpen} isOpen={isOpen} handleSubmit={handleSubmit}>
         <div>
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">

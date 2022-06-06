@@ -12,8 +12,8 @@ export const DropDown = ({ children, heading, status }) => {
 
   const colorOfStatus = () => {
     switch (status) {
-      case "ENGAGED": {
-        setStatusColor("bg-[#3A57E8]");
+      case "ABSENT": {
+        setStatusColor("bg-red-600");
         break;
       }
       case "FINISHED": {
@@ -21,7 +21,7 @@ export const DropDown = ({ children, heading, status }) => {
         break;
       }
       default: {
-        setStatusColor("bg-red-600");
+        setStatusColor("bg-[#3A57E8]");
         break;
       }
     }

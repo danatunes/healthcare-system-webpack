@@ -27,7 +27,6 @@ export const AdminAddClinic = () => {
       }
     });
     const data = {
-      // img: imgRef.current.files[0],
       name: nameRef.current.value,
       description: descRef.current.value,
       phone: parseInt(phoneRef.current.value),
@@ -50,7 +49,6 @@ export const AdminAddClinic = () => {
     setIsOpen(false);
   };
 
-  const imgRef = useRef();
   const nameRef = useRef();
   const descRef = useRef();
   const phoneRef = useRef();
@@ -108,6 +106,8 @@ export const AdminAddClinic = () => {
     }
   }
 
+  console.log(clinics[0].name);
+
   return (
     <List
       styleList="rounded-xl w-full"
@@ -147,18 +147,6 @@ export const AdminAddClinic = () => {
               Add new Hospital
             </Dialog.Title>
             <div className="mt-2 flex flex-col space-y-4">
-              <label
-                htmlFor="img"
-                className="flex flex-col text-gray-500 text-md items-start"
-              >
-                Photo :
-                <input
-                  type="file"
-                  id="img"
-                  ref={imgRef}
-                  className="w-full rounded-md"
-                />
-              </label>
               {modalUI.map((item) => (
                 <label
                   htmlFor={item.id}

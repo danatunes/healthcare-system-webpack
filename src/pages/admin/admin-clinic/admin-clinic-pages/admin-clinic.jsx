@@ -224,6 +224,7 @@ export const AdminClinic = () => {
             {doctors.length !== 0 ? (
               doctors.map((doctor) => (
                 <Block
+                  doctor={doctor}
                   heading1="Name"
                   heading1Content={
                     doctor.user.firstName + " " + doctor.user.lastName
@@ -258,18 +259,6 @@ export const AdminClinic = () => {
                     Add new Doctor
                   </Dialog.Title>
                   <div className="mt-2 flex flex-col space-y-4">
-                    <label
-                      htmlFor="img"
-                      className="flex flex-col text-gray-500 text-md items-start"
-                    >
-                      Photo :
-                      <input
-                        type="file"
-                        id="img"
-                        // ref={imgRef}
-                        className="w-full rounded-md"
-                      />
-                    </label>
                     {modalUI.map((item) => (
                       <label
                         htmlFor={item.id}
