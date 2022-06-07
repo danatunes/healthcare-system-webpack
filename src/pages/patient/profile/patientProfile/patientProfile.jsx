@@ -129,7 +129,7 @@ export const PatientProfile = () => {
           className="py-4 px-2.5"
           header={<HeaderList name="Appoinments" />}
         >
-          {appointments.length > 0 ? (
+          {appointments && appointments.length > 0 ? (
             appointments.map((appointment) => (
               <DropDown
                 isDoctor={false}
