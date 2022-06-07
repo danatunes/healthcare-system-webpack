@@ -5,7 +5,11 @@ import {
   List,
   UserCard,
 } from "../../../../components";
-import { DownloadIcon, SaveAsIcon } from "@heroicons/react/outline";
+import {
+  DownloadIcon,
+  PencilAltIcon,
+  SaveAsIcon,
+} from "@heroicons/react/outline";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -125,7 +129,7 @@ export const PatientProfile = () => {
           className="py-4 px-2.5"
           header={<HeaderList name="Appoinments" />}
         >
-          {appointments &&
+          {appointments.length > 0 ? (
             appointments.map((appointment) => (
               <DropDown
                 isDoctor={false}
@@ -171,7 +175,13 @@ export const PatientProfile = () => {
                   </table>
                 </Menu.Item>
               </DropDown>
-            ))}
+            ))
+          ) : (
+            <div className="text-center text-gray-400 py-6 px-3 flex items-center justify-center">
+              <PencilAltIcon className="w-11" />
+              <p className="text-lg font-medium">No appointments</p>
+            </div>
+          )}
         </List>
       </>
     </div>

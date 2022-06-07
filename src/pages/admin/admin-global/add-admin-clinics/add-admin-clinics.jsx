@@ -162,7 +162,7 @@ export const AddAdminClinics = () => {
         admins.map((admin) => (
           <Block
             key={admin.user.id}
-            requestUrl={`/api/v1/admin/delete/hospitalAdmin/${admin.id}`}
+            requestUrlForDelete={`/api/v1/admin/delete/hospitalAdmin/${admin.id}`}
             updateFunction={getClinicAdmins}
             heading1="Name"
             heading1Content={`${admin.user.firstName}  ${admin.user.lastName}`}

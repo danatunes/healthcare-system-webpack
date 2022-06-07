@@ -44,7 +44,7 @@ const DoctorProfileForPatient = lazy(() =>
 );
 
 const Admin = lazy(() => import("./pages/admin/admin-global/main"));
-const Clinics = lazy(() => import("./pages/admin/admin-clinic/add-clinic"));
+const Clinics = lazy(() => import("./pages/admin/admin-global/add-clinic"));
 const Specializations = lazy(() =>
   import("./pages/admin/admin-global/add-specializations")
 );

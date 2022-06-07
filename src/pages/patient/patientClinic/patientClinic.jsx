@@ -9,7 +9,7 @@ import { useEffect } from "react";
 export const PatientClinic = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector(({ user }) => user.currentUser);
+  const user = useSelector(({ user }) => user);
   console.log(user, "user");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const PatientClinic = () => {
 
   return (
     <div className="w-full h-full space-y-10">
-      {user.userHospital && (
+      {user.currentUser.userHospital && (
         <div
           className={clsx(
             "w-full grid grid-cols-1 gap-y-2",
@@ -30,7 +30,7 @@ export const PatientClinic = () => {
           )}
         >
           <Link
-            to={`/patient/clinics/${user.userHospital.id}`}
+            to={`/patient/clinics/${user.currentUser.userHospital.id}`}
             className={clsx(
               "border-0 flex items-center justify-center font-normal py-20 text-xl transition duration-300 px-5 shadow-lg rounded-xl",
               "md:px-20",
@@ -66,28 +66,38 @@ const FrequentlyClinics = ({ user }) => {
       header={<HeaderList name="My Clinic" />}
       className="py-4 px-2.5 space-y-4"
     >
-      <DropDown isDoctor={false} heading={user.userHospital.name}>
-        <Menu.Item>
-          <table className="w-full overflow-hidden table-auto">
-            <thead>
-              <tr className="text-sm text-gray-400">
-                <th className="font-normal">City</th>
-                <th className="font-normal">Address</th>
-                <th className="font-normal">Date of registration</th>
-                <th className="font-normal">Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-sm">
-                <td className="font-normal">{user.userHospital.city.name}</td>
-                <td className="font-normal">{user.userHospital.address}</td>
-                <td className="font-normal">{user.userHospital.rate}</td>
-                <td className="font-normal">{user.userHospital.phone}</td>
-              </tr>
-            </tbody>
-          </table>
-        </Menu.Item>
-      </DropDown>
+      {user.currentUser.userHospital && (
+        <DropDown isDoctor={false} heading={user.currentUser.userHospital.name}>
+          <Menu.Item>
+            <table className="w-full overflow-hidden table-auto">
+              <thead>
+                <tr className="text-sm text-gray-400">
+                  <th className="font-normal">City</th>
+                  <th className="font-normal">Address</th>
+                  <th className="font-normal">Rating</th>
+                  <th className="font-normal">Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-sm">
+                  <td className="font-normal">
+                    {user.currentUser.userHospital.city.name}
+                  </td>
+                  <td className="font-normal">
+                    {user.currentUser.userHospital.address}
+                  </td>
+                  <td className="font-normal">
+                    {user.currentUser.userHospital.rate}
+                  </td>
+                  <td className="font-normal">
+                    {user.currentUser.userHospital.phone}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Menu.Item>
+        </DropDown>
+      )}
     </List>
   );
 };

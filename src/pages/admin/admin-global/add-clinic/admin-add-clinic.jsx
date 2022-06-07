@@ -26,6 +26,8 @@ export const AdminAddClinic = () => {
         cityId = item.id;
       }
     });
+
+    //trim().replace(/[^0-9]+/, "")
     const data = {
       name: nameRef.current.value,
       description: descRef.current.value,
@@ -33,7 +35,6 @@ export const AdminAddClinic = () => {
       address: addressRef.current.value,
       cityId: parseInt(cityId),
     };
-    console.log(data);
 
     try {
       await publicRequest.post("/api/v1/hospital/add", data, {
@@ -72,7 +73,7 @@ export const AdminAddClinic = () => {
       id: "phone",
       ref: phoneRef,
       name: "Phone",
-      type: "text",
+      type: "number",
     },
     {
       id: "address",
@@ -106,7 +107,7 @@ export const AdminAddClinic = () => {
     }
   }
 
-  console.log(clinics[0].name);
+  console.log(clinics);
 
   return (
     <List
@@ -128,6 +129,7 @@ export const AdminAddClinic = () => {
         <Block
           heading1="Name"
           heading1Content={clinic.name}
+          requestUrlForDelete={`/api/v1/hospital/delete/${clinic.id}`}
           heading2="Address"
           heading2Content={`${clinic.address}, ${clinic.city.name}`}
           heading3="Phone"

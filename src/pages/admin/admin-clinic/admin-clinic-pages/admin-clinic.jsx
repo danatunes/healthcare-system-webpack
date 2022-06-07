@@ -35,7 +35,7 @@ export const AdminClinic = () => {
   const passwordRef = useRef(null);
   const rePasswordRef = useRef(null);
   const genderRef = useRef(null);
-  const ageRef = useRef(null);
+  const dateOfBirthdayRef = useRef(null);
   const experienceRef = useRef(null);
   const descriptionRef = useRef(null);
   const [hospital, setHospital] = useState(null);
@@ -59,7 +59,7 @@ export const AdminClinic = () => {
     const data = {
       email: emailRef.current.value,
       gender: genderRef.current.value,
-      age: ageRef.current.value,
+      dateOfBirth: dateOfBirthdayRef.current.value,
       experience: experienceRef.current.value,
       description: descriptionRef.current.value,
       firstName: firstRef.current.value,
@@ -70,7 +70,6 @@ export const AdminClinic = () => {
       password: passwordRef.current.value,
       rePassword: rePasswordRef.current.value,
     };
-    console.log(data);
 
     try {
       await publicRequest.post("/api/v1/auth/registration/doctor", data, {
@@ -95,7 +94,6 @@ export const AdminClinic = () => {
         })
         .then((res) => {
           setHospital(res.data);
-          console.log(res.data, "res");
         });
     } catch (e) {
       console.log(e);
@@ -128,8 +126,6 @@ export const AdminClinic = () => {
     getSpezializations();
   }, []);
 
-  console.log(hospital, "hospital");
-
   const modalUI = [
     {
       id: "email",
@@ -156,10 +152,10 @@ export const AdminClinic = () => {
       type: "text",
     },
     {
-      id: "age",
-      ref: ageRef,
-      name: "Age",
-      type: "text",
+      id: "dateOfBirthday",
+      ref: dateOfBirthdayRef,
+      name: "Date of Birthday",
+      type: "date",
     },
     {
       id: "specializationId",
@@ -183,7 +179,7 @@ export const AdminClinic = () => {
       id: "phone",
       ref: phoneRef,
       name: "Phone",
-      type: "text",
+      type: "number",
     },
     {
       id: "password",
@@ -224,7 +220,11 @@ export const AdminClinic = () => {
             {doctors.length !== 0 ? (
               doctors.map((doctor) => (
                 <Block
+                  updateFunction={fetchDoctors}
                   doctor={doctor}
+                  requestUrlForDelete={`api/v1/admin/delete/doctor/${doctor.id}`}
+                  additionalButtons={true}
+                  requestUrlForEdit={`api/v1/admin/update/${doctor.id}`}
                   heading1="Name"
                   heading1Content={
                     doctor.user.firstName + " " + doctor.user.lastName
@@ -268,6 +268,8 @@ export const AdminClinic = () => {
                         <input
                           ref={item.ref}
                           type={item.type}
+                          max="2022-05-31"
+                          required={true}
                           id={item.id}
                           autoComplete="off"
                           list={
@@ -380,7 +382,6 @@ const ClinicCard = ({ hospital, getClinic }) => {
       address: addressRef.current.value,
       cityId: parseInt(cityId),
     };
-    console.log(data);
 
     try {
       await publicRequest.put(
@@ -399,7 +400,6 @@ const ClinicCard = ({ hospital, getClinic }) => {
     setIsOpen(false);
   };
 
-  console.log(hospital);
   return (
     <div
       className={clsx(

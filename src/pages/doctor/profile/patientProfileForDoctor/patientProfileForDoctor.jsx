@@ -1,7 +1,12 @@
 import { List } from "../../../../components";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
-import { DownloadIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
+import {
+  DownloadIcon,
+  SaveAsIcon,
+  UserAddIcon,
+  UserIcon,
+} from "@heroicons/react/outline";
 import { getPatient } from "../../../../redux/actions/patients";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -122,40 +127,47 @@ export const PatientProfileForDoctor = () => {
             }
             styleList="rounded-xl"
           >
-            <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
-              <thead>
-                <tr className="text-left text-gray-400 text-sm">
-                  <th className="py-4 font-normal px-10">Name</th>
-                  <th className="py-4 font-normal px-10">Type</th>
-                  <th className="py-4 font-normal px-10 text-center">
-                    Download
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {files.map((file, index) => (
-                  <tr
-                    className={clsx(
-                      "text-sm text-left",
-                      index % 2 === 0 ? "bg-white" : "bg-gray-50",
-                      "hover:bg-gray-100"
-                    )}
-                  >
-                    <td className="py-4 font-normal px-10">{file.name}</td>
-                    <td className="py-4 font-normal px-10">
-                      {file.contentType}
-                    </td>
-                    <a
-                      href={imageURL}
-                      onClick={() => downloadImage(file.id)}
-                      className="py-4 flex justify-center cursor-pointer font-normal text-center px-10"
-                    >
-                      <DownloadIcon className="w-5 text-[#3A57E8]" />
-                    </a>
+            {files.length > 0 ? (
+              <table className="[border-spacing:0 0.75rem] border-collapse w-full table-auto bg-[#F8F9FD] rounded-t-xl">
+                <thead>
+                  <tr className="text-left text-gray-400 text-sm">
+                    <th className="py-4 font-normal px-10">Name</th>
+                    <th className="py-4 font-normal px-10">Type</th>
+                    <th className="py-4 font-normal px-10 text-center">
+                      Download
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {files.map((file, index) => (
+                    <tr
+                      className={clsx(
+                        "text-sm text-left",
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50",
+                        "hover:bg-gray-100"
+                      )}
+                    >
+                      <td className="py-4 font-normal px-10">{file.name}</td>
+                      <td className="py-4 font-normal px-10">
+                        {file.contentType}
+                      </td>
+                      <a
+                        href={imageURL}
+                        onClick={() => downloadImage(file.id)}
+                        className="py-4 flex justify-center cursor-pointer font-normal text-center px-10"
+                      >
+                        <DownloadIcon className="w-5 text-[#3A57E8]" />
+                      </a>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="text-center text-gray-400 py-6 px-3 flex items-center justify-center">
+                <SaveAsIcon className="w-11" />
+                <p className="text-lg font-medium">No documents</p>
+              </div>
+            )}
           </List>
           <Modal
             setIsOpen={setIsOpen}
@@ -246,8 +258,8 @@ const UserCard = ({ userInformation }) => {
                 information={userInformation.user.email}
               />
               <UserInformation
-                label="Age"
-                information={userInformation.user.age}
+                label="Date of birthday"
+                information={userInformation.user.dateOfBirth}
               />
               <UserInformation
                 label="Gender"
@@ -280,7 +292,7 @@ const UserInformation = ({ label, information }) => {
       )}
     >
       <p className={clsx("text-sm text-gray-400 mr-2", "sm:mr-0")}>{label}</p>
-      <p className="text-md font-bold overflow-x-auto truncate">
+      <p className={clsx("text-md font-bold overflow-x-auto truncate")}>
         {information}
       </p>
     </div>

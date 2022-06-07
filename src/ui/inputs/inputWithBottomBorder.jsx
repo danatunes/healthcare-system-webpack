@@ -4,6 +4,9 @@ import clsx from "clsx";
 export const InputWithBottomBorder = ({
   id,
   style,
+  register,
+  max,
+  required,
   placeholder,
   type,
   list,
@@ -22,6 +25,9 @@ export const InputWithBottomBorder = ({
     >
       <input
         type={type}
+        max={max}
+        required={required}
+        {...register}
         ref={reference}
         name={id}
         autoComplete={autoComplete}

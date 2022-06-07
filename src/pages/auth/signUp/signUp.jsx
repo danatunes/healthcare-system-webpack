@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder";
-import { LoginIntegration } from "../../../components";
 import { Button } from "../../../ui/button/button";
 import clsx from "clsx";
 import { publicRequest } from "../../../api/requestMethods";
 import { Datalist } from "../../../ui/datalist/datalist";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 export const SignUp = () => {
   const dataForUI = [
@@ -41,9 +41,9 @@ export const SignUp = () => {
       type: "text",
     },
     {
-      id: "age",
-      name: "Age",
-      type: "text",
+      id: "dateOfBirth",
+      name: "Date of Birthday",
+      type: "date",
     },
     {
       id: "password",
@@ -71,6 +71,7 @@ export const SignUp = () => {
   const [hospitals, setHospitals] = useState([]);
   const [cityId, setCityId] = useState(null);
   const navigate = useNavigate();
+  const { register } = useForm();
 
   async function fetch() {
     try {
@@ -117,6 +118,14 @@ export const SignUp = () => {
     delete requestData.city;
     delete requestData.cityId;
     requestData.hospitalId = clinicId;
+    let number = requestData.phoneNumber;
+    if (number.toString().includes("a", /[A-Z] || [a-z] || " "/)) {
+      toast("Wrong number", {
+        style: "error",
+        position: "top-right",
+      });
+      return;
+    }
 
     try {
       await publicRequest.post("api/v1/auth/registration/patient", requestData);
@@ -149,6 +158,9 @@ export const SignUp = () => {
             <InputWithBottomBorder
               key={item.id}
               id={`${item.id}`}
+              max="2022-05-31"
+              required={true}
+              register={register}
               name={item.name}
               type={
                 item.type === "datalist" || item.type === "datalistCity"
@@ -179,13 +191,7 @@ export const SignUp = () => {
         <Datalist data={city} id="cityId_list" />
       </div>
       <div className="flex flex-col items-center mt-4 justify-center space-y-5">
-        <div className="flex w-full items-center justify-center space-x-2">
-          <input type="checkbox" className="border-0" />
-          <p className="text-[#8A92A6]">I agree with the terms of use</p>
-        </div>
         <Button name="Sign up" type="submit" />
-        <p className="text-black">or sign up with other accounts?</p>
-        <LoginIntegration />
         <p className="text-black">
           Already have an Account{" "}
           <NavLink className="text-[#458FF6]" to="/login">

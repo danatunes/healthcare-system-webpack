@@ -1,6 +1,5 @@
 import React from "react";
 import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder";
-import { LoginIntegration } from "../../../components";
 import { Button } from "../../../ui/button/button";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,8 +82,6 @@ export const Login = () => {
           </a>
         </div>
         <Button name="Sign in" disabled={isFetching} type="submit" />
-        <p className="text-black">or sign in with other accounts?</p>
-        <LoginIntegration />
         <p className="text-black">
           Don’t have an account?{" "}
           <NavLink className="text-[#458FF6]" to="/sign-up">

@@ -11,7 +11,8 @@ export const Block = ({
   doctor,
   updateFunction,
   additionalButtons,
-  requestUrl,
+  requestUrlForDelete,
+  requestUrlForEdit,
   heading1,
   heading1Content,
   heading2,
@@ -20,11 +21,81 @@ export const Block = ({
   heading3Content,
 }) => {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const cancelButtonRef = useRef(null);
+  const emailRef = useRef(null);
+  const firstRef = useRef(null);
+  const lastRef = useRef(null);
+  const descRef = useRef(null);
+  const expRef = useRef(null);
+  const fatherNameRef = useRef(null);
+  const dateOfBirthDayRef = useRef(null);
+  const genderRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  const modalUI = [
+    {
+      id: "email",
+      ref: emailRef,
+      defaultValue: doctor && doctor.user.email,
+      name: "Email",
+      type: "text",
+    },
+    {
+      id: "firstName",
+      ref: firstRef,
+      defaultValue: doctor && doctor.user.firstName,
+      name: "First Name",
+      type: "text",
+    },
+    {
+      id: "lastName",
+      ref: lastRef,
+      defaultValue: doctor && doctor.user.lastName,
+      name: "Last Name",
+      type: "text",
+    },
+    {
+      id: "fatherName",
+      ref: fatherNameRef,
+      defaultValue: doctor && doctor.user.fatherName,
+      name: "Father Name",
+      type: "text",
+    },
+    {
+      id: "dateOfBirthday",
+      ref: dateOfBirthDayRef,
+      defaultValue: doctor && doctor.user.dateOfBirthday,
+      name: "Date of Birthday",
+      type: "date",
+    },
+    {
+      id: "phone",
+      ref: phoneRef,
+      defaultValue: doctor && doctor.user.phoneNumber,
+      name: "Phone",
+      type: "number",
+    },
+    {
+      id: "description",
+      ref: descRef,
+      name: "Description",
+      defaultValue: doctor && doctor.description,
+      type: "text",
+    },
+    {
+      id: "experience",
+      ref: expRef,
+      defaultValue: doctor && doctor.experience,
+      name: "Experience",
+      type: "number",
+    },
+  ];
 
   const onDelete = async () => {
     try {
       await publicRequest
-        .delete(requestUrl, {
+        .delete(requestUrlForDelete, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -44,50 +115,63 @@ export const Block = ({
     }
   };
 
+  const handleSubmitEdit = async (e) => {
+    e.preventDefault();
+    try {
+      await publicRequest
+        .put(
+          requestUrlForEdit,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then(() => {
+          toast("Edited successfully", {
+            type: "success",
+            position: "top-right",
+          });
+          updateFunction();
+        });
+    } catch (e) {
+      toast(e.response.data.message || e.message, {
+        type: "error",
+        position: "top-right",
+      });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex flex-row justify-between items-center py-2 px-4 min-h-[65px] rounded-xl bg-white my-2 mx-4">
       <div className="flex flex-row space-x-8 items-center">
-        <TextBlock
-          fieldHeader={heading1}
-          // doctor={doctor}
-          content={heading1Content}
-        />
+        <TextBlock fieldHeader={heading1} content={heading1Content} />
         <TextBlock fieldHeader={heading2} content={heading2Content} />
         {heading3 && (
           <TextBlock fieldHeader={heading3} content={heading3Content} />
         )}
       </div>
       <div className="space-x-4">
-        {additionalButtons && additionalButtons}
+        {additionalButtons && (
+          <Button
+            name="Edit"
+            onClick={() => setIsOpen(true)}
+            style="w-20 rounded-3xl bg-blue-600"
+          />
+        )}
         <Button
           name="Delete"
           onClick={() => onDelete()}
           style="w-20 rounded-3xl bg-red-600"
         />
       </div>
-    </div>
-  );
-};
-
-const TextBlock = ({ fieldHeader, content, doctor }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const cancelButtonRef = useRef(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  };
-
-  return (
-    <>
-      <>
-        <div className="flex flex-col text-center w-[160px] h-fit justify-start items-center">
-          <p className="opacity-40 text-sm">{fieldHeader}</p>
-          <p className="text-md">{content}</p>
-        </div>
+      {doctor && (
         <Modal
           setIsOpen={setIsOpen}
           isOpen={isOpen}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleSubmitEdit}
         >
           <div>
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -101,13 +185,49 @@ const TextBlock = ({ fieldHeader, content, doctor }) => {
                 as="h3"
                 className="text-lg leading-6 font-medium text-gray-900"
               >
-                Delete doctor
+                Edit doctor
               </Dialog.Title>
-
               <div className="mt-2 flex flex-col space-y-4">
-                <p className="text-sm">
-                  {/*Are you sure you want to delete doctor {doctor.firstName}?*/}
-                </p>
+                <div className="grid grid-cols-2 gap-x-4">
+                  {modalUI.map((item) => (
+                    <label
+                      htmlFor={item.id}
+                      className="flex flex-col mt-1 text-gray-500 text-md items-start"
+                    >
+                      <p>
+                        {item.name} : {item.pattern && <span>87056537575</span>}
+                      </p>
+                      <input
+                        ref={item.ref}
+                        type={item.type}
+                        required={true}
+                        id={item.id}
+                        defaultValue={
+                          item.defaultValue && `${item.defaultValue}`
+                        }
+                        autoComplete="off"
+                        max="2022-05-31"
+                        className="w-full rounded-md min-h-[50px] border-2 border-gray-300"
+                      />
+                    </label>
+                  ))}
+                  <label
+                    htmlFor="gender"
+                    className="flex flex-col text-gray-500 w-full text-md items-start"
+                  >
+                    Gender :
+                    <select
+                      name="gender"
+                      id="gender"
+                      ref={genderRef}
+                      className="min-w-[250px] w-full rounded-md min-h-[50px] border-2 border-gray-300 focus-within:border-indigo-600"
+                    >
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -128,7 +248,16 @@ const TextBlock = ({ fieldHeader, content, doctor }) => {
             </button>
           </div>
         </Modal>
-      </>
-    </>
+      )}
+    </div>
+  );
+};
+
+const TextBlock = ({ fieldHeader, content }) => {
+  return (
+    <div className="flex flex-col text-center w-[160px] h-fit justify-start items-center">
+      <p className="opacity-40 text-sm">{fieldHeader}</p>
+      <p className="text-md">{content}</p>
+    </div>
   );
 };

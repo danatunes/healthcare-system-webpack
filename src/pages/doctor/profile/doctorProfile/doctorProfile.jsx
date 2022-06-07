@@ -10,6 +10,7 @@ import { Dialog } from "@headlessui/react";
 import { publicRequest } from "../../../../api/requestMethods";
 import { DoctorProfileCalendar } from "../../../../components/doctorProfileCalendar";
 import { getMyPatients } from "../../../../redux/actions/patients";
+import { toast } from "react-toastify";
 
 export const DoctorProfile = () => {
   const me = useSelector(({ user }) => user.me);
@@ -40,14 +41,24 @@ export const DoctorProfile = () => {
       console.log(formData, "formData");
 
       try {
-        await publicRequest.post("/api/v1/file/upload/avatar", formData, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-            ContentType: "multipart/form-data",
-          },
-        });
+        await publicRequest
+          .post("/api/v1/file/upload/avatar", formData, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              ContentType: "multipart/form-data",
+            },
+          })
+          .then(() => {
+            toast("Avatar successfully uploaded", {
+              type: "success",
+              position: "top-right",
+            });
+          });
       } catch (e) {
-        console.log(e);
+        toast(e.data.message || e.message, {
+          type: "error",
+          position: "top-right",
+        });
       }
     }
     setIsOpenAvatar(false);
@@ -57,14 +68,24 @@ export const DoctorProfile = () => {
     e.preventDefault();
     console.log(workCalendar);
     try {
-      await publicRequest.post("api/v1/schedule/create", workCalendar, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          Application: "application/json",
-        },
-      });
+      await publicRequest
+        .post("api/v1/schedule/create", workCalendar, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            Application: "application/json",
+          },
+        })
+        .then(() => {
+          toast("Schedule created successfully", {
+            type: "success",
+            position: "top-right",
+          });
+        });
     } catch (e) {
-      console.log(e);
+      toast(e.data.message || e.message, {
+        type: "error",
+        position: "top-right",
+      });
     }
     setIsOpen(false);
   };
