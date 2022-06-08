@@ -306,7 +306,7 @@ const UserCard = ({ userInformation }) => {
           <Loader />
         )}
         <div className="py-3 px-8 space-y-3 w-full">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-2xl font-bold overflow-x-auto">
             Hospital : {userInformation.hospital.name}
           </h3>
           <h4 className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
