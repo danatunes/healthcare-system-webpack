@@ -60,9 +60,13 @@ export const Doctors = () => {
   return (
     <>
       {doctors && doctors.length > 0 ? (
-        doctors.map((doctor) => (
+        doctors.map((doctor, index) => (
           <NavLink key={`/doctors/${doctor.id}`} to={`/doctors/${doctor.id}`}>
-            <DoctorCard key={doctor.id} {...doctor} />
+            <DoctorCard
+              key={doctor.id}
+              {...doctor}
+              rate={doctors[index].rate}
+            />
           </NavLink>
         ))
       ) : (

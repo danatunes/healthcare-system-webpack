@@ -291,6 +291,7 @@ export const DoctorProfileForPatient = () => {
 
 const UserCard = ({ userInformation }) => {
   const { avatar } = useSelector(({ doctor }) => doctor);
+  console.log(userInformation, "userinfo");
 
   return (
     <div className="bg-white overflow-hidden rounded-xl shadow-md">
@@ -309,7 +310,7 @@ const UserCard = ({ userInformation }) => {
             Hospital : {userInformation.hospital.name}
           </h3>
           <h4 className="text-xl leading-8">{`Dr. ${userInformation.user.firstName} ${userInformation.user.lastName}`}</h4>
-          <div className={clsx("flex flex-wrap space-y-2")}>
+          <div className={clsx("flex flex-wrap")}>
             <UserInformation
               label="Position"
               information={userInformation.user.role.name}
@@ -318,7 +319,7 @@ const UserCard = ({ userInformation }) => {
               label="Email"
               information={userInformation.user.email}
             />
-            <UserInformation label="Role" information="DOCTOR" />
+            <UserInformation label="Rate" information={userInformation.rate} />
             <UserInformation label="Date of Birth" information="22-05-2000" />
             <UserInformation
               label="Phone"
@@ -380,12 +381,6 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
       times: ["09:00", "10:00", "11:00", "12:00", "13:00"],
     },
   ];
-
-  // useEffect(() => {
-  //   if (role === "PATIENT") {
-  //     data = dataFromPatient;
-  //   }
-  // }, []);
 
   return (
     <div className="flex py-9 flex-col bg-white items-center justify-center">
