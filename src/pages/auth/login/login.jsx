@@ -3,7 +3,7 @@ import { InputWithBottomBorder } from "../../../ui/inputs/inputWithBottomBorder"
 import { Button } from "../../../ui/button/button";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { login } from "../../../redux/actions/user";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -77,9 +77,9 @@ export const Login = () => {
             <input type="checkbox" className="border-0 rounded-md" />
             <p className="text-[#8A92A6]">Remember me?</p>
           </div>
-          <a href="#" className="text-[#458FF6]">
+          <Link to="/reset-password" className="text-[#458FF6]">
             Forgot Password
-          </a>
+          </Link>
         </div>
         <Button name="Sign in" disabled={isFetching} type="submit" />
         <p className="text-black">

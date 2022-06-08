@@ -126,8 +126,8 @@ export const PatientProfile = () => {
         </List>
         <List
           styleList="rounded-xl"
-          className="py-4 px-2.5"
-          header={<HeaderList name="Appoinments" />}
+          className="py-4 px-2.5 space-y-2"
+          header={<HeaderList name="Appointments" />}
         >
           {appointments && appointments.length > 0 ? (
             appointments.map((appointment) => (
@@ -153,7 +153,9 @@ export const PatientProfile = () => {
                     <tbody>
                       <tr className="text-sm">
                         <td className="font-normal py-4 px-5">
-                          {appointment.schedule.doctor.hospital.name}
+                          {appointment.schedule.doctor.hospital
+                            ? appointment.schedule.doctor.hospital.name
+                            : "deleted"}
                         </td>
                         <td className="font-normal py-4 px-5">
                           {`${appointment.schedule.doctor.user.firstName} ${appointment.schedule.doctor.user.fatherName}`}
