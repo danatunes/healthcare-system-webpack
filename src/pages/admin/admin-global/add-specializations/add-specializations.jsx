@@ -60,6 +60,8 @@ export const Specializations = () => {
     getAllSpecializations();
   }, []);
 
+  console.log(allSpecialities);
+
   return (
     <List
       styleList="rounded-xl w-full"
@@ -83,7 +85,7 @@ export const Specializations = () => {
           <Block
             heading1="Name"
             heading1Content={specialities.name}
-            requestUrl={`/api/v1/specialization/delete/${specialities.id}`}
+            requestUrlForDelete={`/api/v1/specialization/delete/${specialities.id}`}
             updateFunction={getAllSpecializations}
           />
         ))
