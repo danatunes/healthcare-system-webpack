@@ -83,6 +83,7 @@ export const ClinicPatients = () => {
               <tr className="text-left text-gray-400">
                 <th className="py-4 font-normal px-5">Name</th>
                 <th className="py-4 font-normal px-5">Date</th>
+                <th className="py-4 font-normal px-5">Time</th>
                 <th className="py-4 font-normal px-5">Email</th>
                 <th className="py-4 font-normal px-5">Status</th>
                 <th className="py-4 font-normal px-5">Number</th>
@@ -110,8 +111,10 @@ export const ClinicPatients = () => {
                   <td className="py-4 font-normal px-5 min-w-[110px]">
                     {patient.date}
                   </td>
-
-                  <td className="py-4 font-normal max-w-[100px] px-5 overflow-hidden">
+                  <td className="py-4 font-normal px-5 min-w-[110px]">
+                    {patient.schedule.time}
+                  </td>
+                  <td className="py-4 font-normal overflow-x-auto max-w-[100px] px-5 overflow-hidden">
                     {patient.patient.user.email}
                   </td>
                   <td className="py-4 font-normal px-5">{patient.status}</td>

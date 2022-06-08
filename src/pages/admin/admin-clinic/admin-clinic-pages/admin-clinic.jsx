@@ -418,7 +418,7 @@ const ClinicCard = ({ hospital, getClinic }) => {
           "xl:divide-x-2 xl:flex-row"
         )}
       >
-        <div className="flex px-4 flex-col flex-grow-0">
+        <div className="flex px-4 flex-col">
           <h4 className="font-medium text-lg leading-8">{hospital.name}</h4>
           <p className="font-normal text-[12px] text-gray-400">
             "Многопрофильная клиника Alanda Clinic (Аланда Клиник) Астана
@@ -431,13 +431,13 @@ const ClinicCard = ({ hospital, getClinic }) => {
           </div>
         </div>
         <hr />
-        <div className="flex px-4 flex-col flex-grow shrink-0 space-y-3">
-          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
+        <div className="flex px-4 flex-col space-y-3">
+          <div className="flex flex-row space-x-1.5 items-center justify-start">
             <PhoneIcon className="w-5 text-[#3A57E8]" />
             {hospital.phone}
           </div>
-          <div className="flex flex-row space-x-1.5 flex-grow items-center justify-start">
-            <LocationMarkerIcon className="w-5 text-[#3A57E8]" />
+          <div className="flex flex-row space-x-1.5 items-center justify-start">
+            <LocationMarkerIcon className="shrink-0 w-5 text-[#3A57E8]" />
             <div>
               <p>{hospital.address}</p>
               <p>{hospital.city.name}</p>
