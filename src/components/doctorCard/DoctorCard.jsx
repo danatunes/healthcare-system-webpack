@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { StarIcon, UserIcon } from "@heroicons/react/outline";
 
-export const DoctorCard = ({ user, specialization, rate }) => {
-  console.log(rate, "user");
+export const DoctorCard = ({ user, specialization, rate, experience }) => {
+  console.log(user, "user");
   return (
     <div className="bg-white mb-3 rounded-xl shadow-md">
       <div className={clsx("flex flex-col items-end", "sm:flex-row")}>
@@ -17,7 +17,7 @@ export const DoctorCard = ({ user, specialization, rate }) => {
           <p className="text-sm font-normal text-gray-500">
             {specialization.name}
           </p>
-          <p className="text-sm font-normal text-gray-500">9 year</p>
+          <p className="text-sm font-normal text-gray-500">{experience} year</p>
           <div className="flex justify-end items-center flex-row space-x-1.5">
             <StarIcon className="text-[#3A57E8] w-5" />
             <p>{rate}</p>

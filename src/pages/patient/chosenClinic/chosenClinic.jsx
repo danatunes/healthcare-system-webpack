@@ -14,7 +14,7 @@ import {
   StarIcon,
 } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
-import photo_clinic from "../../../images/example_photo_clinic.png";
+import photo_clinic from "../../../images/hospital_photo.jpg";
 import { toast } from "react-toastify";
 
 export const ChosenClinic = () => {
