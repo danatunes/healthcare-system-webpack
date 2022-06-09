@@ -225,7 +225,7 @@ export const AdminClinic = () => {
                   doctor={doctor}
                   requestUrlForDelete={`api/v1/admin/delete/doctor/${doctor.id}`}
                   additionalButtons={true}
-                  requestUrlForEdit={`api/v1/admin/update/${doctor.id}`}
+                  requestUrlForEdit={`api/v1/admin/update/doctor/${doctor.id}`}
                   heading1="Name"
                   heading1Content={
                     doctor.user.firstName + " " + doctor.user.lastName
