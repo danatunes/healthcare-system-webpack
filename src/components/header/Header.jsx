@@ -57,7 +57,9 @@ export const Header = () => {
                 >
                   <p className="">
                     {mainRole === "PATIENT"
-                      ? `${me.user.firstName} ${me.user.lastName}`
+                      ? `${me.user && me.user.firstName} ${
+                          me.user && me.user.lastName
+                        }`
                       : mainRole === "DOCTOR"
                       ? "DOCTOR"
                       : "ADMIN"}
