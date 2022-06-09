@@ -119,17 +119,24 @@ export const Block = ({
 
   const handleSubmitEdit = async (e) => {
     e.preventDefault();
+    const data = {
+      email: emailRef.current.value,
+      firstName: firstRef.current.value,
+      lastName: lastRef.current.value,
+      fatherName: fatherNameRef.current.value,
+      phoneNumber: phoneRef.current.value,
+      description: descRef.current.value,
+      experience: expRef.current.value,
+      gender: genderRef.current.value,
+      dateOfBirth: dateOfBirthDayRef.current.value,
+    };
     try {
       await publicRequest
-        .put(
-          requestUrlForEdit,
-          {},
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .put(requestUrlForEdit, data, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
         .then(() => {
           toast("Edited successfully", {
             type: "success",
