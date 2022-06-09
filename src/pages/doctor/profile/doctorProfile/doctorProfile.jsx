@@ -109,7 +109,7 @@ export const DoctorProfile = () => {
               <ConsultingCart
                 type="Offline"
                 when="Today"
-                count={patients.length}
+                count={patients && patients.length}
               />
             </NavLink>
             <ConsultingCart type="Online" when="Today" count="0" />
