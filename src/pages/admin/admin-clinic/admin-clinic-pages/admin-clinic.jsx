@@ -201,6 +201,7 @@ export const AdminClinic = () => {
         <div className="space-y-7">
           <ClinicCard hospital={hospital} getClinic={getClinic} />
           <List
+            className="max-h-[500px]"
             styleList="rounded-xl w-full"
             header={
               <div className="flex flex-row justify-between">

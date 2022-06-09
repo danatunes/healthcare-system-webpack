@@ -111,6 +111,7 @@ export const AdminAddClinic = () => {
 
   return (
     <List
+      className="max-h-[500px]"
       styleList="rounded-xl w-full"
       header={
         <div className="flex flex-row justify-between">
