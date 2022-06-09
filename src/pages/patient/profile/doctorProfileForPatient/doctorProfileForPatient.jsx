@@ -21,7 +21,6 @@ export const DoctorProfileForPatient = () => {
   const [isOpenCalendar, setIsOpenCalendar] = useState(false);
   const [workCalendar, setWorkCalendar] = useState([]);
   const [record, setRecord] = useState([]);
-  console.log(workCalendar, "workCalendar");
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -394,7 +393,7 @@ const DoctorProfileCalendar = ({ setWorkCalendar, dataFromPatient }) => {
               <RowWithDayAndTime
                 times={item.times}
                 dayOfWeek={item.dayOfWeek}
-                style={index % 2 === 0 ? "text-green-300" : "text-black-300"}
+                style="text-black-300"
                 date={item.date}
                 key={`${item.dayOfWeek} ${index}`}
                 setWorkCalendar={setWorkCalendar}

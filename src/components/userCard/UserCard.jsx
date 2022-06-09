@@ -206,7 +206,7 @@ const UserInformation = ({ label, information }) => {
   return (
     <div
       className={clsx(
-        "w-full flex flex-row justify-between flex-grow",
+        "w-full flex flex-row overflow-x-hidden truncate justify-between flex-grow",
         "sm:w-1/3 sm:flex-col"
       )}
     >

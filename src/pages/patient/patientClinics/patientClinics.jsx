@@ -6,7 +6,7 @@ import {
   PhoneIcon,
   StarIcon,
 } from "@heroicons/react/outline";
-import photo_clinic from "../../../images/example_photo_clinic.png";
+import photo_clinic from "../../../images/hospital_photo.jpg";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
@@ -19,8 +19,6 @@ import Loader from "../../../ui/loader/loader";
 export const PatientClinics = () => {
   const clinics = useSelector(({ clinic }) => clinic.clinics);
   const dispatch = useDispatch();
-
-  console.log(clinics);
 
   useEffect(() => {
     dispatch(getAllClinics());
@@ -101,8 +99,6 @@ const ListPart = ({ data, input }) => {
       return el.name.toLowerCase().includes(input);
     }
   });
-
-  console.log(filteredData, "filteredData");
 
   return (
     <List className="px-4 py-3 max-h-[500px]">
@@ -185,13 +181,13 @@ const ClinicCard = ({ name, rate, address, phone, city, description }) => {
   return (
     <div
       className={clsx(
-        "flex shadow my-3 bg-white flex-col rounded-lg",
+        "flex shadow my-3 bg-white items-center flex-col rounded-lg",
         "sm:flex-row"
       )}
     >
       <img
         src={photo_clinic}
-        className={clsx("w-full", "sm:w-[215px]")}
+        className={clsx("w-full h-fit", "sm:w-[215px]")}
         alt="clinic_photo"
       />
       <div
@@ -204,7 +200,7 @@ const ClinicCard = ({ name, rate, address, phone, city, description }) => {
           <h4
             className={clsx(
               "font-medium overflow-hidden truncate text-lg w-[150px] leading-8",
-              "xl:w-[200px]",
+              "xl:w-[300px]",
               "md:w-[170px]"
             )}
           >
