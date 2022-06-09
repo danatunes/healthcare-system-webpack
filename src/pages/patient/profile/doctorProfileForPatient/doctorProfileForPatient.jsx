@@ -320,7 +320,10 @@ const UserCard = ({ userInformation }) => {
               information={userInformation.user.email}
             />
             <UserInformation label="Rate" information={userInformation.rate} />
-            <UserInformation label="Date of Birth" information="22-05-2000" />
+            <UserInformation
+              label="Date of Birth"
+              information={userInformation.user.dateOfBirth}
+            />
             <UserInformation
               label="Phone"
               information={userInformation.user.phoneNumber}

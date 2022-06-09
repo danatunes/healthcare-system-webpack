@@ -33,6 +33,8 @@ export const Block = ({
   const genderRef = useRef(null);
   const phoneRef = useRef(null);
 
+  console.log(doctor);
+
   const modalUI = [
     {
       id: "email",
@@ -65,7 +67,7 @@ export const Block = ({
     {
       id: "dateOfBirthday",
       ref: dateOfBirthDayRef,
-      defaultValue: doctor && doctor.user.dateOfBirthday,
+      defaultValue: doctor && doctor.user.dateOfBirth,
       name: "Date of Birthday",
       type: "date",
     },

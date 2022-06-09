@@ -83,8 +83,8 @@ export const PatientProfile = () => {
               <thead>
                 <tr className="text-left text-gray-400 text-sm">
                   <th className="py-4 font-normal px-10">Name</th>
-                  <th className="py-4 font-normal px-10">Type</th>
                   <th className="py-4 font-normal px-10">Specialist</th>
+                  <th className="py-4 font-normal px-10">Hospital</th>
                   <th className="py-4 font-normal px-10 text-center">
                     Download
                   </th>
@@ -101,14 +101,17 @@ export const PatientProfile = () => {
                   >
                     <td className="py-4 font-normal px-10">{document.name}</td>
                     <td className="py-4 font-normal px-10">
-                      {document.contentType}
+                      {`${document.doctor.user.firstName} 
+                      ${document.doctor.user.lastName} ${document.doctor.specialization.name}`}
                     </td>
-                    <td className="py-4 font-normal px-10">Dr. Vin Diesel</td>
+                    <td className="py-4 font-normal px-10">
+                      {`${document.doctor.hospital.name} ${document.doctor.hospital.city.name}`}
+                    </td>
                     <td className="py-4 flex justify-center font-normal text-center px-10">
                       <a
                         href={imageURL}
                         onClick={() => downloadImage(document.id)}
-                        download
+                        download={document.name}
                       >
                         <DownloadIcon className="cursor-pointer w-5 text-[#3A57E8]" />
                       </a>
@@ -127,7 +130,7 @@ export const PatientProfile = () => {
         <List
           styleList="rounded-xl"
           className="py-4 px-2.5 space-y-2"
-          header={<HeaderList name="Appointments" />}
+          header={<HeaderList name="Appoinments" />}
         >
           {appointments && appointments.length > 0 ? (
             appointments.map((appointment) => (

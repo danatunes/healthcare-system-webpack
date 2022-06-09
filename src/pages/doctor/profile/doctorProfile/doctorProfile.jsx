@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import clsx from "clsx";
-import { HeadingProfile, LastNotificationList } from "../../../../components";
+import { HeadingProfile } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../../../ui/button/button";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +11,7 @@ import { publicRequest } from "../../../../api/requestMethods";
 import { DoctorProfileCalendar } from "../../../../components/doctorProfileCalendar";
 import { getMyPatients } from "../../../../redux/actions/patients";
 import { toast } from "react-toastify";
+import { DoctorPatients } from "../../doctorPatients/doctorPatients";
 
 export const DoctorProfile = () => {
   const me = useSelector(({ user }) => user.me);
@@ -114,7 +115,8 @@ export const DoctorProfile = () => {
             <ConsultingCart type="Online" when="Today" count="0" />
           </div>
           <Button name="Add opening hours" onClick={() => setIsOpen(true)} />
-          <LastNotificationList className="py-4 px-2.5" isDoctor={true} />
+          {/*<LastNotificationList className="py-4 px-2.5" isDoctor={true} />*/}
+          <DoctorPatients />
           <Modal
             isOpen={isOpen}
             setIsOpen={setIsOpen}

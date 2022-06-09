@@ -153,8 +153,10 @@ export const PatientProfileForDoctor = () => {
                       </td>
                       <a
                         href={imageURL}
+                        target="_blank"
                         onClick={() => downloadImage(file.id)}
                         className="py-4 flex justify-center cursor-pointer font-normal text-center px-10"
+                        download={file.name}
                       >
                         <DownloadIcon className="w-5 text-[#3A57E8]" />
                       </a>
@@ -272,9 +274,6 @@ const UserCard = ({ userInformation }) => {
               <UserInformation label="IIN" information={userInformation.iin} />
             </div>
           </div>
-          <a href="#" className="text-[#3A57E8] text-sm mb-2 mr-2">
-            Edit
-          </a>
         </div>
       ) : (
         <Loader />
