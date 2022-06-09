@@ -107,7 +107,7 @@ export const AddAdminClinics = () => {
       email: emailRef.current.value,
       firstName: firstRef.current.value,
       lastName: lastRef.current.value,
-      dateOfBirthday: dateOfBirthDayRef.current.value,
+      dateOfBirth: dateOfBirthDayRef.current.value,
       gender: genderRef.current.value,
       fatherName: fatherNameRef.current.value,
       phoneNumber: parseInt(phoneRef.current.value),
