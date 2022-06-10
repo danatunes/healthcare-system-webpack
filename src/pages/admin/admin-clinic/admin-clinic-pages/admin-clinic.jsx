@@ -13,7 +13,7 @@ import { Dialog } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
-import photo_clinic from "../../../../images/example_photo_clinic.png";
+import photo_clinic from "../../../../images/hospital_photo.jpg";
 import Loader from "../../../../ui/loader/loader";
 import { Button } from "../../../../ui/button/button";
 import { Modal } from "../../../../ui/modal/modal";
