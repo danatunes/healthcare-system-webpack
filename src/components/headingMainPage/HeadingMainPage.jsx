@@ -14,7 +14,7 @@ export const HeadingMainPage = () => {
             for you
           </h1>
           <p className="text-sm font-light text-[#7D7987]">
-            Trafalgar provides progressive, and affordable
+            Healthcare system provides progressive, and affordable
             <br />
             healthcare, accessible on mobile and online
             <br />
