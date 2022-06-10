@@ -7,7 +7,7 @@ import {
   PhoneIcon,
   StarIcon,
   UserAddIcon,
-  UserGroupIcon,
+  UserGroupIcon
 } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -21,7 +21,7 @@ import { Datalist } from "../../../../ui/datalist/datalist";
 import { publicRequest } from "../../../../api/requestMethods";
 import { toast } from "react-toastify";
 import { getDoctorsWithHospitalId } from "../../../../redux/actions/doctors";
-
+//lol
 export const AdminClinic = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [specializations, setSpecializations] = useState([]);
